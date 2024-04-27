@@ -1,10 +1,7 @@
 package com.dharshi.purely.exceptionHandlers;
 
 import com.dharshi.purely.dtos.reponses.ApiResponseDto;
-import com.dharshi.purely.exceptions.ServiceLogicException;
-import com.dharshi.purely.exceptions.UserAlreadyExistsException;
-import com.dharshi.purely.exceptions.UserNotFoundException;
-import com.dharshi.purely.exceptions.UserVerificationFailedException;
+import com.dharshi.purely.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -38,7 +35,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(value = ServiceLogicException.class)
     public ResponseEntity<ApiResponseDto<?>> ServiceLogicExceptionHandler(ServiceLogicException exception) {
-        return ResponseEntity.badRequest().body(
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 ApiResponseDto.builder()
                         .isSuccess(false)
                         .message(exception.getMessage())
@@ -71,4 +68,26 @@ public class RestExceptionHandler {
                         .build()
         );
     }
+
+    @ExceptionHandler(value = CategoryNotFoundException.class)
+    public ResponseEntity<ApiResponseDto<?>> CategoryNotFoundExceptionHandler(CategoryNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                ApiResponseDto.builder()
+                        .isSuccess(false)
+                        .message(exception.getMessage())
+                        .build()
+        );
+    }
+
+    @ExceptionHandler(value = CategoryAlreadyExistsException.class)
+    public ResponseEntity<ApiResponseDto<?>> CategoryAlreadyExistsExceptionHandler(CategoryAlreadyExistsException exception) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(
+                ApiResponseDto.builder()
+                        .isSuccess(false)
+                        .message(exception.getMessage())
+                        .build()
+        );
+    }
+
+
 }

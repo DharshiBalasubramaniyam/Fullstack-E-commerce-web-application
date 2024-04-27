@@ -58,6 +58,7 @@ public class WebSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/purely/auth/**").permitAll()
+                                .requestMatchers("/purely/category/**").permitAll()
                                 .anyRequest().authenticated()
                 );
 
