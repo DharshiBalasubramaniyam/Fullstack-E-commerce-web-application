@@ -1,0 +1,39 @@
+package com.dharshi.purely.controllers;
+
+import com.dharshi.purely.dtos.reponses.ApiResponseDto;
+import com.dharshi.purely.dtos.requests.CategoryRequestDto;
+import com.dharshi.purely.exceptions.CategoryAlreadyExistsException;
+import com.dharshi.purely.exceptions.ServiceLogicException;
+import com.dharshi.purely.services.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+
+@RestController
+@RequestMapping("/purely/category")
+@CrossOrigin(origins = "http://localhost:3000")
+public class CategoryController {
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @GetMapping("/all")
+    public ResponseEntity<ApiResponseDto<?>> getAllCategories() throws ServiceLogicException {
+        return categoryService.getAllCategories();
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<ApiResponseDto<?>> getCategoryById(@RequestParam String id) throws ServiceLogicException {
+        return categoryService.getCategoryById(id);
+    }
+
+    @PostMapping("/")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<ApiResponseDto<?>> createCategory(@RequestBody CategoryRequestDto categoryRequestDto) throws ServiceLogicException, CategoryAlreadyExistsException {
+        return categoryService.createCategory(categoryRequestDto.getName());
+    }
+
+
+}
