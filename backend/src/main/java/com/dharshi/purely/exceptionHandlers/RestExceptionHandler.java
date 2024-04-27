@@ -89,5 +89,15 @@ public class RestExceptionHandler {
         );
     }
 
+    @ExceptionHandler(value = ProductNotFoundException.class)
+    public ResponseEntity<ApiResponseDto<?>> ProductNotFoundExceptionHandler(ProductNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                ApiResponseDto.builder()
+                        .isSuccess(false)
+                        .message(exception.getMessage())
+                        .build()
+        );
+    }
+
 
 }

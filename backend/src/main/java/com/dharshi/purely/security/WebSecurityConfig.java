@@ -59,6 +59,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/purely/auth/**").permitAll()
                                 .requestMatchers("/purely/category/**").permitAll()
+                                .requestMatchers("/purely/product/**").permitAll()
                                 .anyRequest().authenticated()
                 );
 
