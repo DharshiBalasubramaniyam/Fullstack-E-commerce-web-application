@@ -60,7 +60,6 @@ public class WebSecurityConfig {
                         auth.requestMatchers("/purely/auth/**").permitAll()
                                 .requestMatchers("/purely/category/**").permitAll()
                                 .requestMatchers("/purely/product/**").permitAll()
-                                .requestMatchers("/purely/cart/**").permitAll()
                                 .anyRequest().authenticated()
                 );
 
