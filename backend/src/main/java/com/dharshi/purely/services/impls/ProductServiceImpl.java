@@ -1,7 +1,7 @@
 package com.dharshi.purely.services.impls;
 
-import com.dharshi.purely.dtos.reponses.ApiResponseDto;
-import com.dharshi.purely.dtos.reponses.ProductResponseDto;
+import com.dharshi.purely.dtos.responses.ApiResponseDto;
+import com.dharshi.purely.dtos.responses.ProductResponseDto;
 import com.dharshi.purely.dtos.requests.ProductRequestDto;
 import com.dharshi.purely.exceptions.CategoryNotFoundException;
 import com.dharshi.purely.exceptions.ProductNotFoundException;

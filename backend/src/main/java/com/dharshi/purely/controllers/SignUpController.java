@@ -1,6 +1,6 @@
 package com.dharshi.purely.controllers;
 
-import com.dharshi.purely.dtos.reponses.ApiResponseDto;
+import com.dharshi.purely.dtos.responses.ApiResponseDto;
 import com.dharshi.purely.dtos.requests.SignUpRequestDto;
 import com.dharshi.purely.exceptions.ServiceLogicException;
 import com.dharshi.purely.exceptions.UserAlreadyExistsException;

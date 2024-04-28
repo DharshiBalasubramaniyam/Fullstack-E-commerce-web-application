@@ -1,13 +1,12 @@
 package com.dharshi.purely.controllers;
 
 
-import com.dharshi.purely.dtos.reponses.JwtResponseDto;
+import com.dharshi.purely.dtos.responses.JwtResponseDto;
 import com.dharshi.purely.dtos.requests.SignInRequestDto;
 import com.dharshi.purely.security.UserDetailsImpl;
 import com.dharshi.purely.security.jwt.JwtUtils;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

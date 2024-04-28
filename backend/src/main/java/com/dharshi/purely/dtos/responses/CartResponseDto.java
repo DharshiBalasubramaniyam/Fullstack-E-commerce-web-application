@@ -1,4 +1,4 @@
-package com.dharshi.purely.dtos.reponses;
+package com.dharshi.purely.dtos.responses;
 
 import com.dharshi.purely.modals.CartItem;
 import lombok.Builder;

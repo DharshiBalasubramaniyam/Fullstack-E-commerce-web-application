@@ -1,7 +1,7 @@
 package com.dharshi.purely.services.impls;
 
-import com.dharshi.purely.dtos.reponses.ApiResponseDto;
-import com.dharshi.purely.dtos.reponses.CartResponseDto;
+import com.dharshi.purely.dtos.responses.ApiResponseDto;
+import com.dharshi.purely.dtos.responses.CartResponseDto;
 import com.dharshi.purely.dtos.requests.CartItemRequestDto;
 import com.dharshi.purely.exceptions.CartNotFoundException;
 import com.dharshi.purely.exceptions.ProductNotFoundException;
@@ -10,7 +10,6 @@ import com.dharshi.purely.exceptions.UserNotFoundException;
 import com.dharshi.purely.modals.Cart;
 import com.dharshi.purely.modals.CartItem;
 import com.dharshi.purely.modals.Product;
-import com.dharshi.purely.modals.User;
 import com.dharshi.purely.repositories.CartRepository;
 import com.dharshi.purely.repositories.ProductRepository;
 import com.dharshi.purely.repositories.UserRepository;

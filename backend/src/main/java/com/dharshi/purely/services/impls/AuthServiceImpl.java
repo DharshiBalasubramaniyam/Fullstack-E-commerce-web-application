@@ -1,7 +1,6 @@
 package com.dharshi.purely.services.impls;
 
-import com.dharshi.purely.dtos.reponses.ApiResponseDto;
-import com.dharshi.purely.dtos.requests.ResetPasswordRequestDto;
+import com.dharshi.purely.dtos.responses.ApiResponseDto;
 import com.dharshi.purely.dtos.requests.SignUpRequestDto;
 import com.dharshi.purely.exceptions.*;
 import com.dharshi.purely.factories.RoleFactory;
@@ -124,99 +123,6 @@ public class AuthServiceImpl implements AuthService {
             throw new ServiceLogicException("Registration failed: Something went wrong!");
         }
 
-    }
-
-    @Override
-    public ResponseEntity<ApiResponseDto<?>> verifyEmailAndSendForgotPasswordVerificationEmail(String email) throws ServiceLogicException, UserNotFoundException {
-        if (userService.existsByEmail(email)) {
-            try {
-                User user = userService.findByEmail(email);
-                user.setVerificationCode(generateVerificationCode());
-                user.setVerificationCodeExpiryTime(calculateCodeExpirationTime());
-                userRepository.save(user);
-
-                notificationService.sendForgotPasswordVerificationEmail(user);
-
-                return ResponseEntity.status(HttpStatus.ACCEPTED).body(
-                        ApiResponseDto.builder().isSuccess(true)
-                        .message("Verification successful: Email sent successfully!")
-                        .build()
-                );
-            } catch (Exception e) {
-                log.error("Reset password email verification failed: {}", e.getMessage());
-                throw new ServiceLogicException("Verification failed: Something went wrong!");
-            }
-        }
-
-        throw new UserNotFoundException("Verification failed: User not found with email " + email + "!");
-
-    }
-
-    @Override
-    public ResponseEntity<ApiResponseDto<?>> verifyForgotPasswordVerification(String code) throws UserVerificationFailedException, ServiceLogicException {
-        User user = userRepository.findByVerificationCode(code);
-
-        if (user == null) {
-            throw new UserVerificationFailedException("Verification failed: invalid verification code!");
-        }
-
-        long currentTimeInMs = System.currentTimeMillis();
-        long codeExpiryTimeInMillis = user.getVerificationCodeExpiryTime().getTime();
-
-        if (currentTimeInMs > codeExpiryTimeInMillis) {
-            throw new UserVerificationFailedException("Verification failed: expired verification code!");
-        }
-
-        try {
-
-            user.setVerificationCode(null);
-            user.setVerificationCodeExpiryTime(null);
-            userRepository.save(user);
-
-
-
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(
-                    ApiResponseDto.builder().isSuccess(true)
-                            .message("Verification successful: User account has been verified!")
-                            .build()
-            );
-        }catch(Exception e) {
-            log.error("Reset password verification failed: {}", e.getMessage());
-            throw new ServiceLogicException("Verification failed: Something went wrong!" + e.getMessage());
-        }
-    }
-
-    @Override
-    public ResponseEntity<ApiResponseDto<?>> resetPassword(ResetPasswordRequestDto resetPasswordDto) throws UserNotFoundException, ServiceLogicException {
-        if (userService.existsByEmail(resetPasswordDto.getEmail())) {
-            try {
-                User user = userService.findByEmail(resetPasswordDto.getEmail());
-
-                if (!resetPasswordDto.getCurrentPassword().isEmpty()) {
-                    if (!passwordEncoder.matches(resetPasswordDto.getCurrentPassword(), user.getPassword())) {
-                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                                ApiResponseDto.builder().isSuccess(false)
-                                        .message("Reset password not successful: current password is incorrect!!")
-                                        .build()
-                        );
-                    }
-                }
-                user.setPassword(passwordEncoder.encode(resetPasswordDto.getNewPassword()));
-
-                userRepository.save(user);
-
-                return ResponseEntity.status(HttpStatus.CREATED).body(
-                        ApiResponseDto.builder().isSuccess(true)
-                                .message("Reset successful: Password has been successfully reset!")
-                                .build()
-                );
-            } catch (Exception e) {
-                log.error("Resetting password failed: {}", e.getMessage());
-                throw new ServiceLogicException("Failed to reset your password: Try again later!");
-            }
-        }
-
-        throw new UserNotFoundException("User not found with email " + resetPasswordDto.getEmail());
     }
 
     private User createUser(SignUpRequestDto signUpRequestDto) throws RoleNotFoundException {

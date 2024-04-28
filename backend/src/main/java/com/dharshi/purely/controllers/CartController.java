@@ -1,6 +1,6 @@
 package com.dharshi.purely.controllers;
 
-import com.dharshi.purely.dtos.reponses.ApiResponseDto;
+import com.dharshi.purely.dtos.responses.ApiResponseDto;
 import com.dharshi.purely.dtos.requests.CartItemRequestDto;
 import com.dharshi.purely.exceptions.ProductNotFoundException;
 import com.dharshi.purely.exceptions.ServiceLogicException;
