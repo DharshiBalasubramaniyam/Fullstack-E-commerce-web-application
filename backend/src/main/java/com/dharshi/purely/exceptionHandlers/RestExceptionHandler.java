@@ -1,6 +1,6 @@
 package com.dharshi.purely.exceptionHandlers;
 
-import com.dharshi.purely.dtos.reponses.ApiResponseDto;
+import com.dharshi.purely.dtos.responses.ApiResponseDto;
 import com.dharshi.purely.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -101,6 +101,16 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(value = CartNotFoundException.class)
     public ResponseEntity<ApiResponseDto<?>> CartNotFoundExceptionHandler(CartNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                ApiResponseDto.builder()
+                        .isSuccess(false)
+                        .message(exception.getMessage())
+                        .build()
+        );
+    }
+
+    @ExceptionHandler(value = OrderNotFoundException.class)
+    public ResponseEntity<ApiResponseDto<?>> OrderNotFoundExceptionHandler(OrderNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 ApiResponseDto.builder()
                         .isSuccess(false)
