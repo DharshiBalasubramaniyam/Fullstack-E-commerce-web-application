@@ -1,0 +1,106 @@
+.app-header {
+    height: 7vh;
+    width: 100%;
+    padding: 0 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    box-shadow: 0 5px 10px rgba(255, 132, 0, 0.1);
+    z-index: 2;
+    background-color: var(--body);
+}
+.app-header .logo-wrapper{
+    display: inline-flex;
+    align-items: center;
+    justify-content: left;
+    gap: 5px;
+}
+.app-header h1 span{
+    display: flex;
+    align-items: center;
+}
+.app-header > ul {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.app-header ul li {
+    display: inline-block;
+    padding: 0 15px;
+    cursor: pointer;
+    font-size: 15px;
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;transition: 0.3s;
+}
+.app-header ul:first-of-type li .nav-link:hover {
+    color: var(--primary);
+}
+.app-header ul .nav-link {
+    padding: 10px;transition: 0.2s;
+    font-size: 17px;
+}
+.app-header ul:last-of-type li {
+    padding: 5px;
+    margin: 0 3px;
+    font-size: 16px;
+}
+
+.app-header ul .nav-link, .app-header .fa, .app-header .fa + span{
+    color: var(--black);transition: 0.3s;
+}
+.app-header .fa:hover, .app-header .fa:hover + span{
+    color: var(--primary);
+}
+.fa-times, .fa-bars {
+    display: none;
+    font-size: 20px;
+    margin-top: 2.5px;
+}
+.fa-times{
+    font-size: 23px;
+}
+
+@media all and (max-width:768px) {
+    .fa-times, .fa-bars {
+        display: inline-block;
+    }
+    .app-header  {
+        padding: 0 15px;
+    }
+    .app-header > ul:first-of-type {
+        flex-direction: column;
+    }
+    .app-header ul:first-of-type {
+        background-color: white;
+        position: fixed;
+        top: 7vh;
+        height: 100vh;
+        width: 100%;
+        transition: left 0.3s;
+    }
+    .app-header ul:first-of-type.nav-close {
+        left: -100%;
+    }
+    .app-header ul:first-of-type.nav-open {
+        left: 0;
+    }
+    .app-header ul:first-of-type li {
+        width: 100%;
+        display: inline-block;
+        border-bottom: 2px solid rgb(124, 124, 124);
+        padding: 10px;
+        margin: 0;
+        text-align: center;
+        height: max-content;
+    }
+    .app-header ul:first-of-type li:first-of-type {
+        border-top: 2px solid rgb(124, 124, 124);
+    }
+    .app-header ul:first-of-type .nav-link {
+        display: inline-block;
+        width: 100%;
+    }
+}
