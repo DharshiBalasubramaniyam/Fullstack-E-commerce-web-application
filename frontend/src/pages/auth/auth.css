@@ -1,0 +1,109 @@
+.auth-container {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    background-color: var(--body);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+}
+
+.auth-container .auth-wrapper form {
+    width: 400px;
+    background-color: var(--body);
+    box-shadow: 0px 0px 3px 2px var(--light);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 5px;
+    z-index: 5;
+}
+.auth-container .auth-wrapper form .input-box{
+    width: 100%;
+}
+.auth-container .auth-wrapper form .input-box label {
+    font-size: 14px;
+}
+.auth-container .auth-wrapper form .input-box input, button{
+    margin-top: 5px;
+    padding: 9px 10px;
+    width: 100%;
+    border-radius: 5px;
+    background-color: var(--light);
+    border: 2px solid var(--light);
+    font-size: 14px;
+}
+.auth-container .auth-wrapper form .input-box input:focus {
+    outline: none;
+    border: 2px solid var(--primary);
+}
+.auth-container .auth-wrapper form .auth-link {
+    color: var(--primary);
+    cursor: pointer;
+}
+.auth-container .auth-wrapper form .auth-link:hover {
+    
+    text-decoration: underline;
+}
+.auth-container .auth-wrapper form input[type='submit'], button {
+    background-color: var(--secondary);
+    border: none;
+    font-size: 16px;
+    border: 2px solid var(--primary);
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+    color: var(--body);
+}
+.auth-container .auth-wrapper form input[type='submit']:hover, button:hover,
+.auth-container .auth-wrapper form input[type='submit'].outline:hover, button.outline:hover{
+    background-color: var(--primary);color: var(--body);
+}
+.auth-container .auth-wrapper form input[type='submit']:active, button:active{
+    scale: 0.98;
+    background-color: var(--secondary);
+}
+.auth-container .auth-wrapper form input[type='submit'].loading, button.loading{
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+.auth-container .auth-wrapper form input[type='submit'].outline, button.outline{
+    background-color: transparent;border: 2px solid var(--primary);color: var(--primary);
+}
+.auth-container .auth-wrapper form small {
+    color: #ff0000;
+    font-size:13px;
+}
+.auth-container .auth-wrapper form .msg {
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+}
+.auth-container .auth-wrapper form p {
+    padding: 7px 15px;
+    font-size: 13px;
+    color: var(---black);
+    background-color: rgb(255, 198, 198);
+    width: 100%;
+    border-radius: 5px;text-align: center;
+}
+
+
+@media all and (max-width: 768px) {
+    .auth-container .auth-wrapper{
+        max-width: 450px;
+        
+    }
+    .auth-container .auth-wrapper > div {
+        width: 0%;
+        display: none;
+    }
+    .auth-container .auth-wrapper form {
+        width: 100%;
+    }
+} 
