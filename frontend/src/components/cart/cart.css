@@ -1,0 +1,144 @@
+.shoppingCart {
+    width: 100%;
+    max-width: 400px;
+    height: 100vh;
+    background-color: var(--body);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    justify-content: space-between;
+    gap: 15px;
+    top: 0;
+    right: -100%;
+    transition: 0.2s;
+    z-index: 5;
+}
+
+.shoppingCart.active {
+    transition: 0.5s;
+    right: 0;
+}
+
+.shoppingCart .header {
+    display: flex;
+    background-color: var(--light);
+    padding: 10px 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-btn {
+    color: var(--body);
+    transition: 0.3s;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary);
+}
+.close-btn i {
+    font-size: 20px;
+    color: var(--body);
+}
+
+.close-btn:hover {
+    background-color: var(--secondary);
+}
+
+.empty-text {
+    display: block;
+    padding: 2rem;
+    margin: auto;
+}
+
+.cart-products {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.cart-products::-webkit-scrollbar {
+    display: none;
+}
+
+.cart-product {
+    display: flex;
+    width: 100%;
+    height: 120px;
+    background-color: var(--body);
+    margin-bottom: 10px;
+    border: 1px solid var(--light);
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+    gap: 5px;
+}
+
+.product-info h4 {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.quantity-control {
+    display: inline-flex;
+}
+
+.quantity-control span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 15px;
+    width: max-content;
+    font-size: 15px;
+}
+
+.quantity-control span:first-of-type,
+.quantity-control span:last-of-type {
+    background-color: var(--primary);
+    color: var(--body);
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.quantity-control span:first-of-type:hover,
+.quantity-control span:last-of-type:hover {
+    background-color: var(--secondary);
+}
+
+.quantity-control span.disable,
+.product-info div.disable {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.cart-products img {
+    width: 110px;
+    height: 100%;
+    background-color: var(--body);
+}
+
+.shoppingCart h3 {
+    width: 100%;
+    text-align: center;
+}
+
+.cart-summary {
+    padding: 10px;
+    background-color: var(--light);
+}
+.checkout-btn {
+    width: 100%;
+}
