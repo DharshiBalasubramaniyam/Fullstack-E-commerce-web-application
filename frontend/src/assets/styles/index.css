@@ -7,3 +7,42 @@
   list-style-type: none;
   text-decoration: none;
 }
+:root {
+  --body: #f9f7ff;
+  --primary: #3022f2;
+  --secondary: #5b3cf5;
+  --ternary: #7855f7;
+  --light: #dbcdff;
+  --black: rgb(0, 0, 0);
+}
+main {
+  width: 100%;
+  height: 100vh;
+}
+body{
+  background-color: var(--body);
+}
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+button {
+  background-color: var(--secondary);
+  font-size: 16px;
+  border: 2px solid var(--primary);
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 10px;
+  transition: background-color 0.3s;
+  color: var(--body);
+}
+button:hover{
+  background-color: var(--primary);color: var(--body);
+}
+button:active{
+  scale: 0.98;
+  background-color: var(--secondary);
+}
