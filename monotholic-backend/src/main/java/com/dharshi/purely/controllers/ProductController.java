@@ -12,29 +12,29 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/purely/product")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ProductController {
 
     @Autowired
     private ProductService productService;
 
-    @PostMapping("/")
+    @PostMapping("/add")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     ResponseEntity<ApiResponseDto<?>> addProduct(@RequestBody ProductRequestDto requestDto) throws ServiceLogicException{
         return productService.addProduct(requestDto);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/get/all")
     ResponseEntity<ApiResponseDto<?>> getAllProducts() throws ServiceLogicException{
         return productService.getAllProducts();
     }
 
-    @GetMapping("/")
+    @GetMapping("/get/byId")
     ResponseEntity<ApiResponseDto<?>> getProductById(@RequestParam String id) throws ServiceLogicException, ProductNotFoundException{
         return productService.getProductById(id);
     }
 
-    @GetMapping("/byCategory")
+    @GetMapping("/get/byCategory")
     ResponseEntity<ApiResponseDto<?>> getProductByCategory(@RequestParam String id) throws ServiceLogicException{
         return productService.getProductByCategory(id);
     }

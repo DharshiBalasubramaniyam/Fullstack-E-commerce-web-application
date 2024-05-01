@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/purely/auth")
 public class SignInController {
@@ -47,6 +47,7 @@ public class SignInController {
                 .email(userDetails.getEmail())
                 .id(userDetails.getId())
                 .token(jwt)
+                .type("Bearer ")
                 .roles(roles)
                 .build());
     }

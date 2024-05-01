@@ -180,7 +180,6 @@ public class CartServiceImpl implements CartService {
             if (requestDto.getQuantity() <= 0) requestDto.setQuantity(-1);
             if (requestDto.getQuantity() > 0) requestDto.setQuantity(1);
             if (cartItem.getQuantity() + requestDto.getQuantity() <= 0) requestDto.setQuantity(0);
-
             userCartItems.remove(cartItem);
             cartItem.setQuantity(cartItem.getQuantity() + requestDto.getQuantity());
             cartItem.setTotalPrice(Double.parseDouble(String.format("%.2f", cartItem.getQuantity() * product.getPrice())));
@@ -194,9 +193,10 @@ public class CartServiceImpl implements CartService {
         double subtotal = 0.0;
 
         for(CartItem cartItem: userCart.getCartItems()) {
-            noOfCartItems+=cartItem.getQuantity();
-            subtotal+=cartItem.getTotalPrice();
+            noOfCartItems += cartItem.getQuantity();
+            subtotal += cartItem.getTotalPrice();
         }
+
         return CartResponseDto.builder()
                 .cartId(userCart.getId())
                 .cartItems(userCart.getCartItems())

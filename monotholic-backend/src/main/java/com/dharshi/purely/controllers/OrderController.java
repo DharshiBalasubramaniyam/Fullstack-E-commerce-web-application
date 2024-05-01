@@ -14,25 +14,25 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/purely/order")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:5173")
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
 
-    @PostMapping("/")
+    @PostMapping("/create")
     @PreAuthorize("hasRole('ROLE_USER')")
     ResponseEntity<ApiResponseDto<?>> createOrder(@RequestBody OrderRequestDto request) throws UserNotFoundException, ServiceLogicException, CartNotFoundException{
         return orderService.createOrder(request);
     }
 
-    @GetMapping("/")
+    @GetMapping("/get/byUser")
     @PreAuthorize("hasRole('ROLE_USER')")
     ResponseEntity<ApiResponseDto<?>> getOrdersByUser(@RequestParam String userId) throws UserNotFoundException, ServiceLogicException{
         return orderService.getOrdersByUser(userId);
     }
 
-    @PatchMapping("/")
+    @PatchMapping("/cancel")
     ResponseEntity<ApiResponseDto<?>> cancelOrder(@RequestParam String orderId) throws ServiceLogicException, OrderNotFoundException{
         return orderService.cancelOrder(orderId);
     }

@@ -13,27 +13,27 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/purely/cart")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:5173")
 public class CartController {
 
     @Autowired
     private CartService cartService;
 
-    @PostMapping("/")
+    @PostMapping("/add")
     @PreAuthorize("hasRole('ROLE_USER')")
     ResponseEntity<ApiResponseDto<?>> addItemToCart(@RequestBody CartItemRequestDto requestDto)
             throws UserNotFoundException, ServiceLogicException, ProductNotFoundException {
         return cartService.addItemToCart(requestDto);
     }
 
-    @GetMapping("/")
+    @GetMapping("/get/byUser")
     @PreAuthorize("hasRole('ROLE_USER')")
-    ResponseEntity<ApiResponseDto<?>> getCartItemsByUser(@RequestParam String userId)
+    ResponseEntity<ApiResponseDto<?>> getCartItemsByUser(@RequestParam String id)
             throws UserNotFoundException, ServiceLogicException{
-        return cartService.getCartItemsByUser(userId);
+        return cartService.getCartItemsByUser(id);
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping("/remove")
     @PreAuthorize("hasRole('ROLE_USER')")
     ResponseEntity<ApiResponseDto<?>> removeCartItemFromCart(@RequestParam String userId, @RequestParam String productId)
             throws ServiceLogicException{
