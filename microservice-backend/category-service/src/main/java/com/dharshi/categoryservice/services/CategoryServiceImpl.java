@@ -38,20 +38,16 @@ public class CategoryServiceImpl implements CategoryService {
     public ResponseEntity<ApiResponseDto<?>> getCategoryById(String categoryId) throws ServiceLogicException {
 
         try {
-            Category category = null;
-            if (categoryRepository.existsById(categoryId)) {
-                category = categoryRepository.findById(categoryId).orElse(null);
-                return ResponseEntity.ok(
-                        ApiResponseDto.builder()
-                                .isSuccess(true)
-                                .response(category)
-                                .build()
-                );
-            }
+            Category category = categoryRepository.findById(categoryId).orElse(null);
+            return ResponseEntity.ok(
+                    ApiResponseDto.builder()
+                            .isSuccess(true)
+                            .response(category)
+                            .build()
+            );
         }catch (Exception e) {
-            throw new ServiceLogicException("Unable to find categories!");
+            throw new ServiceLogicException("Unable to find category!");
         }
-        throw new CategoryNotFoundException("No category found with id " + categoryId);
     }
 
     @Override
