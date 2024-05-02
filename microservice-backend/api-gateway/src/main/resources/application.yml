@@ -11,18 +11,34 @@ spring:
           enabled: true
       mvc:
         routes:
+          - id: auth-service
+            uri: lb://AUTH-SERVICE
+            predicates:
+              - Path=/auth-service/**
+            filters:
+              - StripPrefix=1
+
+          - id: notification-service
+            uri: lb://NOTIFICATION-SERVICE
+            predicates:
+              - Path=/notification-service/**
+            filters:
+              - StripPrefix=1
+
           - id: category-service
             uri: lb://CATEGORY-SERVICE
             predicates:
               - Path=/category-service/**
             filters:
               - StripPrefix=1
+
           - id: product-service
             uri: lb://PRODUCT-SERVICE
             predicates:
               - Path=/product-service/**
             filters:
               - StripPrefix=1
+
 
 eureka:
   client:
