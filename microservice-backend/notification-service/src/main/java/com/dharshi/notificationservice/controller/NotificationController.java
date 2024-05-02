@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.UnsupportedEncodingException;
 
 @RestController
-@RequestMapping("purely/notification")
+@RequestMapping("/purely/notification")
 public class NotificationController {
 
     @Autowired
