@@ -36,5 +36,15 @@ public class CartController {
         return cartService.removeCartItemFromCart(userId, productId);
     }
 
+    @GetMapping("/get/byId")
+    ResponseEntity<ApiResponseDto<?>> getCartById(@RequestParam String id) throws ServiceLogicException {
+        return cartService.getCartById(id);
+    }
+
+    @DeleteMapping("/clear/byId")
+    ResponseEntity<ApiResponseDto<?>> clearCartById(@RequestParam String id) throws ResourceNotFoundException, ServiceLogicException {
+        return cartService.clearCartById(id);
+    }
+
 }
 

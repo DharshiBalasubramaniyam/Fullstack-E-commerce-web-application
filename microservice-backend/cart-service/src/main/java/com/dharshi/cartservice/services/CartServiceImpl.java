@@ -114,6 +114,50 @@ public class CartServiceImpl implements CartService {
         throw new ResourceNotFoundException("No cart found for user " + userId);
     }
 
+    @Override
+    public ResponseEntity<ApiResponseDto<?>> clearCartById(String id) throws ServiceLogicException, ResourceNotFoundException {
+        try {
+            if(cartRepository.existsById(id)) {
+                Cart userCart = cartRepository.findById(id).orElse(null);
+                userCart.setCartItems(new HashSet<>());
+                cartRepository.save(userCart);
+
+                return ResponseEntity.ok(
+                        ApiResponseDto.builder()
+                                .isSuccess(true)
+                                .message("Cart has been successfully cleared!")
+                                .build()
+                );
+
+            }
+
+        }catch (Exception e) {
+            log.error("Failed to add item to cart: " + e.getMessage());
+            throw new ServiceLogicException("Unable to add item to cart!");
+        }
+        throw new ResourceNotFoundException("No cart found for id " + id);
+    }
+
+    @Override
+    public ResponseEntity<ApiResponseDto<?>> getCartById(String id) throws ServiceLogicException {
+        try {
+
+            Cart cart = cartRepository.findById(id).orElse(null);
+            CartResponseDto cartResponse = cartToCartResponseDto(cart);
+
+            return ResponseEntity.ok(
+                    ApiResponseDto.builder()
+                            .isSuccess(true)
+                            .response(cartResponse)
+                            .build()
+            );
+
+        }catch (Exception e) {
+            log.error("Failed to find cart: " + e.getMessage());
+            throw new ServiceLogicException("Unable to find cart!");
+        }
+    }
+
     private void createAndSaveNewCart(String userId) {
         if(!cartRepository.existsByUserId(userId)) {
             Cart cart = Cart.builder()
@@ -176,6 +220,7 @@ public class CartServiceImpl implements CartService {
 
         return CartResponseDto.builder()
                 .cartId(userCart.getId())
+                .userId(userCart.getUserId())
                 .cartItems(cartItems)
                 .noOfCartItems(noOfCartItems)
                 .subtotal(subtotal)

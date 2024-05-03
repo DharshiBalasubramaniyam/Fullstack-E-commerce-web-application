@@ -1,9 +1,6 @@
 package com.dharshi.authservice.services;
 
-import com.dharshi.authservice.dtos.ApiResponseDto;
-import com.dharshi.authservice.dtos.JwtResponseDto;
-import com.dharshi.authservice.dtos.SignInRequestDto;
-import com.dharshi.authservice.dtos.SignUpRequestDto;
+import com.dharshi.authservice.dtos.*;
 import com.dharshi.authservice.exceptions.*;
 import com.dharshi.authservice.factories.RoleFactory;
 import com.dharshi.authservice.feigns.NotificationService;
@@ -73,7 +70,7 @@ public class AuthServiceImpl implements AuthService {
 
             if (savedUser.getId() != null) {
                 try {
-                    notificationService.sendUserRegistrationVerificationEmail(user.getEmail(), user.getUsername(), user.getVerificationCode());
+                    sendRegistrationVerificationEmail(user);;
                 }catch (Exception e) {
                     removeDisabledUser(savedUser.getId());
                     throw new ServiceLogicException("Failed to send verification email.Recheck your email or try again later!");
@@ -162,7 +159,7 @@ public class AuthServiceImpl implements AuthService {
             user.setEnabled(false);
 
             userRepository.save(user);
-            notificationService.sendUserRegistrationVerificationEmail(user.getEmail(), user.getUsername(), user.getVerificationCode());
+            sendRegistrationVerificationEmail(user);
 
 
             return ResponseEntity.status(HttpStatus.OK).body(ApiResponseDto.builder().isSuccess(true)
@@ -174,6 +171,25 @@ public class AuthServiceImpl implements AuthService {
             throw new ServiceLogicException("Registration failed: Something went wrong!");
         }
 
+    }
+
+    private void sendRegistrationVerificationEmail(User user) {
+        String subject = "Please verify your registration";
+        String content = "Dear " + user.getUsername() + ",<br><br>"
+                + "<p>Thank you for joining us! We are glad to have you on board.</p><br>"
+                + "<p>To complete the sign up process, enter the verification code in your device.</p><br>"
+                + "<p>verification code: <strong>" + user.getVerificationCode() + "</strong></p><br>"
+                + "<p><strong>Please note that the above verification code will be expired within 15 minutes.</strong></p>"
+                + "<br>Thank you,<br>"
+                + "Purely.";
+
+        MailRequestDto mail = MailRequestDto.builder()
+                .subject(subject)
+                .body(content)
+                .to(user.getEmail())
+                .build();
+
+        notificationService.sendEmail(mail);
     }
 
     private User createUser(SignUpRequestDto signUpRequestDto) throws RoleNotFoundException {

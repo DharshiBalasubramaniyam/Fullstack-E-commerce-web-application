@@ -10,6 +10,7 @@ import java.util.Set;
 public class CartResponseDto {
 
     private String cartId;
+    private String userId;
     private Set<CartItemResponseDto> cartItems;
     private int noOfCartItems;
     private double subtotal;
