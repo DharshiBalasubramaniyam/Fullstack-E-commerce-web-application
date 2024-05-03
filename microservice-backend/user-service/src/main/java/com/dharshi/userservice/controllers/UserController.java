@@ -1,0 +1,24 @@
+package com.dharshi.userservice.controllers;
+
+import com.dharshi.userservice.dtos.ApiResponseDto;
+import com.dharshi.userservice.exceptions.ServiceLogicException;
+import com.dharshi.userservice.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/purely/user")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/exists/byId")
+    public ResponseEntity<ApiResponseDto<?>> existsUserById(@RequestParam String userId) throws ServiceLogicException{
+        return userService.existsUserById(userId);
+    }
+
+
+}
+

@@ -42,7 +42,8 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    ResponseEntity<ApiResponseDto<?>> authenticateUser(@RequestParam SignInRequestDto signInRequestDto){
+    ResponseEntity<ApiResponseDto<?>> authenticateUser(@RequestBody @Valid SignInRequestDto signInRequestDto){
         return authService.authenticateUser(signInRequestDto);
     }
+
 }
