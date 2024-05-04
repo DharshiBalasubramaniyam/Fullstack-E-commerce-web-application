@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient("CART-SERVICE")
 public interface CartService {
 
-    @GetMapping("/purely/cart/get/byId")
+    @GetMapping("/cart/get/byId")
     ResponseEntity<ApiResponseDto<CartDto>> getCartById(@RequestParam String id);
 
-    @DeleteMapping("/purely/cart/clear/byId")
+    @DeleteMapping("/cart/clear/byId")
     ResponseEntity<ApiResponseDto<?>> clearCartById(@RequestParam String id);
 
 }

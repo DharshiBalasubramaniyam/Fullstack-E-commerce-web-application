@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -88,6 +89,24 @@ public class OrderServiceImpl implements OrderService {
             throw new ServiceLogicException("Unable to find orders!");
         }
     }
+
+    @Override
+    public ResponseEntity<ApiResponseDto<?>> getAllOrders() throws ServiceLogicException {
+        try {
+            List<Order> orders = orderRepository.findAll();
+            return ResponseEntity.ok(
+                    ApiResponseDto.builder()
+                            .isSuccess(true)
+                            .message(orders.size() + " orders found!")
+                            .response(orders)
+                            .build()
+            );
+        }catch (Exception e) {
+            log.error("Failed to create order: " + e.getMessage());
+            throw new ServiceLogicException("Unable to find orders!");
+        }
+    }
+
 
     @Override
     public ResponseEntity<ApiResponseDto<?>> cancelOrder(String orderId) throws ServiceLogicException, ResourceNotFoundException {
