@@ -3,8 +3,7 @@ package com.dharshi.productservice.services;
 import com.dharshi.productservice.dtos.ApiResponseDto;
 import com.dharshi.productservice.dtos.CategoryDto;
 import com.dharshi.productservice.dtos.ProductRequestDto;
-import com.dharshi.productservice.exceptions.CategoryNotFoundException;
-import com.dharshi.productservice.exceptions.ProductNotFoundException;
+import com.dharshi.productservice.exceptions.ResourceNotFoundException;
 import com.dharshi.productservice.exceptions.ServiceLogicException;
 import com.dharshi.productservice.feigns.CategoryService;
 import com.dharshi.productservice.models.Product;
@@ -27,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
     private CategoryService categoryService;
 
     @Override
-    public ResponseEntity<ApiResponseDto<?>> addProduct(ProductRequestDto requestDto) throws ServiceLogicException {
+    public ResponseEntity<ApiResponseDto<?>> addProduct(ProductRequestDto requestDto) throws ServiceLogicException, ResourceNotFoundException {
         try {
             CategoryDto category = categoryService.getCategoryById(requestDto.getCategoryId()).getBody().getResponse();
             if (category != null){
@@ -43,7 +42,35 @@ public class ProductServiceImpl implements ProductService {
         }catch(Exception e) {
             throw new ServiceLogicException("Unable save category!");
         }
-        throw new CategoryNotFoundException("Category not found with id " + requestDto.getCategoryId());
+        throw new ResourceNotFoundException("Category not found with id " + requestDto.getCategoryId());
+    }
+
+    @Override
+    public ResponseEntity<ApiResponseDto<?>> editProduct(String productId, ProductRequestDto requestDto) throws ServiceLogicException, ResourceNotFoundException {
+        try {
+
+            CategoryDto category = categoryService.getCategoryById(requestDto.getCategoryId()).getBody().getResponse();
+            if (category == null)
+                throw new ResourceNotFoundException("Category not found with id " + requestDto.getCategoryId());
+
+            Product product = productRepository.findById(productId).orElse(null);
+            if (product == null)
+                throw new ResourceNotFoundException("Product not found with id " + productId);
+
+            product = productDtoToProduct(requestDto, category);
+            product.setId(productId);
+            productRepository.save(product);
+            return ResponseEntity.ok(
+                    ApiResponseDto.builder()
+                            .isSuccess(true)
+                            .message("Product edited successfully!")
+                            .build()
+            );
+        }catch(ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
+        }catch(Exception e) {
+            throw new ServiceLogicException("Unable save category!");
+        }
     }
 
     @Override
@@ -63,7 +90,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ResponseEntity<ApiResponseDto<?>> getProductById(String productId) throws ServiceLogicException, ProductNotFoundException {
+    public ResponseEntity<ApiResponseDto<?>> getProductById(String productId) throws ServiceLogicException{
         try {
             Product product = productRepository.findById(productId).orElse(null);
 
@@ -80,7 +107,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ResponseEntity<ApiResponseDto<?>> getProductByCategory(String categoryId) throws ServiceLogicException {
+    public ResponseEntity<ApiResponseDto<?>> getProductByCategory(String categoryId) throws ServiceLogicException, ResourceNotFoundException {
         try {
             CategoryDto category = categoryService.getCategoryById(categoryId).getBody().getResponse();
 
@@ -99,7 +126,7 @@ public class ProductServiceImpl implements ProductService {
         }catch (Exception e) {
             throw new ServiceLogicException("Unable to find products!");
         }
-        throw new CategoryNotFoundException("Category not found with id " + categoryId);
+        throw new ResourceNotFoundException("Category not found with id " + categoryId);
     }
 
     @Override

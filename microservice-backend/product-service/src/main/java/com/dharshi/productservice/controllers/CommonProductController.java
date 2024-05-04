@@ -1,8 +1,7 @@
 package com.dharshi.productservice.controllers;
 
 import com.dharshi.productservice.dtos.ApiResponseDto;
-import com.dharshi.productservice.dtos.ProductRequestDto;
-import com.dharshi.productservice.exceptions.ProductNotFoundException;
+import com.dharshi.productservice.exceptions.ResourceNotFoundException;
 import com.dharshi.productservice.exceptions.ServiceLogicException;
 import com.dharshi.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/purely/product")
-public class ProductController {
+@RequestMapping("/product")
+public class CommonProductController {
 
     @Autowired
     private ProductService productService;
-
-    @PostMapping("/add")
-    public ResponseEntity<ApiResponseDto<?>> addProduct(@RequestBody ProductRequestDto requestDto) throws ServiceLogicException{
-        return productService.addProduct(requestDto);
-    }
 
     @GetMapping("/get/all")
     public ResponseEntity<ApiResponseDto<?>> getAllProducts() throws ServiceLogicException{
@@ -28,12 +22,12 @@ public class ProductController {
     }
 
     @GetMapping("/get/byId")
-    public ResponseEntity<ApiResponseDto<?>> getProductById(@RequestParam String id) throws ServiceLogicException, ProductNotFoundException{
+    public ResponseEntity<ApiResponseDto<?>> getProductById(@RequestParam String id) throws ServiceLogicException{
         return productService.getProductById(id);
     }
 
     @GetMapping("/get/byCategory")
-    public ResponseEntity<ApiResponseDto<?>> getProductByCategory(@RequestParam String id) throws ServiceLogicException{
+    public ResponseEntity<ApiResponseDto<?>> getProductByCategory(@RequestParam String id) throws ServiceLogicException, ResourceNotFoundException {
         return productService.getProductByCategory(id);
     }
 

@@ -1,8 +1,7 @@
 package com.dharshi.productservice.exceptionHandlers;
 
 import com.dharshi.productservice.dtos.ApiResponseDto;
-import com.dharshi.productservice.exceptions.CategoryNotFoundException;
-import com.dharshi.productservice.exceptions.ProductNotFoundException;
+import com.dharshi.productservice.exceptions.ResourceNotFoundException;
 import com.dharshi.productservice.exceptions.ServiceLogicException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,18 +23,8 @@ public class RestExceptionHandler {
         );
     }
 
-    @ExceptionHandler(value = CategoryNotFoundException.class)
-    public ResponseEntity<ApiResponseDto<?>> CategoryNotFoundExceptionHandler(CategoryNotFoundException exception) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                ApiResponseDto.builder()
-                        .isSuccess(false)
-                        .message(exception.getMessage())
-                        .build()
-        );
-    }
-
-    @ExceptionHandler(value = ProductNotFoundException.class)
-    public ResponseEntity<ApiResponseDto<?>> ProductNotFoundExceptionHandler(ProductNotFoundException exception) {
+    @ExceptionHandler(value = ResourceNotFoundException.class)
+    public ResponseEntity<ApiResponseDto<?>> ResourceNotFoundExceptionHandler(ResourceNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 ApiResponseDto.builder()
                         .isSuccess(false)
