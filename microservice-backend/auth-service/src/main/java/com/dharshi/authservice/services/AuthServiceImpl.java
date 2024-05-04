@@ -8,6 +8,7 @@ import com.dharshi.authservice.modals.Role;
 import com.dharshi.authservice.modals.User;
 import com.dharshi.authservice.repositories.UserRepository;
 import com.dharshi.authservice.security.UserDetailsImpl;
+import com.dharshi.authservice.security.UserDetailsServiceImpl;
 import com.dharshi.authservice.security.jwt.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -52,6 +55,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private JwtUtils jwtUtils;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Override
     public ResponseEntity<ApiResponseDto<?>> registerUser(SignUpRequestDto signUpRequestDto)
@@ -146,6 +152,46 @@ public class AuthServiceImpl implements AuthService {
                 .response(jwtResponseDto)
                 .build()
         );
+    }
+
+    @Override
+    public ResponseEntity<ApiResponseDto<?>> validateToken(String token) {
+        try {
+            if (jwtUtils.validateJwtToken(token)) {
+                String username = jwtUtils.getUserNameFromJwtToken(token);
+
+                UserDetailsImpl userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(username);
+                List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
+
+                UserAuthorityDto userAuthorityDto = UserAuthorityDto.builder()
+                        .userId(userDetails.getId())
+                        .authorities(roles)
+                        .build();
+
+                System.out.println(userAuthorityDto);
+
+                return ResponseEntity.ok(
+                        ApiResponseDto.builder()
+                                .isSuccess(true)
+                                .response(userAuthorityDto)
+                                .message("Authentication successful!")
+                                .build()
+                );
+            }
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                    ApiResponseDto.builder()
+                            .isSuccess(false)
+                            .message("Authentication failed!")
+                            .build()
+            );
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                    ApiResponseDto.builder()
+                            .isSuccess(false)
+                            .message("Unable to authorize user right now. Try gain later!")
+                            .build()
+            );
+        }
     }
 
     @Override

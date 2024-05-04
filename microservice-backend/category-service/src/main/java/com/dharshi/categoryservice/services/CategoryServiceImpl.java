@@ -72,4 +72,44 @@ public class CategoryServiceImpl implements CategoryService {
         throw new CategoryAlreadyExistsException("Category already exists with name " + name);
     }
 
+    @Override
+    public ResponseEntity<ApiResponseDto<?>> editCategory(String categoryId, String name) throws ServiceLogicException, CategoryAlreadyExistsException {
+        try {
+            Category category = categoryRepository.findById(categoryId).orElse(null);
+            if (category != null && !categoryRepository.existsByCategoryName(name)) {
+                category.setCategoryName(name);
+                categoryRepository.save(category);
+                return ResponseEntity.ok(
+                        ApiResponseDto.builder()
+                                .isSuccess(true)
+                                .message("Category edited successfully!")
+                                .build()
+                );
+            }
+
+        }catch (Exception e) {
+            throw new ServiceLogicException("Unable edit category!");
+        }
+        throw new CategoryAlreadyExistsException("Category already exists with name " + name);
+    }
+
+    @Override
+    public ResponseEntity<ApiResponseDto<?>> deleteCategory(String categoryId) throws ServiceLogicException {
+        try {
+            if (categoryRepository.existsById(categoryId)) {
+                categoryRepository.deleteById(categoryId);
+                return ResponseEntity.ok(
+                        ApiResponseDto.builder()
+                                .isSuccess(true)
+                                .message("Category deleted successfully!")
+                                .build()
+                );
+            }
+
+        }catch (Exception e) {
+            throw new ServiceLogicException("Unable delete category!");
+        }
+        throw new CategoryNotFoundException("No category with id " + categoryId);
+    }
+
 }

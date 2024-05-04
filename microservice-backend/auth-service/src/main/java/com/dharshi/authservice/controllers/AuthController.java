@@ -17,7 +17,7 @@ import java.io.UnsupportedEncodingException;
 
 
 @RestController
-@RequestMapping("/purely/auth")
+@RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
@@ -44,6 +44,11 @@ public class AuthController {
     @PostMapping("/signin")
     ResponseEntity<ApiResponseDto<?>> authenticateUser(@RequestBody @Valid SignInRequestDto signInRequestDto){
         return authService.authenticateUser(signInRequestDto);
+    }
+
+    @GetMapping("/isValidToken")
+    ResponseEntity<ApiResponseDto<?>> validateToken(@RequestParam String token){
+        return authService.validateToken(token);
     }
 
 }

@@ -16,4 +16,7 @@ public interface CategoryService {
 
     ResponseEntity<ApiResponseDto<?>> createCategory(String name) throws ServiceLogicException, CategoryAlreadyExistsException;
 
+    ResponseEntity<ApiResponseDto<?>> editCategory(String categoryId, String name) throws ServiceLogicException, CategoryAlreadyExistsException;
+
+    ResponseEntity<ApiResponseDto<?>> deleteCategory(String categoryId) throws ServiceLogicException;
 }
