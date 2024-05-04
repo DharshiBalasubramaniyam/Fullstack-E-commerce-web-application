@@ -7,33 +7,36 @@ import com.dharshi.cartservice.exceptions.ServiceLogicException;
 import com.dharshi.cartservice.services.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/purely/cart")
+@RequestMapping("/cart")
 public class CartController {
-
-    // todo: have to implement user authentication(jwt, role) before reaching endpoints, in api gateway
 
     @Autowired
     private CartService cartService;
 
     @PostMapping("/add")
-    ResponseEntity<ApiResponseDto<?>> addItemToCart(@RequestBody CartItemRequestDto requestDto)
+    @PreAuthorize("hasRole('ROLE_USER')")
+    ResponseEntity<ApiResponseDto<?>> addItemToCart(Authentication authentication, @RequestBody CartItemRequestDto requestDto)
             throws ResourceNotFoundException, ServiceLogicException{
-        return cartService.addItemToCart(requestDto);
+        return cartService.addItemToCart(authentication.getPrincipal().toString(), requestDto);
     }
 
     @GetMapping("/get/byUser")
-    ResponseEntity<ApiResponseDto<?>> getCartItemsByUser(@RequestParam String id)
+    @PreAuthorize("hasRole('ROLE_USER')")
+    ResponseEntity<ApiResponseDto<?>> getCartItemsByUser(Authentication authentication)
             throws ResourceNotFoundException, ServiceLogicException{
-        return cartService.getCartItemsByUser(id);
+        return cartService.getCartItemsByUser(authentication.getPrincipal().toString());
     }
 
     @DeleteMapping("/remove")
-    ResponseEntity<ApiResponseDto<?>> removeCartItemFromCart(@RequestParam String userId, @RequestParam String productId)
+    @PreAuthorize("hasRole('ROLE_USER')")
+    ResponseEntity<ApiResponseDto<?>> removeCartItemFromCart(Authentication authentication, @RequestParam String productId)
             throws ServiceLogicException, ResourceNotFoundException {
-        return cartService.removeCartItemFromCart(userId, productId);
+        return cartService.removeCartItemFromCart(authentication.getPrincipal().toString(), productId);
     }
 
     @GetMapping("/get/byId")

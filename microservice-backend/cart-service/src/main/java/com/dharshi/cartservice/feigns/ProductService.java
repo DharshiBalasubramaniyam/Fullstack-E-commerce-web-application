@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient("PRODUCT-SERVICE")
 public interface ProductService {
 
-    @GetMapping("/purely/product/get/byId")
+    @GetMapping("/product/get/byId")
     ResponseEntity<ApiResponseDto<ProductDto>> getProductById(@RequestParam String id);
 
 }

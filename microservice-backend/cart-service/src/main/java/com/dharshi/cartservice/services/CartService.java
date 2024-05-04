@@ -7,7 +7,7 @@ import com.dharshi.cartservice.exceptions.ServiceLogicException;
 import org.springframework.http.ResponseEntity;
 
 public interface CartService {
-    ResponseEntity<ApiResponseDto<?>> addItemToCart(CartItemRequestDto requestDto) throws ResourceNotFoundException, ServiceLogicException;
+    ResponseEntity<ApiResponseDto<?>> addItemToCart(String userId, CartItemRequestDto requestDto) throws ResourceNotFoundException, ServiceLogicException;
 
     ResponseEntity<ApiResponseDto<?>> getCartItemsByUser(String userId) throws ResourceNotFoundException, ServiceLogicException;
 

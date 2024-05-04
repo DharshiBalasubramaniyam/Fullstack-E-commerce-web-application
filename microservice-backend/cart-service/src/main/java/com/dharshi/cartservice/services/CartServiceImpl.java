@@ -29,16 +29,16 @@ public class CartServiceImpl implements CartService {
     private UserService userService;
 
     @Override
-    public ResponseEntity<ApiResponseDto<?>> addItemToCart(CartItemRequestDto requestDto) throws ResourceNotFoundException, ServiceLogicException {
+    public ResponseEntity<ApiResponseDto<?>> addItemToCart(String userId, CartItemRequestDto requestDto) throws ResourceNotFoundException, ServiceLogicException {
         try {
-            if (!Objects.requireNonNull(userService.existsUserById(requestDto.getUserId()).getBody()).getResponse()) {
-                throw new ResourceNotFoundException("User not found with id " + requestDto.getUserId());
+            if (!Objects.requireNonNull(userService.existsUserById(userId).getBody()).getResponse()) {
+                throw new ResourceNotFoundException("User not found with id " + userId);
             }
             if (Objects.requireNonNull(productService.getProductById(requestDto.getProductId()).getBody()).getResponse()==null) {
                 throw new ResourceNotFoundException("Product not found with id " + requestDto.getProductId());
             }
 
-            Cart userCart = getCart(requestDto.getUserId());
+            Cart userCart = getCart(userId);
             Set<CartItem> userCartItems = userCart.getCartItems();
             CartItem cartItem = createCartItem(userCartItems, requestDto);
 

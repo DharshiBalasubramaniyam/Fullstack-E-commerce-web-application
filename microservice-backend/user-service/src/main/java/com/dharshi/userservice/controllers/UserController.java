@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/purely/user")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
