@@ -1,4 +1,33 @@
-.logo-h {
-    font-size: 28px;
-    font-weight: 500;
+h1.logo {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    color: var(--light);
+}
+
+h1.logo span {
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    background-image: url('../../assets/images/icons/logo.png');
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+}
+@media all and (max-width: 500px) {
+    h1.logo {
+        font-size: 22px;
+    }
+    
+    h1.logo span {
+        height: 22px;
+        width: 22px;
+        display: inline-block;
+        background-image: url('../images/icons/logo.png');
+        background-size: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin-right: 5px;
+    }
 }
