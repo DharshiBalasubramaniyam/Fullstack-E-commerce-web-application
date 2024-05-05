@@ -50,10 +50,11 @@ function Header() {
                     </span>
                 </div>
 
+                <div className="search">
+                    <input type="search" placeholder="Search entire wellness here..."/><i class="fa fa-search" aria-hidden="true"></i>
+                </div>
+
                 <ul className={isNavOpen ? "nav-open" : "nav-close"}>
-                    <li>
-                        <Link to="/" className="nav-link">Home</Link>
-                    </li>
                     <li>
                         <Link to="/products/All" className="nav-link">Products</Link>
                     </li>
@@ -74,19 +75,12 @@ function Header() {
                     )}
                 </ul>
 
-                <ul>
-                    <li>
-                        <Link to='/'>
-                            <i className="fa fa-search" aria-hidden="true"></i>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link onClick={toggleCart}>
-                            <i className="fa fa-shopping-cart" aria-hidden="true"></i>
-                            <span>({cart.noOfCartItems || 0})</span>
-                        </Link>
-                    </li>
-                </ul>
+                <div>
+                    <Link onClick={toggleCart}>
+                        <i className="fa fa-shopping-cart" aria-hidden="true"></i>
+                        <span>({cart.noOfCartItems || 0})</span>
+                    </Link>
+                </div>
             </header>
             <Cart isCartOpen={isCartOpen} setIsCartOpen={setCart} onClose={() => setCart(false)} />
         </>
