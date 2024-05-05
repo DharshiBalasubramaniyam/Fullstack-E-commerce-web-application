@@ -4,7 +4,7 @@ function Loading() {
     return (
         <main className="flex-center">
             <FadeLoader
-                color="#4389df"
+                color="#056046"
                 loading={true}
                 size={40}
                 aria-label="Loading Spinner"
