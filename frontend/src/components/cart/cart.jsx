@@ -38,7 +38,7 @@ function Cart({ isCartOpen, onClose }) {
                 {isProcessingCart && <Loading />}
                 {cartError && <Info message="Unable to process your cart! Try again later" />}
                 {
-                    !isProcessingCart && !cartError && (
+                    !isProcessingCart && !cartError && cart.cartItems && (
                         <>
                             <div className="cart-products">
                                 {cart.cartItems && cart.cartItems.map((cartItem) => (
