@@ -9,56 +9,64 @@ spring:
       discovery:
         locator:
           enabled: true
-      mvc:
-        routes:
-          - id: auth-service
-            uri: lb://AUTH-SERVICE
-            predicates:
-              - Path=/auth-service/**
-            filters:
-              - StripPrefix=1
+      routes:
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auth-service/**
+          filters:
+            - StripPrefix=1
 
-          - id: notification-service
-            uri: lb://NOTIFICATION-SERVICE
-            predicates:
-              - Path=/notification-service/**
-            filters:
-              - StripPrefix=1
+        - id: notification-service
+          uri: lb://NOTIFICATION-SERVICE
+          predicates:
+            - Path=/notification-service/**
+          filters:
+            - StripPrefix=1
 
-          - id: category-service
-            uri: lb://CATEGORY-SERVICE
-            predicates:
-              - Path=/category-service/**
-            filters:
-              - StripPrefix=1
+        - id: category-service
+          uri: lb://CATEGORY-SERVICE
+          predicates:
+            - Path=/category-service/**
+          filters:
+            - StripPrefix=1
 
-          - id: product-service
-            uri: lb://PRODUCT-SERVICE
-            predicates:
-              - Path=/product-service/**
-            filters:
-              - StripPrefix=1
+        - id: product-service
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/product-service/**
+          filters:
+            - StripPrefix=1
 
-          - id: user-service
-            uri: lb://USER-SERVICE
-            predicates:
-              - Path=/user-service/**
-            filters:
-              - StripPrefix=1
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/**
+          filters:
+            - StripPrefix=1
 
-          - id: cart-service
-            uri: lb://CART-SERVICE
-            predicates:
-              - Path=/cart-service/**
-            filters:
-              - StripPrefix=1
+        - id: cart-service
+          uri: lb://CART-SERVICE
+          predicates:
+            - Path=/cart-service/**
+          filters:
+            - StripPrefix=1
 
-          - id: order-service
-            uri: lb://ORDER-SERVICE
-            predicates:
-              - Path=/order-service/**
-            filters:
-              - StripPrefix=1
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/order-service/**
+          filters:
+            - StripPrefix=1
+
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: '*'
+            allowedMethods: '*'
+            allowedHeaders: '*'
 
 
 eureka:
