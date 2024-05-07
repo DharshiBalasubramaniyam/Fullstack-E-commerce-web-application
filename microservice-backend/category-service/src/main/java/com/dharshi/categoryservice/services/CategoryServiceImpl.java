@@ -1,6 +1,7 @@
 package com.dharshi.categoryservice.services;
 
 import com.dharshi.categoryservice.dtos.ApiResponseDto;
+import com.dharshi.categoryservice.dtos.CategoryRequestDto;
 import com.dharshi.categoryservice.exceptions.CategoryAlreadyExistsException;
 import com.dharshi.categoryservice.exceptions.CategoryNotFoundException;
 import com.dharshi.categoryservice.exceptions.ServiceLogicException;
@@ -51,11 +52,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public ResponseEntity<ApiResponseDto<?>> createCategory(String name) throws ServiceLogicException, CategoryAlreadyExistsException {
+    public ResponseEntity<ApiResponseDto<?>> createCategory(CategoryRequestDto categoryRequestDto) throws ServiceLogicException, CategoryAlreadyExistsException {
         try {
-            if (!categoryRepository.existsByCategoryName(name)) {
+            if (!categoryRepository.existsByCategoryName(categoryRequestDto.getName())) {
                 Category category = Category.builder()
-                        .categoryName(name)
+                        .categoryName(categoryRequestDto.getName())
+                        .description(categoryRequestDto.getDescription())
+                        .imageUrl(categoryRequestDto.getImageUrl())
                         .build();
                 categoryRepository.insert(category);
                 return ResponseEntity.ok(
@@ -69,15 +72,17 @@ public class CategoryServiceImpl implements CategoryService {
         }catch (Exception e) {
             throw new ServiceLogicException("Unable save category!");
         }
-        throw new CategoryAlreadyExistsException("Category already exists with name " + name);
+        throw new CategoryAlreadyExistsException("Category already exists with name " + categoryRequestDto.getName());
     }
 
     @Override
-    public ResponseEntity<ApiResponseDto<?>> editCategory(String categoryId, String name) throws ServiceLogicException, CategoryAlreadyExistsException {
+    public ResponseEntity<ApiResponseDto<?>> editCategory(String categoryId, CategoryRequestDto categoryRequestDto) throws ServiceLogicException, CategoryAlreadyExistsException {
         try {
             Category category = categoryRepository.findById(categoryId).orElse(null);
-            if (category != null && !categoryRepository.existsByCategoryName(name)) {
-                category.setCategoryName(name);
+            if (category != null) {
+                category.setCategoryName(categoryRequestDto.getName());
+                category.setDescription(categoryRequestDto.getDescription());
+                category.setImageUrl(categoryRequestDto.getImageUrl());
                 categoryRepository.save(category);
                 return ResponseEntity.ok(
                         ApiResponseDto.builder()
@@ -90,7 +95,7 @@ public class CategoryServiceImpl implements CategoryService {
         }catch (Exception e) {
             throw new ServiceLogicException("Unable edit category!");
         }
-        throw new CategoryAlreadyExistsException("Category already exists with name " + name);
+        throw new CategoryNotFoundException("No category found with id " + categoryId);
     }
 
     @Override
