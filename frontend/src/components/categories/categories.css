@@ -19,6 +19,7 @@
     text-align: center;
     width: 100%;
     background-color: var(--secondary);
+    z-index: 0;
 }
 .banner:nth-child(odd) {
     flex-direction: row-reverse;
@@ -33,10 +34,12 @@
     object-fit: cover;
     opacity: 0.8;
     transition: 0.3s;
+    z-index: -1;
 }
 
 .banner:hover img {
     transform: scaleY(1.1);
+    
 }
 
 .banner .b-content {
@@ -67,19 +70,15 @@
     width: 150px;
 }
 
-@media (max-width:1200px) {
+@media (max-width:800px) {
 
     .banner {
-        max-width: 400px;
-        margin: 0 auto;
+        flex-direction: column;
 
     }
 
-    .banner img {
-        opacity: 0.8;
+    .banner img, .banner .b-content  {
         width: 100%;
-        max-width: 400px;
-
     }
 
 }

@@ -12,8 +12,8 @@ function Header() {
     const navigate = useNavigate();
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [isCartOpen, setCart] = useState(false);
-    const {cart}  = useContext(CartContext)
-    const {user, toggleUser} = useContext(AuthContext)
+    const { cart } = useContext(CartContext)
+    const { user, toggleUser } = useContext(AuthContext)
     const [searchKey, setSearchKey] = useState("");
 
     const toggleNav = () => {
@@ -60,14 +60,14 @@ function Header() {
                 </div>
 
                 <div className="search">
-                    <input 
-                        type="search" 
-                        placeholder="Search entire wellness here..."
+                    <input
+                        type="search"
+                        placeholder="Search entire wellness..."
                         value={searchKey}
                         onChange={(e) => onSearchKeyChange(e.target.value)}
                     />
-                    <i 
-                        className="fa fa-search" 
+                    <i
+                        className="fa fa-search"
                         aria-hidden="true"
                         onClick={onSearch}
                     ></i>
@@ -99,6 +99,21 @@ function Header() {
                         <i className="fa fa-shopping-cart" aria-hidden="true"></i>
                         <span>({cart.noOfCartItems || 0})</span>
                     </Link>
+                </div>
+            </header>
+            <header className="app-header bottom">
+                <div className="search">
+                    <input
+                        type="search"
+                        placeholder="Search entire wellness..."
+                        value={searchKey}
+                        onChange={(e) => onSearchKeyChange(e.target.value)}
+                    />
+                    <i
+                        className="fa fa-search"
+                        aria-hidden="true"
+                        onClick={onSearch}
+                    ></i>
                 </div>
             </header>
             <Cart isCartOpen={isCartOpen} setIsCartOpen={setCart} onClose={() => setCart(false)} />

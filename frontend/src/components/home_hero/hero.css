@@ -18,11 +18,12 @@
 }
 .hero-section h1 {
     font-size:50px;
-    width: 100%;
+    width: 78%;
     max-width: 700px;
 }
 .hero-section h3 {
     max-width: 700px;font-size: 30px;
+    width: 78%;
 }
 .hero-section button {
     width: max-content;
@@ -30,15 +31,15 @@
     margin-right: 10px;
 }
 
-@media all and (max-width:768px) {
+@media all and (max-width:900px) {
     .hero-section  {
         padding: 0 15px;
     }
     .hero-section h3 {
-        font-size: 15px;
+        font-size: 14px;
     }
     .hero-section h1 {
-        font-size: 35px;
+        font-size: 27px;
     }
     .hero-section button {
         padding: 10px 25px;

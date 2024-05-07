@@ -8,7 +8,7 @@
 
 
 .about .about-content {
-  
+
   padding: 0 10%;
   text-align: center;
 }
@@ -23,7 +23,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
+
 .about .about-content h1 {
   font-size: 40px;
   color: var(--primary);
@@ -37,7 +39,8 @@
   line-height: 2;
   padding: 1rem 0;
 }
-.about-content .icon-container{
+
+.about-content .icon-container {
   width: 100%;
   margin-top: 2rem;
   display: flex;
@@ -46,40 +49,45 @@
   justify-content: space-between;
 }
 
-.icon{
+.icon {
   padding: 1.5rem;
   box-shadow: 2px 2px 10px var(--white);
   transition: 0.3s;
-  width: 100%;
-  max-width: 250px;
+  flex: 1 1 200px;
 }
-.icon:hover{
+
+.icon:hover {
   transform: translateY(-10px);
 }
 
-.icon i{
+.icon i {
   font-size: 3rem;
   color: var(--pink);
   margin-bottom: 1rem;
 }
 
-.icon span{
+.icon span {
   font-size: 1rem;
   color: var(--black);
   display: block;
 }
-.icon:nth-of-type(1){
+
+.icon:nth-of-type(1) {
   background-color: rgb(222, 191, 222);
 }
-.icon:nth-of-type(2){
+
+.icon:nth-of-type(2) {
   background-color: rgb(191, 196, 222);
 }
-.icon:nth-of-type(3){
+
+.icon:nth-of-type(3) {
   background-color: rgb(222, 191, 191);
 }
-.icon:nth-of-type(4){
+
+.icon:nth-of-type(4) {
   background-color: rgb(191, 222, 222);
 }
+
 .about-image {
   background-image: url("../../assets/images/about.jpg");
   height: 450px;
@@ -88,4 +96,10 @@
   background-size: cover;
   background-repeat: no-repeat;
 
+}
+
+@media all and (max-width: 768px) {
+  .about .about-content p {
+    font-size: 0.7em;
+  }
 }
