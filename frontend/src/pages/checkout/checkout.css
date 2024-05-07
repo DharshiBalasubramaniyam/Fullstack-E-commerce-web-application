@@ -77,11 +77,30 @@ button.loading {
     background-color: var(--light);
     border: 2px solid var(--light);
 }
-.checkout-container form .input-box input:focus, select:focus {
-}
 .text-danger {
     color: red;
 }
 .checkout-container button {
     width: 100%;
+}
+
+.order-success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.order-success img {
+    height: 150px;
+    width: 150px;
+}
+.order-success .order-success-box{
+    width: 100%;
+    max-width: 600px;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    box-shadow: 0 0 10px var(--light);
+    padding: 10px;
 }
