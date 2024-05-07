@@ -10,7 +10,7 @@ function ProductService() {
 
     const getAllCategories = async () => {
         setLoading(true)
-        await axios.get(`${API_BASE_URL}/category/all`)
+        await axios.get(`${API_BASE_URL}/category-service/category/get/all`)
             .then((response) => {
                 setCategories(response.data.response);
                 setError(false)
@@ -24,7 +24,8 @@ function ProductService() {
 
     const getAllProducts = async () => {
         setLoading(true)
-        await axios.get(`${API_BASE_URL}/product/all`)
+        setProducts([])
+        await axios.get(`${API_BASE_URL}/product-service/product/get/all`)
             .then((response) => {
                     setProducts(response.data.response);
                     setError(false)
@@ -38,7 +39,7 @@ function ProductService() {
 
     const getProductsByCategory = async (id) => {
         setLoading(true)
-        await axios.get(`${API_BASE_URL}/product/byCategory`, {
+        await axios.get(`${API_BASE_URL}/product-service/product/get/byCategory`, {
             params:{
                 id: id
             }
@@ -54,7 +55,25 @@ function ProductService() {
         setLoading(false)
     }
 
-    return {getAllCategories, getAllProducts,getProductsByCategory, isLoading, categories, products, error};
+    const searchProducts = async (key) => {
+        setLoading(true)
+        await axios.get(`${API_BASE_URL}/product-service/product/search`, {
+            params:{
+                searchKey: key
+            }
+        })
+            .then((response) => {
+                    setProducts(response.data.response);
+                    setError(false)
+            })
+            .catch((error) => {
+                setProducts([])
+                setError(true)
+            })
+        setLoading(false)
+    }
+
+    return {getAllCategories, getAllProducts, getProductsByCategory, searchProducts, isLoading, categories, products, error};
 }
 
 export default ProductService;

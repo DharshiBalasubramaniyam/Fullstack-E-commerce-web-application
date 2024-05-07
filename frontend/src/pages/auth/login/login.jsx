@@ -63,7 +63,6 @@ function Login() {
                         </label>
                         {formState.errors.password && <small>{formState.errors.password.message}</small>}
                     </div>
-                    <br/>
 
                     <div className='input-box'>
                         <input type='submit' value={isLoading ? 'Logging in' : 'Login'} className={isLoading ? 'loading' : ''} />

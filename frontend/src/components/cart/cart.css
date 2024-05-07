@@ -13,6 +13,7 @@
     right: -100%;
     transition: 0.2s;
     z-index: 5;
+    border-left: 2px solid var(--primary);
 }
 
 .shoppingCart.active {
@@ -23,13 +24,13 @@
 .shoppingCart .header {
     display: flex;
     background-color: var(--light);
-    padding: 10px 20px;
+    padding: 10px;
     justify-content: space-between;
     align-items: center;
 }
 
 .close-btn {
-    color: var(--body);
+    color: var(--primary);
     transition: 0.3s;
     border-radius: 50%;
     height: 30px;
@@ -39,7 +40,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--primary);
+    background-color: transparent;
 }
 .close-btn i {
     font-size: 20px;
@@ -47,7 +48,8 @@
 }
 
 .close-btn:hover {
-    background-color: var(--secondary);
+    background-color: var(--primary);
+    color: var(--body);
 }
 
 .empty-text {
@@ -107,15 +109,17 @@
 
 .quantity-control span:first-of-type,
 .quantity-control span:last-of-type {
-    background-color: var(--primary);
-    color: var(--body);
+    background-color: transparent;
+    color: var(--primary);
     cursor: pointer;
     transition: 0.5s;
+    border: 2px solid var(--primary);
 }
 
 .quantity-control span:first-of-type:hover,
 .quantity-control span:last-of-type:hover {
-    background-color: var(--secondary);
+    background-color: var(--primary);
+    color: var(--body);
 }
 
 .quantity-control span.disable,

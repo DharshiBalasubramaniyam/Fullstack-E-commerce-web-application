@@ -1,0 +1,87 @@
+.checkout-container {
+    padding: 11vh 5% 25px;    
+}
+.checkout-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 25px;
+    width: 100%;
+    margin-top: 25px;
+}
+.checkout-wrapper summary {
+    background-color: rgb(232, 232, 232);
+    flex: 1 1 250px;
+    padding: 15px;
+}
+.checkout-wrapper summary h3 {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+}
+.product {
+    display: flex;
+    width: 100%;
+    height: 70px;
+    background-color: var(--body);
+    margin: 7px 0;
+    border: 1px solid var(--light);
+}
+.product img {
+    height: 100%;
+    width: 70px;
+    object-fit: fill;
+}
+button.loading {
+    background-color: var(--primary);
+    opacity: 0.5;
+    pointer-events: none;
+    color: var(--body);
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+    gap: 5px;
+}
+
+.product-info h4 {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+.checkout-container form {
+    flex: 1 1 550px;
+    box-shadow: 0 0 5px rgb(181, 181, 181);
+    padding: 10px;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 13px;
+}
+.checkout-container form .input-box{
+    width: 100%;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+
+}
+.checkout-container form .input-box input, select {
+    padding: 9px 10px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: var(--light);
+    border: 2px solid var(--light);
+}
+.checkout-container form .input-box input:focus, select:focus {
+}
+.text-danger {
+    color: red;
+}
+.checkout-container button {
+    width: 100%;
+}

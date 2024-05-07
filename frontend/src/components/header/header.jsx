@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import Logo from "../logo/logo";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useAsyncError, useNavigate } from "react-router-dom";
 import "../../assets/styles/index.css"
 import "./header.css"
 import Cart from "../cart/cart";
@@ -14,6 +14,7 @@ function Header() {
     const [isCartOpen, setCart] = useState(false);
     const {cart}  = useContext(CartContext)
     const {user, toggleUser} = useContext(AuthContext)
+    const [searchKey, setSearchKey] = useState("");
 
     const toggleNav = () => {
         setIsNavOpen(prev => !prev);
@@ -21,6 +22,14 @@ function Header() {
 
     const toggleCart = () => {
         setCart(prev => !prev)
+    }
+
+    const onSearch = () => {
+        searchKey !== "" && navigate(`/search/${searchKey}`)
+    }
+
+    const onSearchKeyChange = (newKey) => {
+        setSearchKey(newKey)
     }
 
     const logout = () => {
@@ -51,7 +60,17 @@ function Header() {
                 </div>
 
                 <div className="search">
-                    <input type="search" placeholder="Search entire wellness here..."/><i class="fa fa-search" aria-hidden="true"></i>
+                    <input 
+                        type="search" 
+                        placeholder="Search entire wellness here..."
+                        value={searchKey}
+                        onChange={(e) => onSearchKeyChange(e.target.value)}
+                    />
+                    <i 
+                        className="fa fa-search" 
+                        aria-hidden="true"
+                        onClick={onSearch}
+                    ></i>
                 </div>
 
                 <ul className={isNavOpen ? "nav-open" : "nav-close"}>
@@ -66,7 +85,7 @@ function Header() {
                     {user && (
                         <>
                             <li>
-                                <Link to='/' className="nav-link">orders</Link>
+                                <Link to='/my/account' className="nav-link">My Account</Link>
                             </li>
                             <li onClick={logout} className="nav-link">
                                 <Link className="nav-link">Logout</Link>

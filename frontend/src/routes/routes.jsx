@@ -2,6 +2,10 @@ import { Suspense, lazy } from 'react';
 import { Routes, Route } from "react-router-dom";
 import Loading from "../components/loading/loading";
 import Products from '../pages/products/products.jsx';
+import CheckoutForm from '../pages/checkout/checkout.jsx';
+import Search from '../pages/search/search.jsx';
+import OrderSuccess from '../pages/checkout/order.success.jsx';
+import MyAccount from '../pages/my.account/my.account.jsx';
 
 const Home = lazy(() => import('../pages/home/home.jsx'))
 const Login = lazy(() => import('../pages/auth/login/login.jsx'))
@@ -29,6 +33,10 @@ function AppRoutes() {
                 <Route path="/auth/register" element={<Register />} />
                 <Route path="/auth/userRegistrationVerfication/:email" element={<RegistrationVerfication />} />
                 <Route path="/auth/success-registration" element={<RegistrationSuccessful />} />
+                <Route path="/order/checkout" element={<CheckoutForm />} />
+                <Route path="/search/:search" element={<Search />} />
+                <Route path="/order/success" element={<OrderSuccess />} />
+                <Route path="/my/account" element={<MyAccount />} />
             </Routes>
         </Suspense>
     )

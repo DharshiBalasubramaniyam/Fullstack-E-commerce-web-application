@@ -1,0 +1,44 @@
+.profile-card {
+    padding: 12vh 5% 20px;
+}
+.profile-card span{
+    color: grey;
+}
+.orders {
+    padding: 10px 5%;
+}
+.order {
+    width: 100%;
+    background-color: rgb(231, 231, 231);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;margin: 20px 0;
+    border: 2px solid black;
+}
+.order > div {
+    background-color: white;padding: 10px;
+}
+
+.order .items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+}
+
+.order .items > div {
+    display: flex;flex: 1 1 300px;
+    gap: 15px; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+.order .items > div img {
+    height: 100px;
+    width: 100px;
+}
+.order .items > div > div {
+    display: flex;
+    justify-content:center;
+    gap: 20px;
+    flex-direction: column;
+}

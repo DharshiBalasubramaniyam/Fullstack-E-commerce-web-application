@@ -7,6 +7,7 @@ import Info from '../../components/info/info';
 import ProductService from '../../api-service/product.service';
 import CartContext from '../../contexts/cart.contect';
 import { AuthContext } from '../../contexts/auth.context';
+import Footer from '../../components/footer/footer';
 
 function Products() {
 
@@ -27,13 +28,14 @@ function Products() {
         <>
             <Header />
             {isLoading && <Loading />}
-            {error && <Info message="Unable to display product right now. Try again later..."/>}
+            {error && <Info message="Unable to display product right now. Try again later..." />}
             {!isLoading && !error && (
                 <>
                     <CategoryWrapper category={category} categoryList={categories} />
                     <ProductsWrapper products={products} />
                 </>
             )}
+            <Footer />
         </>
     )
 }
@@ -83,7 +85,7 @@ function CategoryWrapper({ category, categoryList }) {
 function ProductsWrapper({ products }) {
 
     const { addItemToCart } = useContext(CartContext);
-    const {user, toggleUser} = useContext(AuthContext)
+    const { user, toggleUser } = useContext(AuthContext)
     const [isLoading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -98,27 +100,29 @@ function ProductsWrapper({ products }) {
     }
 
     return (
-        <section className='products-wrapper'>
-            {
-                isLoading ? <Loading/> :
-                products.map((product) => {
-                    return (
-                        <div className='box' key={product.id}>
-                            <img src={`../../../public/products/${product.imageUrl}`} className="image" alt='product'></img>
-                            <div className='price' aria-label='image'>Rs. {product.price}</div>
-                            <div className='text-part'>
-                                <div className='name'>{product.name}</div>
-                                <div className='description'>{product.description}</div>
-                            </div>
-                            <button
-                                onClick={() => onAddToCart(product.id)}
-                            >
-                                Add to cart
-                            </button>
-                        </div>
-                    )
-                })
-            }
+        <section className="products-container">
+            <div className='products-wrapper'>
+                {
+                    isLoading ? <Loading /> :
+                        products.map((product) => {
+                            return (
+                                <div className='box' key={product.id}>
+                                    <img src={`../../../public/products/${product.imageUrl}`} className="image" alt='product'></img>
+                                    <div className='price' aria-label='image'>Rs. {product.price}</div>
+                                    <div className='text-part'>
+                                        <div className='name'>{product.productName}</div>
+                                        <div className='description'>{product.description}</div>
+                                    </div>
+                                    <button
+                                        onClick={() => onAddToCart(product.id)}
+                                    >
+                                        Add to cart
+                                    </button>
+                                </div>
+                            )
+                        })
+                }
+            </div>
         </section>
     )
 }

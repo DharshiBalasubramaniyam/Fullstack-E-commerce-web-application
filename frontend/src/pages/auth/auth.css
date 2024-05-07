@@ -18,7 +18,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    gap: 5px;
+    gap: 10px;
     z-index: 5;
 }
 .auth-container .auth-wrapper form .input-box{
@@ -27,7 +27,7 @@
 .auth-container .auth-wrapper form .input-box label {
     font-size: 14px;
 }
-.auth-container .auth-wrapper form .input-box input, button{
+.auth-container .auth-wrapper form .input-box input{
     margin-top: 5px;
     padding: 9px 10px;
     width: 100%;
@@ -48,8 +48,8 @@
     
     text-decoration: underline;
 }
-.auth-container .auth-wrapper form input[type='submit'], button {
-    background-color: var(--secondary);
+.auth-container .auth-wrapper form input[type='submit']{
+    background-color: var(--primary);
     border: none;
     font-size: 16px;
     border: 2px solid var(--primary);
@@ -59,20 +59,19 @@
     transition: background-color 0.3s;
     color: var(--body);
 }
-.auth-container .auth-wrapper form input[type='submit']:hover, button:hover,
-.auth-container .auth-wrapper form input[type='submit'].outline:hover, button.outline:hover{
-    background-color: var(--primary);color: var(--body);
+.auth-container .auth-wrapper form input[type='submit']:hover,
+.auth-container .auth-wrapper form input[type='submit'].outline:hover{
+    background-color: transparent;color: var(--primary);
 }
-.auth-container .auth-wrapper form input[type='submit']:active, button:active{
+.auth-container .auth-wrapper form input[type='submit']:active{
     scale: 0.98;
-    background-color: var(--secondary);
 }
-.auth-container .auth-wrapper form input[type='submit'].loading, button.loading{
+.auth-container .auth-wrapper form input[type='submit'].loading{
     pointer-events: none;
     cursor: not-allowed;
     opacity: 0.5;
 }
-.auth-container .auth-wrapper form input[type='submit'].outline, button.outline{
+.auth-container .auth-wrapper form input[type='submit'].outline{
     background-color: transparent;border: 2px solid var(--primary);color: var(--primary);
 }
 .auth-container .auth-wrapper form small {
@@ -89,6 +88,7 @@
     font-size: 13px;
     color: var(---black);
     background-color: rgb(255, 198, 198);
+    color: rgb(187, 0, 0);
     width: 100%;
     border-radius: 5px;text-align: center;
 }

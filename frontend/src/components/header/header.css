@@ -4,7 +4,7 @@
     padding: 20px 5%;
     display: flex;
     align-items: center;
-    justify-content: right;
+    justify-content: left;
     position: fixed;
     box-shadow: 0 5px 10px rgba(255, 132, 0, 0.1);
     z-index: 2;

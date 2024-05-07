@@ -10,17 +10,19 @@ function AuthService() {
     const navigate = useNavigate();
 
     const login = async (email, password) => {
+        console.log(email, password)
         setLoading(true)
-        await axios.post(`${API_BASE_URL}/auth/signin`, { email, password })
+        await axios.post(`${API_BASE_URL}/auth-service/auth/signin`, { email: email, password: password })
             .then((response) => {
-                if (response.data.token) {
+                if (response.data.response.token) {
                     setResponse(true);
                     setError(null)
-                    localStorage.setItem("user", JSON.stringify(response.data));
+                    localStorage.setItem("user", JSON.stringify(response.data.response));
                     navigate("/");
                 }
             })
             .catch((error) => {
+                console.log(error)
                 setResponse(null)
                 const resMessage = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
                 if (resMessage == "Bad credentials") {
@@ -34,13 +36,13 @@ function AuthService() {
 
     const save = async (userName, email, password) => {
         setLoading(true)
-        await axios.post(`${API_BASE_URL}/auth/signup`, { userName, email, password })
+        await axios.post(`${API_BASE_URL}/auth-service/auth/signup`, { userName, email, password })
             .then((response) => {
                 console.log(response.data)
                 if (response.data.token) {
                     setResponse(true);
                     setError(null)
-                    navigate(`/auth/userRegistrationVerfication/${data.email}`);
+                    navigate(`/auth-service/auth/userRegistrationVerfication/${data.email}`);
                 }
             })
             .catch((error) => {
@@ -57,7 +59,7 @@ function AuthService() {
 
     const verifyRegistration = async (verificationCode) => {
         setLoading(true)
-        await axios.get(`${API_BASE_URL}/auth/signup/verify`, {
+        await axios.get(`${API_BASE_URL}/auth-service/auth/signup/verify`, {
                 params: {
                     code: verificationCode
                 }
@@ -83,7 +85,7 @@ function AuthService() {
     }
 
     const resendVerificationCode = async (email) => {
-        await axios.get(`${API_BASE_URL}/auth/signup/resend`, {
+        await axios.get(`${API_BASE_URL}/auth-service/auth/signup/resend`, {
                 params: {
                     email: email
                 }

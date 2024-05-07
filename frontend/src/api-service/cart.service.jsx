@@ -3,10 +3,10 @@ import API_BASE_URL from "./apiConfig";
 import axios from 'axios';
 
 function CartService() {
-    const [cart, setCart] = useState({})
+    const [cart, setCart] = useState({cartItems:[]})
     const [cartError, setError] = useState(false);
     const [isProcessingCart, setProcessing] = useState(false);
-    const {id, token, type} = JSON.parse(localStorage.getItem("user")) || {id: null, token: null, type:null}
+    const {id, token, type} = JSON.parse(localStorage.getItem("user")) || { id: null, token: null, type:null}
 
     const authHeader = () => {
         return { Authorization: `${type}${token}` };
@@ -14,10 +14,9 @@ function CartService() {
 
     const addItemToCart = async (productId, quantity) => {
         setProcessing(true)
-        const userId = id;
         await axios.post(
-            `${API_BASE_URL}/cart/`,
-            { userId, productId, quantity },
+            `${API_BASE_URL}/cart-service/cart/add`,
+            { productId, quantity },
             { headers: authHeader() }
         )
             .then((response) => {
@@ -32,10 +31,9 @@ function CartService() {
 
     const updateItemQuantity = async (productId, quantity) => {
         setProcessing(true)
-        const userId = id;
         await axios.post(
-            `${API_BASE_URL}/cart/`,
-            { userId, productId, quantity },
+            `${API_BASE_URL}/cart-service/cart/add`,
+            { productId, quantity },
             { headers: authHeader() }
         )
             .then((response) => {
@@ -50,16 +48,14 @@ function CartService() {
 
     const removeItemFromCart = async (productId) => {
         setProcessing(true)
-        await axios.delete(`${API_BASE_URL}/cart/remove`, {
+        await axios.delete(`${API_BASE_URL}/cart-service/cart/remove`, {
             headers: authHeader(),
             params: {
-                userId: id,
                 productId: productId
             }
         })
             .then((response) => {
                 setError(false)
-                console.log(response.data)
             })
             .catch((error) => {
                 setError(true)
@@ -68,24 +64,21 @@ function CartService() {
     }
 
     const getCartInformation = async () => {
-
-        if(!id) {
-            setCart({})
+        if (!token) {
+            setCart({cartItems:[]})
+            setError(false)
             return
         }
         setProcessing(true)
-        await axios.get(`${API_BASE_URL}/cart/byUser`, {
-            headers: authHeader(),
-            params: {
-                id:id
-            }
+        await axios.get(`${API_BASE_URL}/cart-service/cart/get/byUser`, {
+            headers: authHeader()
         })
             .then((response) => {
                 setError(false)
                 setCart(response.data.response)
             })
             .catch((error) => {
-                setCart({})
+                setCart({cartItems:[]})
                 setError(true)
             })
         setProcessing(false)
