@@ -23,7 +23,6 @@ footer div p {
     max-width: 400px;
     display: flex;
     align-items: center;
-    background-color: bisque;
 }
 footer > div ul {
     padding: 0;
