@@ -38,11 +38,6 @@ function Header() {
         navigate("/")
     };
 
-    useEffect(() => {
-        toggleUser()
-    }, [])
-
-
     return (
         <>
             <header className="app-header">

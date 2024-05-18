@@ -10,17 +10,20 @@ function Login() {
 
     const {register, handleSubmit,formState} = useForm();
     const { login, isLoading, error } = AuthService();
-    const {user} = useContext(AuthContext)
+    const {user, toggleUser} = useContext(AuthContext)
     const navigate = useNavigate();
 
     useEffect(()=> {
         if (user && user.token) {
             navigate("/");
         }
-    }, [])
+    }, [user])
+
+    console.log(user)
 
     const onSubmit = async (data) => {
-        login(data.email, data.password)
+        await login(data.email, data.password)
+        toggleUser()
     }
     return (
         <main className='auth-container'>
