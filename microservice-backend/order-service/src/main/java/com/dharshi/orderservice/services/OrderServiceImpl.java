@@ -74,7 +74,7 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    public ResponseEntity<ApiResponseDto<?>> getOrdersByUser(String userId) throws ResourceNotFoundException, ServiceLogicException {
+    public ResponseEntity<ApiResponseDto<?>> getOrdersByUser(String userId) throws ServiceLogicException {
         try {
             Set<Order> orders = orderRepository.findByUserIdOrderByIdDesc(userId);
             return ResponseEntity.ok(

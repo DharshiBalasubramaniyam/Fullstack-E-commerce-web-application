@@ -7,11 +7,11 @@ function OrderService() {
     const [orderError, setError] = useState(null);
     const [isLoading, setLoading] = useState(false);
     const [userOrders, setUserOrders] = useState([])
-    const { id, token, type } = JSON.parse(localStorage.getItem("user")) || { id: null, token: null, type: null }
+    const user = JSON.parse(localStorage.getItem("user"));
     const navigate = useNavigate()
 
     const authHeader = () => {
-        return { Authorization: `${type}${token}` };
+        return { Authorization: `${user?.type}${user?.token}` };
     }
 
     const placeOrder = async ({ fname, lname, address1, address2, city, phone }, cart) => {
@@ -35,16 +35,15 @@ function OrderService() {
 
     const getOrdersByUser = async () => {
         setLoading(true)
-        await axios.get(`${API_BASE_URL}/order-service/order/get/byUser`,
+        await axios.get(
+            `${API_BASE_URL}/order-service/order/get/byUser`,
             { headers: authHeader() }
         ).then((response) => {
             setError(null)
-            console.log(response)
             setUserOrders(response.data.response)
         }).catch((error) => {
             console.log(error)
             setUserOrders([])
-            // setError(error.response.message)
         });
 
         setLoading(false)
