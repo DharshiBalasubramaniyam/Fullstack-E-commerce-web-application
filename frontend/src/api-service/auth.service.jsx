@@ -18,7 +18,6 @@ function AuthService() {
                     setResponse(true);
                     setError(null)
                     localStorage.setItem("user", JSON.stringify(response.data.response));
-                    navigate("/");
                 }
             })
             .catch((error) => {
@@ -39,10 +38,10 @@ function AuthService() {
         await axios.post(`${API_BASE_URL}/auth-service/auth/signup`, { userName, email, password })
             .then((response) => {
                 console.log(response.data)
-                if (response.data.token) {
+                if (response.data.success) {
                     setResponse(true);
                     setError(null)
-                    navigate(`/auth-service/auth/userRegistrationVerfication/${data.email}`);
+                    navigate(`/auth/userRegistrationVerfication/${email}`);
                 }
             })
             .catch((error) => {
@@ -66,7 +65,7 @@ function AuthService() {
             })
             .then((response) => {
                 console.log(response.data)
-                if (response.data.token) {
+                if (response.data.success) {
                     setResponse(true);
                     setError(null)
                     navigate(`/auth/success-registration`);
@@ -92,7 +91,7 @@ function AuthService() {
             })
             .then((response) => {
                 console.log(response.data)
-                if (response.data.token) {
+                if (response.data.success) {
                     setResponse(true);
                     setError(null)
                 }
