@@ -15,7 +15,7 @@ function Cart({ isCartOpen, onClose }) {
     const navigate = useNavigate()
 
     useEffect(() => {
-        getCartInformation()
+        // getCartInformation()
     }, [user])
 
     const onProductRemove = (id) => {
@@ -37,12 +37,12 @@ function Cart({ isCartOpen, onClose }) {
                     </div>
                 </div>
                 {isProcessingCart && <Loading />}
-                {!isProcessingCart && cart?.cartItems.length==0 && <Info message="No items in your cart!" />}
+                {!isProcessingCart && !cart.cartItems && <Info message="No items in your cart!" />}
                 {
                     !isProcessingCart && (
                         <>
                             <div className="cart-products">
-                                {cart?.cartItems.map((cartItem) => (
+                                {cart.cartItems && cart?.cartItems.map((cartItem) => (
                                     <div className="cart-product" key={cartItem.productId}>
                                         <img src={`../../../public/products/${cartItem.imageUrl}`} alt={cartItem.productName} />
                                         <div className="product-info">
@@ -81,7 +81,7 @@ function Cart({ isCartOpen, onClose }) {
                                 ))}
                             </div>
                             
-                                {cart?.cartItems.length > 0 && (
+                                {cart.cartItems && (
                                     <div className="cart-summary">
                                         <h3>Subtotal: Rs. {parseFloat(cart.subtotal).toFixed(2)}</h3>
                                         <button className="btn checkout-btn" onClick={onCheckout}>Proceed to checkout</button>

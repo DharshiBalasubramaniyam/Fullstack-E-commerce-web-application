@@ -3,13 +3,13 @@ import API_BASE_URL from "./apiConfig";
 import axios from 'axios';
 
 function CartService() {
-    const [cart, setCart] = useState({cartItems:[]})
+    const [cart, setCart] = useState({})
     const [cartError, setError] = useState(false);
     const [isProcessingCart, setProcessing] = useState(false);
-    const {id, token, type} = JSON.parse(localStorage.getItem("user")) || { id: null, token: null, type:null}
+    const user = JSON.parse(localStorage.getItem("user"));
 
     const authHeader = () => {
-        return { Authorization: `${type}${token}` };
+        return { Authorization: `${user?.type}}${user?.token}` };
     }
 
     const addItemToCart = async (productId, quantity) => {
@@ -64,8 +64,8 @@ function CartService() {
     }
 
     const getCartInformation = async () => {
-        if (!token) {
-            setCart({cartItems:[]})
+        if (!user.token) {
+            setCart({})
             setError(false)
             return
         }
