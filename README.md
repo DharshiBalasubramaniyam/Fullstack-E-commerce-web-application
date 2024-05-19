@@ -1,8 +1,11 @@
+# Microservice architecture diagram
+
+![Screenshot 2024-05-19 161125](https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/assets/139672976/d41850c8-6f95-45bd-9aba-ff5d6d01f760)
+
+
 # PURELY - E commerce web application
 
 - Developed an e-commerce web application, a platform dedicated to health and wellness products using Spring Boot microservices/ MongoDB backend and react js frontend.
-
-- Avaliable microservices:- service registry (eureka server), api gateway, auth service, user service, category service, product service, cart service, order service, notification service.
   
 - Implemented secure authentication and authorization functionalities using Spring Security and JWT. Integrated email verification during sign-up.
   
