@@ -28,9 +28,23 @@
 
 - Backend is decomposed into several small microservices. All of them are independently deployable applications.
 
-### Service Registry
-### API Gateway
-### Auth Service
+### 🚀 Service Registry
+
+The Service Registry serves as a centralized repository for storing information about all the available services in the microservices architecture. 
+
+This includes details such as IP addresses, port numbers, and other metadata required for communication.
+
+As services start, stop, or scale up/down dynamically in response to changing demand, they update their registration information in the Service Registry accordingly.
+
+### 🚀 API Gateway
+
+
+The <a href="./microservice-backend/api-gateway">API gateway</a> acts as a centralized entry point for clients, providing a unified interface to access the microservices.
+
+API gateway acts as the traffic cop of our microservices architecture. It routes incoming requests to the appropriate microservice, or instance based on predefined rules or configurations.
+
+
+### 🚀 Auth Service
 
 The <a href="./microservice-backend/auth-service">Auth Service</a> is responsible for securely verifying user identities and facilitating token-based authentication.
 
@@ -42,7 +56,7 @@ The <a href="./microservice-backend/auth-service">Auth Service</a> is responsibl
 | <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/auth/isValidToken`   | token | Validate json web token  |
 
 
-### Category Service
+### 🚀 Category Service
 
 The <a href="./microservice-backend/category-service">Category Service</a> provides centralized data management and operations for product categories.
 
@@ -54,9 +68,9 @@ The <a href="./microservice-backend/category-service">Category Service</a> provi
 | <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/category/get/all`   | - | Get all categories | No | Both |
 | <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/category/get/byId`   | categoryId | Get category by id | No | Both |
 
-### Product Service
+### 🚀 Product Service
 
-The <a href="./microservice-backend/category-service">Product Service</a> provides centralized data management and operations for available products.
+The <a href="./microservice-backend/product-service">Product Service</a> provides centralized data management and operations for available products.
 
 | HTTP Method | Route Path | Parameters | Description | Authentication | Role (Admin/User) | 
 |----------|----------|----------|----------| ----------| ----------|
@@ -67,9 +81,34 @@ The <a href="./microservice-backend/category-service">Product Service</a> provid
 | <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/product/get/byCategory`   | categoryId | Get product by category | No | Both |
 | <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/product/search`   | searchKey | Search products by key | No | Both |
 
-### Cart Service
-### Order Service
-### Notification Service
+### 🚀 Cart Service
+
+The <a href="./microservice-backend/cart-service">Cart Service</a> provides centralized data management and operations for user carts.
+
+| HTTP Method | Route Path | Parameter | Description | Authentication | Role (Admin/User) | 
+|----------|----------|----------|----------| ----------| ----------|
+| <img alt="Static Badge" src="https://img.shields.io/badge/post-green?style=for-the-badge"> | `/cart/add`   | - | Add item to cart, update quantity | Yes | User |
+| <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/cart/get/byUser` | - | Get cart details by user | Yes | User |
+| <img alt="Static Badge" src="https://img.shields.io/badge/delete-red?style=for-the-badge"> | `/cart/remove`   | productId | Remove an item from the cart | Yes | User |
+
+### 🚀 Order Service
+
+The <a href="./microservice-backend/order-service">Order Service</a> provides centralized data management and operations for orders.
+
+| HTTP Method | Route Path | Parameter | Description | Authentication | Role (Admin/User) | 
+|----------|----------|----------|----------| ----------| ----------|
+| <img alt="Static Badge" src="https://img.shields.io/badge/post-green?style=for-the-badge"> | `/order/create`   | - | Place an order | Yes | User |
+| <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/order/get/byUser` | - | Get orders by user | Yes | User |
+| <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/order/get/all`   | - | Get all orders | Yes | Admin |
+| <img alt="Static Badge" src="https://img.shields.io/badge/delete-red?style=for-the-badge"> | `/order/cancel`   | orderId | Cancel the order | Yes | User |
+
+### 🚀 Notification Service
+
+The <a href="./microservice-backend/notification-service">Notification Service</a> provides centralized operations for send emails to user.
+
+| HTTP Method | Route Path | Description | 
+|----------|----------|----------|
+| <img alt="Static Badge" src="https://img.shields.io/badge/post-green?style=for-the-badge"> | `/notification/send`   | Send email | 
 
 ## 📍 Screenshots
 
