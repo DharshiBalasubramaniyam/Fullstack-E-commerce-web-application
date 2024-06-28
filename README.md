@@ -55,6 +55,18 @@ The <a href="./microservice-backend/category-service">Category Service</a> provi
 | <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/category/get/byId`   | categoryId | Get category by id | No | Both |
 
 ### Product Service
+
+The <a href="./microservice-backend/category-service">Product Service</a> provides centralized data management and operations for available products.
+
+| HTTP Method | Route Path | Parameters | Description | Authentication | Role (Admin/User) | 
+|----------|----------|----------|----------| ----------| ----------|
+| <img alt="Static Badge" src="https://img.shields.io/badge/post-green?style=for-the-badge"> | `/admin/product/add`   | - | Create new product | Yes | Admin |
+| <img alt="Static Badge" src="https://img.shields.io/badge/put-yellow?style=for-the-badge"> | `/admin/product/edit`   | productId | Edit existing product | Yes | Admin |
+| <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/product/get/all`   | - | Get all products | No | Both |
+| <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/product/get/byId`   | productId | Get product by id | No | Both |
+| <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/product/get/byCategory`   | categoryId | Get product by category | No | Both |
+| <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/product/search`   | searchKey | Search products by key | No | Both |
+
 ### Cart Service
 ### Order Service
 ### Notification Service
