@@ -110,6 +110,10 @@ The <a href="./microservice-backend/notification-service">Notification Service</
 |----------|----------|----------|
 | <img alt="Static Badge" src="https://img.shields.io/badge/post-green?style=for-the-badge"> | `/notification/send`   | Send email | 
 
+### 🚀 Communication between services
+
+OpenFeign, a declarative HTTP client library for Java is used to simplify the process of making HTTP requests to other microservices.
+
 ## 📍 Screenshots
 
 ![Screenshot 2024-05-07 194247](https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/assets/139672976/6f0ea4eb-6757-4955-b64f-18fcca1cee96)
