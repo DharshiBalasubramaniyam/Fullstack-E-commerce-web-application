@@ -60,13 +60,13 @@ The <a href="./microservice-backend/auth-service">Auth Service</a> is responsibl
 
 The <a href="./microservice-backend/category-service">Category Service</a> provides centralized data management and operations for product categories.
 
-| HTTP Method | Route Path | Parameters | Description | Authentication | Role (Admin/User) | 
+| HTTP Method | Route Path | Parameters | Description | Authentication | Role | 
 |----------|----------|----------|----------| ----------| ----------|
 | <img alt="Static Badge" src="https://img.shields.io/badge/post-green?style=for-the-badge"> | `/admin/category/create`   | - | Create new category | Yes | Admin |
 | <img alt="Static Badge" src="https://img.shields.io/badge/put-yellow?style=for-the-badge"> | `/admin/category/edit`   | categoryId | Edit existing category | Yes | Admin |
 | <img alt="Static Badge" src="https://img.shields.io/badge/delete-red?style=for-the-badge"> | `/admin/category/delete`   | categoryId | Delete existing category | Yes | Admin |
-| <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/category/get/all`   | - | Get all categories | No | Both |
-| <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/category/get/byId`   | categoryId | Get category by id | No | Both |
+| <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/category/get/all`   | - | Get all categories | No | Admin/User/Non user |
+| <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/category/get/byId`   | categoryId | Get category by id | No |  Admin/User/Non user  |
 
 ### 🚀 Product Service
 
@@ -76,10 +76,10 @@ The <a href="./microservice-backend/product-service">Product Service</a> provide
 |----------|----------|----------|----------| ----------| ----------|
 | <img alt="Static Badge" src="https://img.shields.io/badge/post-green?style=for-the-badge"> | `/admin/product/add`   | - | Create new product | Yes | Admin |
 | <img alt="Static Badge" src="https://img.shields.io/badge/put-yellow?style=for-the-badge"> | `/admin/product/edit`   | productId | Edit existing product | Yes | Admin |
-| <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/product/get/all`   | - | Get all products | No | Both |
-| <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/product/get/byId`   | productId | Get product by id | No | Both |
-| <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/product/get/byCategory`   | categoryId | Get product by category | No | Both |
-| <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/product/search`   | searchKey | Search products by key | No | Both |
+| <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/product/get/all`   | - | Get all products | No |  Admin/User/Non user  |
+| <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/product/get/byId`   | productId | Get product by id | No |  Admin/User/Non user  |
+| <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/product/get/byCategory`   | categoryId | Get product by category | No |  Admin/User/Non user  |
+| <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/product/search`   | searchKey | Search products by key | No |  Admin/User/Non user  |
 
 ### 🚀 Cart Service
 
@@ -89,7 +89,9 @@ The <a href="./microservice-backend/cart-service">Cart Service</a> provides cent
 |----------|----------|----------|----------| ----------| ----------|
 | <img alt="Static Badge" src="https://img.shields.io/badge/post-green?style=for-the-badge"> | `/cart/add`   | - | Add item to cart, update quantity | Yes | User |
 | <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/cart/get/byUser` | - | Get cart details by user | Yes | User |
+| <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/cart/get/byId` | cartId | Get cart details by cart id | Yes | User |
 | <img alt="Static Badge" src="https://img.shields.io/badge/delete-red?style=for-the-badge"> | `/cart/remove`   | productId | Remove an item from the cart | Yes | User |
+| <img alt="Static Badge" src="https://img.shields.io/badge/delete-red?style=for-the-badge"> | `/cart/clear/byId`   | cartId | Remove all the items from the cart | Yes | User |
 
 ### 🚀 Order Service
 
