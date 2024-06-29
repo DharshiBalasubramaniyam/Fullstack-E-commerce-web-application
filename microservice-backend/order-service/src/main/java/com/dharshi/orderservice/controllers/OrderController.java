@@ -20,12 +20,13 @@ public class OrderController {
 
     @PostMapping("/create")
     @PreAuthorize("hasRole('ROLE_USER')")
-    ResponseEntity<ApiResponseDto<?>> createOrder(@RequestBody OrderRequestDto request) throws ResourceNotFoundException, ServiceLogicException {
-        return orderService.createOrder(request);
+    ResponseEntity<ApiResponseDto<?>> createOrder(Authentication authentication, @RequestBody OrderRequestDto request) throws ResourceNotFoundException, ServiceLogicException {
+        System.out.println(authentication.getCredentials().toString());
+        return orderService.createOrder(authentication.getCredentials().toString(), request);
     }
 
     @GetMapping("/get/byUser")
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     ResponseEntity<ApiResponseDto<?>> getOrdersByUser(Authentication authentication) throws ResourceNotFoundException, ServiceLogicException {
         return orderService.getOrdersByUser(authentication.getPrincipal().toString());
     }

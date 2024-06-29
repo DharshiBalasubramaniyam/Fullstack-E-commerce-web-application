@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface OrderService {
-    ResponseEntity<ApiResponseDto<?>> createOrder(OrderRequestDto request) throws ResourceNotFoundException, ServiceLogicException;
+    ResponseEntity<ApiResponseDto<?>> createOrder(String token, OrderRequestDto request) throws ResourceNotFoundException, ServiceLogicException;
 
     ResponseEntity<ApiResponseDto<?>> getOrdersByUser(String userId) throws ResourceNotFoundException, ServiceLogicException;
 

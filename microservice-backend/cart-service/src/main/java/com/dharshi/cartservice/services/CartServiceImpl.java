@@ -148,6 +148,7 @@ public class CartServiceImpl implements CartService {
             return ResponseEntity.ok(
                     ApiResponseDto.builder()
                             .isSuccess(true)
+                            .message("Cart received successfully!")
                             .response(cartResponse)
                             .build()
             );

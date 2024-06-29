@@ -37,33 +37,40 @@ public class OrderServiceImpl implements OrderService {
     private UserService userService;
 
 
-    public ResponseEntity<ApiResponseDto<?>> createOrder(OrderRequestDto request) throws ResourceNotFoundException, ServiceLogicException {
+    public ResponseEntity<ApiResponseDto<?>> createOrder(String token, OrderRequestDto request) throws ResourceNotFoundException, ServiceLogicException {
 
         try {
 
-            CartDto cart = cartService.getCartById(request.getCartId()).getBody().getResponse();
+            CartDto cart = cartService.getCartById(request.getCartId(), token).getBody().getResponse();
             UserDto user = userService.getUserById(cart.getUserId()).getBody().getResponse();
 
             if (user==null || cart == null || cart.getCartItems().isEmpty()) {
                 throw new ResourceNotFoundException("No items in the cart!");
             }
+//
+//            Order order = orderRequestDtoToOrder(request, cart);
+//            order = orderRepository.insert(order);
+//            try {
+//                if (order.getId() != null && clearCart(cart, token) && sendConfirmationEmail(user, order)) {
+//                    return ResponseEntity.ok(
+//                            ApiResponseDto.builder()
+//                                    .isSuccess(true)
+//                                    .message("Order has been successfully placed!")
+//                                    .build()
+//                    );
+//                }
+//                throw new ServiceLogicException("Unable to proceed order!");
+//            }catch (Exception e) {
+//                orderRepository.deleteById(order.getId());
+//                throw new ServiceLogicException(e.getMessage());
+//            }
 
-            Order order = orderRequestDtoToOrder(request, cart);
-            order = orderRepository.insert(order);
-            try {
-                if (order.getId() != null && clearCart(cart) && sendConfirmationEmail(user, order)) {
-                    return ResponseEntity.ok(
+            return ResponseEntity.ok(
                             ApiResponseDto.builder()
                                     .isSuccess(true)
-                                    .message("Order has been successfully placed!")
+                                    .response(cart)
                                     .build()
                     );
-                }
-                throw new ServiceLogicException("Unable to proceed order!");
-            }catch (Exception e) {
-                orderRepository.deleteById(order.getId());
-                throw new ServiceLogicException(e.getMessage());
-            }
 
 
         }catch (ResourceNotFoundException e) {
@@ -129,8 +136,8 @@ public class OrderServiceImpl implements OrderService {
         throw new ResourceNotFoundException("Order not found with id " + orderId);
     }
 
-    private boolean clearCart(CartDto cart) {
-        return Objects.requireNonNull(cartService.clearCartById(cart.getCartId()).getBody()).isSuccess();
+    private boolean clearCart(CartDto cart, String token) {
+        return Objects.requireNonNull(cartService.clearCartById(cart.getCartId(), token).getBody()).isSuccess();
     }
 
     private boolean sendConfirmationEmail(UserDto user, Order order) {

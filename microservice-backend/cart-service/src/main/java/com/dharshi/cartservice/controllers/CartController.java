@@ -40,11 +40,13 @@ public class CartController {
     }
 
     @GetMapping("/get/byId")
+    @PreAuthorize("hasRole('ROLE_USER')")
     ResponseEntity<ApiResponseDto<?>> getCartById(@RequestParam String id) throws ServiceLogicException {
         return cartService.getCartById(id);
     }
 
     @DeleteMapping("/clear/byId")
+    @PreAuthorize("hasRole('ROLE_USER')")
     ResponseEntity<ApiResponseDto<?>> clearCartById(@RequestParam String id) throws ResourceNotFoundException, ServiceLogicException {
         return cartService.clearCartById(id);
     }
