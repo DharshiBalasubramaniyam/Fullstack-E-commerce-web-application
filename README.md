@@ -118,6 +118,61 @@ The <a href="./microservice-backend/notification-service">Notification Service</
 
 OpenFeign, a declarative HTTP client library for Java is used to simplify the process of making HTTP requests to other microservices.
 
+# HOW TO RUN?
+
+## 📍Step 1: Fork and Clone the Repository
+
+1. Fork the repository to your GitHub account.
+
+2. Clone the forked repository to your local machine.
+
+```sh
+git clone https://github.com/<your-username>/Fullstack-E-commerce-web-application
+```
+
+## 📍Step 2: Setting up databases.
+
+Create the following databases in MongoDB:
+
+- `purely_auth_service`
+- `purely_category_service`
+- `purely_product_service`
+- `purely_cart_service`
+- `purely_order_service`
+
+You can find sample data for products and categories to get started [here](./sample%20data/).
+
+## 📍Step 3: Setting up e-mail configurations
+
+In the `notification-service`, configure the following credentials in the [`application.properties`](./microservice-backend/notification-service/src/main/resources/application.properties) file to enable email sending functionality:
+
+```properties
+spring.mail.username=YOUR_USERNAME
+spring.mail.password=YOUR_PASSWORD
+```
+
+Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with your actual email service credentials.
+
+## 📍Step 4: Run the microservices.
+
+1. First run [`service-registry`](./microservice-backend/service-registry/). Access the Eureka dashboard at [`http://localhost:8761`](http://localhost:8761).
+
+2. Run the other services. Make sure all the services are up and running in the (Eureka Dashboard)[http://localhost:8761].
+
+<img width="960" alt="Screenshot 2025-01-01 182328" src="https://github.com/user-attachments/assets/edfd6abf-f808-4f03-a96a-2e950a69b958" />
+
+## 📍Step 5: Run the frontend
+
+1. Navigate to [frontend direcory](./frontend/).
+```
+cd ./frontend
+```
+
+2. Install dependencies.
+```
+npm install
+```
+
 # SCREENSHOTS
 
 ![Screenshot 2024-05-07 194247](https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/assets/139672976/6f0ea4eb-6757-4955-b64f-18fcca1cee96)
@@ -136,58 +191,6 @@ OpenFeign, a declarative HTTP client library for Java is used to simplify the pr
 
 ![Screenshot 2024-05-08 154953](https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/assets/139672976/9aa8da4c-5dca-4f33-b403-bfabf8601033)
 
-# HOW TO RUN?
-
-## Step 1: Fork and Clone the Repository
-
-1. Fork the repository to your GitHub account.
-
-2. Clone the forked repository to your local machine.
-
-```sh
-git clone https://github.com/<your-username>/Fullstack-E-commerce-web-application
-```
-
-## Step 2: Setting up databases.
-
-Create the following databases in MongoDB:
-
-- `purely_auth_service`
-- `purely_category_service`
-- `purely_product_service`
-- `purely_cart_service`
-- `purely_order_service`
-
-You can find sample data for products and categories to get started [here](./sample%20data/).
-
-## Step 3: Setting up e-mail configurations
-
-In the `notification-service`, configure the following credentials in the [`application.properties`](./microservice-backend/notification-service/src/main/resources/application.properties) file to enable email sending functionality:
-
-```properties
-spring.mail.username=YOUR_USERNAME
-spring.mail.password=YOUR_PASSWORD
-```
-
-Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with your actual email service credentials.
-
-## Step 4: Run the microservices.
-
-1. First run [`service-registry`](./microservice-backend/service-registry/). Access the Eureka dashboard at [`http://localhost:8761`](http://localhost:8761).
-
-2. Run the other services. Make sure all the services are up and running in the (Eureka Dashboard)[http://localhost:8761].
-
-## Step 5: Run the frontend
-
-1. Navigate to [frontend direcory](./frontend/).
-```
-cd ./frontend
-```
-
-2. Install dependencies.
-```
-npm install
-```
 
 3. Run the app.
 ```
