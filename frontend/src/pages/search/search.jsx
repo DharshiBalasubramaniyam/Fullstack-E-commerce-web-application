@@ -62,7 +62,7 @@ function ProductsWrapper({ products }) {
                         products.map((product) => {
                             return (
                                 <div className='box' key={product.id}>
-                                    <img src={`../../../public/products/${product.imageUrl}`} className="image" alt='product'></img>
+                                    <img src={`${product.imageUrl}`} className="image" alt='product'></img>
                                     <div className='price' aria-label='image'>Rs. {product.price}</div>
                                     <div className='text-part'>
                                         <div className='name'>{product.productName}</div>

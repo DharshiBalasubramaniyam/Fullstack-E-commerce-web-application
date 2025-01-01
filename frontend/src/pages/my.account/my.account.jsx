@@ -58,7 +58,7 @@ function OrderList({ orders }) {
                                                 order.orderItems.map((item) => {
                                                     return (
                                                         <div key={item.productId}>
-                                                            <img src={`../../../public/products/${item.imageUrl}`} />
+                                                            <img src={`${item.imageUrl}`} />
                                                             <div>
                                                                 <div>{item.productName}</div>
                                                                 <div>Rs. {item.price} x {item.quantity}</div>

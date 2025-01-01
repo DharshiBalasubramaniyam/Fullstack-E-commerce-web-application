@@ -27,7 +27,7 @@ function Categories() {
                 categories.map((category) => {
                     return (
                         <div class="banner" key={category.id}>
-                            <img src={`../../public/categories/${category.imageUrl}`} alt="" />
+                            <img src={`../../categories/${category.imageUrl}`} alt="" />
                             <div class="b-content">
                                 <h3>{category.categoryName}</h3>
                                 <p>{category.description}</p>
