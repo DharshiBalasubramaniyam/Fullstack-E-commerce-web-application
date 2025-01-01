@@ -10,10 +10,6 @@ function MyAccount() {
     const { user, toggleUser } = useContext(AuthContext)
     const { isLoading, userOrders, getOrdersByUser } = OrderService()
 
-    useEffect(() => {
-        getOrdersByUser()
-    }, [])
-
     return (
         <>
             <Header />

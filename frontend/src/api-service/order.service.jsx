@@ -45,11 +45,12 @@ function OrderService() {
             console.log(error)
             setUserOrders([])
         });
-
         setLoading(false)
-
     };
 
+    useEffect(() => {
+        getOrdersByUser()
+    }, [])
 
     return { isLoading, orderError, userOrders, getOrdersByUser, placeOrder };
 

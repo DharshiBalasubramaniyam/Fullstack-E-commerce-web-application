@@ -18,16 +18,16 @@ const RegistrationSuccessful = lazy(() => import('../pages/auth/register/registr
 
 function AppRoutes() {
 
-    const { user } = useContext(AuthContext);
-
     const ProtectedRoute = ({ isAllowed, redirectPath = '/unauthorized', children }) => {
         if (!isAllowed) {
             return <Navigate to={redirectPath} replace />;
         }
-
         return children ? children : <Outlet />
     }
 
+    const getUser = () => {
+        return JSON.parse(localStorage.getItem("user"));
+    }
 
     return (
         <Suspense fallback={<Loading />}>
@@ -39,19 +39,17 @@ function AppRoutes() {
                 <Route path="/unauthorized" element={<Unauthorized />} />
                 <Route path="/auth/login" element={<Login />} />
 
-                <Route element={<ProtectedRoute isAllowed={!user?.token} />}>
+                <Route element={<ProtectedRoute isAllowed={!getUser()?.token} />}>
                     <Route path="/auth/register" element={<Register />} />
                     <Route path="/auth/userRegistrationVerfication/:email" element={<RegistrationVerfication />} />
                     <Route path="/auth/success-registration" element={<RegistrationSuccessful />} />
                 </Route>
 
-
-                <Route element={<ProtectedRoute isAllowed={user?.token && user?.roles.includes("ROLE_USER")} />}>
+                <Route element={<ProtectedRoute isAllowed={getUser()?.token && getUser()?.roles.includes("ROLE_USER")} />}>
                     <Route path="/order/checkout" element={<CheckoutForm />} />
                     <Route path="/order/success" element={<OrderSuccess />} />
                     <Route path="/my/account" element={<MyAccount />} />
                 </Route>
-
 
             </Routes>
         </Suspense>

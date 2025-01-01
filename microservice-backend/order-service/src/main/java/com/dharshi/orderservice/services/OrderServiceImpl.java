@@ -47,31 +47,23 @@ public class OrderServiceImpl implements OrderService {
             if (user==null || cart == null || cart.getCartItems().isEmpty()) {
                 throw new ResourceNotFoundException("No items in the cart!");
             }
-//
-//            Order order = orderRequestDtoToOrder(request, cart);
-//            order = orderRepository.insert(order);
-//            try {
-//                if (order.getId() != null && clearCart(cart, token) && sendConfirmationEmail(user, order)) {
-//                    return ResponseEntity.ok(
-//                            ApiResponseDto.builder()
-//                                    .isSuccess(true)
-//                                    .message("Order has been successfully placed!")
-//                                    .build()
-//                    );
-//                }
-//                throw new ServiceLogicException("Unable to proceed order!");
-//            }catch (Exception e) {
-//                orderRepository.deleteById(order.getId());
-//                throw new ServiceLogicException(e.getMessage());
-//            }
 
-            return ResponseEntity.ok(
+            Order order = orderRequestDtoToOrder(request, cart);
+            order = orderRepository.insert(order);
+            try {
+                if (order.getId() != null && clearCart(cart, token) && sendConfirmationEmail(user, order)) {
+                    return ResponseEntity.ok(
                             ApiResponseDto.builder()
                                     .isSuccess(true)
-                                    .response(cart)
+                                    .message("Order has been successfully placed!")
                                     .build()
                     );
-
+                }
+                throw new ServiceLogicException("Unable to proceed order!");
+            }catch (Exception e) {
+                orderRepository.deleteById(order.getId());
+                throw new ServiceLogicException(e.getMessage());
+            }
 
         }catch (ResourceNotFoundException e) {
             throw new ResourceNotFoundException(e.getMessage());
