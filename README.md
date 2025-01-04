@@ -27,7 +27,7 @@
 
 # Microservice architecture diagram
 
-![Screenshot 2024-05-19 161125](https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/assets/139672976/d41850c8-6f95-45bd-9aba-ff5d6d01f760)
+![purely_archi](https://github.com/user-attachments/assets/eb0466cf-b6a0-464b-89e6-f44ac481f536)
 
 # Project Description
 
