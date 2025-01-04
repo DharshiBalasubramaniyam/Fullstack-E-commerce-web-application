@@ -47,7 +47,7 @@
 
 ## Service Registry
 
-The Service Registry serves as a centralized repository for storing information about all the available services in the microservices architecture. 
+The <a href="./microservice-backend/service-registry">Service Registry</a> serves as a centralized repository for storing information about all the available services in the microservices architecture. 
 
 This includes details such as IP addresses, port numbers, and other metadata required for communication.
 
