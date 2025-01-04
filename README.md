@@ -190,7 +190,7 @@ cd ./frontend
 npm install
 ```
 
-# SCREENSHOTS
+# Screenshots
 
 ![Screenshot 2024-05-07 194247](https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/assets/139672976/6f0ea4eb-6757-4955-b64f-18fcca1cee96)
 
