@@ -33,19 +33,17 @@
 
 ## Features
 
-- Developed an e-commerce web application, a platform dedicated to health and wellness products using <a href="https://medium.com/javarevisited/getting-started-with-microservices-4266f440086f">Microservice architecture pattern</a>.
+- This is an e-commerce web application, a platform dedicated to health and wellness products using <a href="https://medium.com/javarevisited/getting-started-with-microservices-4266f440086f">Microservice architecture pattern</a>.
   
-- Implemented secure authentication and authorization functionalities using Spring Security and JWT. Integrated email verification during sign-up.
+- Secure authentication and authorization functionalities using Spring Security and JWT. Integrated email verification during sign-up.
   
-- Designed an intuitive interface allowing users to easily search and browse products, manage shopping carts, update quantities, and proceed through checkout.
+- Comprehensive product and category data management, including adding, editing, viewing, and searching.
+  
+- Intuitive interface allowing users to easily search and browse products, manage shopping carts, update quantities, and proceed through checkout.
   
 - Enabled users to view order history and status, coupled with automated order confirmation emails.
   
 - Offered users to pay upon delivery.
-  
-- Implemented backend admin functionalities for operations on users, categories, products and orders. Front end admin work is currently in progress.
-
-- Backend is decomposed into several small microservices. All of them are independently deployable applications.
 
 ## Service Registry
 
