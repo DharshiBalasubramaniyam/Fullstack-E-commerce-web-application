@@ -137,7 +137,7 @@ OpenFeign, a declarative HTTP client library for Java is used to simplify the pr
 
 # How to run?
 
-## Step 1: Fork and Clone the Repository
+## 📍Step 1: Fork and Clone the Repository
 
 1. Fork the repository to your GitHub account.
 
@@ -147,7 +147,7 @@ OpenFeign, a declarative HTTP client library for Java is used to simplify the pr
 git clone https://github.com/<your-username>/Fullstack-E-commerce-web-application
 ```
 
-## Step 2: Setting up databases.
+## 📍Step 2: Setting up databases.
 
 Create the following databases in MongoDB:
 
@@ -159,7 +159,7 @@ Create the following databases in MongoDB:
 
 You can find sample data for products and categories to get started [here](./sample%20data/).
 
-## Step 3: Setting up e-mail configurations
+## 📍Step 3: Setting up e-mail configurations
 
 In the `notification-service`, configure the following credentials in the [`application.properties`](./microservice-backend/notification-service/src/main/resources/application.properties) file to enable email sending functionality:
 
@@ -170,13 +170,15 @@ spring.mail.password=YOUR_PASSWORD
 
 Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with your actual email service credentials.
 
-## Step 4: Run the microservices.
+## 📍Step 4: Run the microservices.
 
 1. First run [`service-registry`](./microservice-backend/service-registry/). Access the Eureka dashboard at [`http://localhost:8761`](http://localhost:8761).
 
-2. Run the other services. Make sure all the services are up and running in the (Eureka Dashboard)[http://localhost:8761].
+2. Run the other services. Make sure all the services are up and running in the [Eureka Dashboard](http://localhost:8761).
 
-## Step 5: Run the frontend
+<img width="960" alt="Screenshot 2025-01-01 182328" src="https://github.com/user-attachments/assets/edfd6abf-f808-4f03-a96a-2e950a69b958" />
+
+## 📍Step 5: Run the frontend
 
 1. Navigate to [frontend direcory](./frontend/).
 ```
@@ -187,6 +189,25 @@ cd ./frontend
 ```
 npm install
 ```
+
+# SCREENSHOTS
+
+![Screenshot 2024-05-07 194247](https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/assets/139672976/6f0ea4eb-6757-4955-b64f-18fcca1cee96)
+
+![Screenshot 2024-05-07 194417](https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/assets/139672976/92dbbf00-5606-4530-982a-6cbd1748ee40)
+
+![Screenshot 2024-05-07 195308](https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/assets/139672976/affced2c-3ee5-46d6-96f2-399591b37995)
+
+![Screenshot 2024-05-07 195844](https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/assets/139672976/9c1fe058-5747-4a76-afdd-1ceba0ff6c6f)
+
+![Screenshot 2024-05-07 200130](https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/assets/139672976/9e4a1d3b-40e8-406e-8f19-081268fa6a68)
+
+![Screenshot 2024-05-07 200627](https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/assets/139672976/37336de9-0410-4321-b887-4012bd794535)
+
+![Screenshot 2024-05-07 200748](https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/assets/139672976/f4829f29-3d45-4d02-a248-4821c8630246)
+
+![Screenshot 2024-05-08 154953](https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/assets/139672976/9aa8da4c-5dca-4f33-b403-bfabf8601033)
+
 
 3. Run the app.
 ```
