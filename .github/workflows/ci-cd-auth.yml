@@ -1,0 +1,29 @@
+name: CI/CD Pipeline
+
+on: 
+   push:
+      branches:
+         - docker
+      paths:
+         - './microservice-backend/auth-service/**'
+
+jobs:
+   containerize-auth-service:
+      runs-on: ubuntu-latest
+
+      steps:
+         - name: Checkout code  
+           uses: actions/checkout@v4
+
+         - name: Set up Java
+           uses: actions/setup-java@v3
+           with:
+               java-version: '17'
+               distribution: 'temurin'
+
+         - name: build and push the docker image to dockerhub
+           run: |
+               docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+               docker build -t ${{ secrets.DOCKER_USERNAME }}/purely-auth-service:latest ./microservice-backend/auth-service
+               docker push ${{ secrets.DOCKER_USERNAME }}/purely-auth-service:latest
