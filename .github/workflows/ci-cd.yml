@@ -20,6 +20,6 @@ jobs:
 
          - name: Build and push all images
            run: |
-               docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-               docker-compose build
-               docker-compose push
+               echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+               docker compose build
+               docker compose push
