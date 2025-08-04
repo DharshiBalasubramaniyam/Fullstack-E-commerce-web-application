@@ -6,7 +6,7 @@ networks:
     driver: bridge
 
 services:
-  purely-web-app:
+  web-app:
     container_name: purely-web-app
     image: dharshib/purely-web-app:latest
     build:
@@ -15,7 +15,7 @@ services:
     networks:
       - default
     ports:
-      - "5173:80"
+      - "5173:5173"
 
   service-registry:
     container_name: purely-service-registry
@@ -26,7 +26,7 @@ services:
     networks:
       - default
     ports:
-      - "8176:8176"
+      - "8761:8761"
 
   category-service:
     container_name: purely-category-service
@@ -40,6 +40,8 @@ services:
       - "9000:9000"
     depends_on:
       - service-registry
+    environment:
+      - SPRING_DATA_MONGODB_URI=
 
   notification-service:
     container_name: purely-notification-service
@@ -66,6 +68,8 @@ services:
       - "9010:9010"
     depends_on:
       - category-service
+    environment:
+      - SPRING_DATA_MONGODB_URI=
 
   auth-service:
     container_name: purely-auth-service
@@ -79,6 +83,8 @@ services:
       - "9030:9030"
     depends_on:
       - notification-service
+    environment:
+      - SPRING_DATA_MONGODB_URI=
   
   user-service:
     container_name: purely-user-service
@@ -92,6 +98,8 @@ services:
       - "9050:9050"
     depends_on:
       - auth-service
+    environment:
+      - SPRING_DATA_MONGODB_URI=
 
   cart-service:
     container_name: purely-cart-service
@@ -106,6 +114,8 @@ services:
     depends_on:
       - product-service
       - user-service
+    environment:
+      - SPRING_DATA_MONGODB_URI=
 
   order-service:
     container_name: purely-order-service
@@ -119,6 +129,8 @@ services:
       - "9070:9070"
     depends_on:
       - cart-service
+    environment:
+      - SPRING_DATA_MONGODB_URI=
 
   api-gateway:
     container_name: purely-api-gateway
