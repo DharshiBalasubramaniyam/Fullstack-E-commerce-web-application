@@ -41,7 +41,8 @@ services:
     depends_on:
       - service-registry
     environment:
-      - SPRING_DATA_MONGODB_URI=
+      - SPRING_DATA_MONGODB_URI=mongodb+srv://demo:2001@mycluster.ndj34hk.mongodb.net/purely_categories?retryWrites=true&w=majority&appName=mycluster
+      - EUREKA.CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
 
   notification-service:
     container_name: purely-notification-service
@@ -55,6 +56,10 @@ services:
       - "9020:9020"
     depends_on:
       - service-registry
+    environment:
+      - EUREKA.CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+      - SPRING_MAIL_USERNAME=bdharshi1685@gmail.com
+      - SPRING_MAIL_PASSWORD=ecimoizrwowrmjqm
 
   product-service:
     container_name: purely-product-service
@@ -69,7 +74,8 @@ services:
     depends_on:
       - category-service
     environment:
-      - SPRING_DATA_MONGODB_URI=
+      - SPRING_DATA_MONGODB_URI=mongodb+srv://demo:2001@mycluster.ndj34hk.mongodb.net/purely_products?retryWrites=true&w=majority&appName=mycluster
+      - EUREKA.CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
 
   auth-service:
     container_name: purely-auth-service
@@ -84,7 +90,9 @@ services:
     depends_on:
       - notification-service
     environment:
-      - SPRING_DATA_MONGODB_URI=
+      - SPRING_DATA_MONGODB_URI=mongodb+srv://demo:2001@mycluster.ndj34hk.mongodb.net/purely_users?retryWrites=true&w=majority&appName=mycluster
+      - EUREKA.CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+      - APP_JWTSECRET=|+++++++++++++++++spring+boot+reactjs+purely+++++++++++++++++++|
   
   user-service:
     container_name: purely-user-service
@@ -99,7 +107,8 @@ services:
     depends_on:
       - auth-service
     environment:
-      - SPRING_DATA_MONGODB_URI=
+      - SPRING_DATA_MONGODB_URI=mongodb+srv://demo:2001@mycluster.ndj34hk.mongodb.net/purely_users?retryWrites=true&w=majority&appName=mycluster
+      - EUREKA.CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
 
   cart-service:
     container_name: purely-cart-service
@@ -115,7 +124,8 @@ services:
       - product-service
       - user-service
     environment:
-      - SPRING_DATA_MONGODB_URI=
+      - SPRING_DATA_MONGODB_URI=mongodb+srv://demo:2001@mycluster.ndj34hk.mongodb.net/purely_carts?retryWrites=true&w=majority&appName=mycluster
+      - EUREKA.CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
 
   order-service:
     container_name: purely-order-service
@@ -130,7 +140,8 @@ services:
     depends_on:
       - cart-service
     environment:
-      - SPRING_DATA_MONGODB_URI=
+      - SPRING_DATA_MONGODB_URI=mongodb+srv://demo:2001@mycluster.ndj34hk.mongodb.net/purely_orders?retryWrites=true&w=majority&appName=mycluster
+      - EUREKA.CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
 
   api-gateway:
     container_name: purely-api-gateway
@@ -151,3 +162,5 @@ services:
       - user-service
       - cart-service
       - order-service
+    environment:
+      - EUREKA.CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
