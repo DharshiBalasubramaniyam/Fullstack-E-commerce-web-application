@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import API_BASE_URL from "./apiConfig";
 import axios from 'axios';
 
@@ -9,7 +9,7 @@ function CartService() {
     const user = JSON.parse(localStorage.getItem("user"));
 
     const authHeader = () => {
-        return { Authorization: `${user?.type}}${user?.token}` };
+        return { Authorization: `${user?.type}${user?.token}` };
     }
 
     const addItemToCart = async (productId, quantity) => {
@@ -64,7 +64,7 @@ function CartService() {
     }
 
     const getCartInformation = async () => {
-        if (!user.token) {
+        if (!user?.token) {
             setCart({})
             setError(false)
             return
@@ -83,6 +83,10 @@ function CartService() {
             })
         setProcessing(false)
     }
+
+     useEffect(() => {
+        getCartInformation()
+     }, [])
 
     return { cart, cartError, isProcessingCart, addItemToCart, updateItemQuantity, removeItemFromCart, getCartInformation };
 

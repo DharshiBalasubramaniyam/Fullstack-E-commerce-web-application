@@ -1,4 +1,4 @@
-import { Suspense, lazy, useContext } from 'react';
+import { Suspense, lazy, useContext, useMemo } from 'react';
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import Loading from "../components/loading/loading";
 import Products from '../pages/products/products.jsx';
@@ -18,44 +18,60 @@ const RegistrationSuccessful = lazy(() => import('../pages/auth/register/registr
 
 function AppRoutes() {
 
-    const { user } = useContext(AuthContext);
-
-    const ProtectedRoute = ({ isAllowed, redirectPath = '/unauthorized', children }) => {
-        if (!isAllowed) {
-            return <Navigate to={redirectPath} replace />;
-        }
-
-        return children ? children : <Outlet />
+  const ProtectedRoute = ({ isAllowed, children }) => {
+    if (!isAllowed) {
+      return <Navigate to={`/unauthorized`} replace />;
     }
+    return children;
+  };
 
+  const { user } = useContext(AuthContext);
 
-    return (
-        <Suspense fallback={<Loading />}>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/products/:category" element={<Products />} />
-                <Route path="/search/:search" element={<Search />} />
-                <Route path="*" element={<NotFound />} />
-                <Route path="/unauthorized" element={<Unauthorized />} />
-                <Route path="/auth/login" element={<Login />} />
+  return (
+    <Suspense fallback={<Loading />}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/products/:category" element={<Products />} />
+        <Route path="/search/:search" element={<Search />} />
+        <Route path="*" element={<NotFound />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="/auth/login" element={<Login />} />
+        <Route path="/auth/register" element={<Register />} />
+        <Route path="/auth/userRegistrationVerfication/:email" element={<RegistrationVerfication />} />
+        <Route path="/auth/success-registration" element={<RegistrationSuccessful />} />
+        <Route
+          path="/my/account"
+          element={useMemo(
+            () => (
+              <ProtectedRoute isAllowed={user?.token && user?.roles.includes("ROLE_USER")} >
+                <MyAccount />
+              </ProtectedRoute>
+            ),
+            []
+          )}
+        />
+        <Route path="/order/checkout" element={useMemo(
+          () => (
+            <ProtectedRoute isAllowed={user?.token && user?.roles.includes("ROLE_USER")} >
+              <CheckoutForm />
+            </ProtectedRoute>
+          ),
+          []
+        )}
+        />
 
-                <Route element={<ProtectedRoute isAllowed={!user?.token} />}>
-                    <Route path="/auth/register" element={<Register />} />
-                    <Route path="/auth/userRegistrationVerfication/:email" element={<RegistrationVerfication />} />
-                    <Route path="/auth/success-registration" element={<RegistrationSuccessful />} />
-                </Route>
-
-
-                <Route element={<ProtectedRoute isAllowed={user?.token && user?.roles.includes("ROLE_USER")} />}>
-                    <Route path="/order/checkout" element={<CheckoutForm />} />
-                    <Route path="/order/success" element={<OrderSuccess />} />
-                    <Route path="/my/account" element={<MyAccount />} />
-                </Route>
-
-
-            </Routes>
-        </Suspense>
-    )
+        <Route path="/order/success" element={useMemo(
+          () => (
+            <ProtectedRoute isAllowed={user?.token && user?.roles.includes("ROLE_USER")} >
+              <OrderSuccess />
+            </ProtectedRoute>
+          ),
+          []
+        )}
+        />
+      </Routes>
+    </Suspense>
+  )
 }
 
 export default AppRoutes;

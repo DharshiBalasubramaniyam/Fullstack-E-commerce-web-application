@@ -11,12 +11,8 @@ import { useNavigate } from "react-router-dom";
 function Cart({ isCartOpen, onClose }) {
 
     const { cart, cartError, isProcessingCart, addItemToCart, removeItemFromCart, getCartInformation } = useContext(CartContext)
-    const {user, toggleUser} = useContext(AuthContext);
+    const {user} = useContext(AuthContext);
     const navigate = useNavigate()
-
-    useEffect(() => {
-        // getCartInformation()
-    }, [user])
 
     const onProductRemove = (id) => {
         removeItemFromCart(id)
@@ -44,7 +40,7 @@ function Cart({ isCartOpen, onClose }) {
                             <div className="cart-products">
                                 {cart.cartItems && cart?.cartItems.map((cartItem) => (
                                     <div className="cart-product" key={cartItem.productId}>
-                                        <img src={`../../../public/products/${cartItem.imageUrl}`} alt={cartItem.productName} />
+                                        <img src={`${cartItem.imageUrl}`} alt={cartItem.productName} />
                                         <div className="product-info">
                                             <h4>
                                                 {cartItem.productName}

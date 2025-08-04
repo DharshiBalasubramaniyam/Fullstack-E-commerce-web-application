@@ -50,6 +50,10 @@ function OrderService() {
 
     };
 
+     useEffect(() => {
+        getOrdersByUser()
+     }, [])
+
 
     return { isLoading, orderError, userOrders, getOrdersByUser, placeOrder };
 

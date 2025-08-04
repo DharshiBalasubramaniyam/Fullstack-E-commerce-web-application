@@ -13,10 +13,6 @@ const CheckoutForm = () => {
     const { isLoading, error, placeOrder } = OrderService();
     const { cart, cartError, isProcessingCart, getCartInformation } = useContext(CartContext);
 
-    useEffect(() => {
-        getCartInformation()
-    }, [])
-
     const onSubmit = async (data) => {
 
         placeOrder(data, cart.cartId)

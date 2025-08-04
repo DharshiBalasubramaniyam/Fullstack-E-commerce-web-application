@@ -159,17 +159,12 @@ public class AuthServiceImpl implements AuthService {
         try {
             if (jwtUtils.validateJwtToken(token)) {
                 String username = jwtUtils.getUserNameFromJwtToken(token);
-
                 UserDetailsImpl userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(username);
                 List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
-
                 UserAuthorityDto userAuthorityDto = UserAuthorityDto.builder()
                         .userId(userDetails.getId())
                         .authorities(roles)
                         .build();
-
-                System.out.println(userAuthorityDto);
-
                 return ResponseEntity.ok(
                         ApiResponseDto.builder()
                                 .isSuccess(true)

@@ -7,13 +7,9 @@ import OrderService from "../../api-service/order.service";
 import Loading from "../../components/loading/loading";
 import Info from "../../components/info/info";
 function MyAccount() {
-    const { user, toggleUser } = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
     const { isLoading, userOrders, getOrdersByUser } = OrderService()
-
-    useEffect(() => {
-        getOrdersByUser()
-    }, [])
-
+	
     return (
         <>
             <Header />
@@ -29,7 +25,6 @@ export default MyAccount;
 
 
 function ProfileCard({ user }) {
-
 
     return (
         <section className="profile-card">
@@ -62,7 +57,7 @@ function OrderList({ orders }) {
                                                 order.orderItems.map((item) => {
                                                     return (
                                                         <div key={item.productId}>
-                                                            <img src={`../../../public/products/${item.imageUrl}`} />
+                                                            <img src={`${item.imageUrl}`} />
                                                             <div>
                                                                 <div>{item.productName}</div>
                                                                 <div>Rs. {item.price} x {item.quantity}</div>

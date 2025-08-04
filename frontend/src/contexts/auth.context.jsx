@@ -6,9 +6,11 @@ export const useAuth = () => {
     const [user, setUser] = useState()
 
     const toggleUser = () => {
-        const user = JSON.parse(localStorage.getItem("user"))
-        setUser(user)
-    }
+  	const newUser = JSON.parse(localStorage.getItem("user"));
+	if (JSON.stringify(user) != JSON.stringify(newUser)) {
+		setUser(newUser)
+	}
+   };
 
     useEffect(() => {
         toggleUser()
