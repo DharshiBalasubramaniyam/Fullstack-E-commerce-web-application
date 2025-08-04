@@ -3,9 +3,7 @@ spring:
         name: cart-service
     data:
         mongodb:
-            host: 127.0.0.1
-            port: 27017
-            database: purely_cart_service
+            uri: mongodb+srv://demo:2001@mycluster.ndj34hk.mongodb.net/purely_carts?retryWrites=true&w=majority&appName=mycluster
     jpa:
         hibernate:
             ddl-auto: update
