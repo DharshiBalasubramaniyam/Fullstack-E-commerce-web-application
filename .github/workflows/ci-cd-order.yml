@@ -5,7 +5,7 @@ on:
       branches:
          - docker
       paths:
-         - './microservice-backend/order-service/**'
+         - 'microservice-backend/order-service/**'
 
 jobs:
    containerize-order-service:

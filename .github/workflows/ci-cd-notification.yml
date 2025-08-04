@@ -5,7 +5,7 @@ on:
       branches:
          - docker
       paths:
-         - './microservice-backend/notification-service/**'
+         - 'microservice-backend/notification-service/**'
 
 jobs:
    containerize-notification-service:

@@ -5,7 +5,7 @@ on:
       branches:
          - docker
       paths:
-         - './microservice-backend/api-gateway/**'
+         - 'microservice-backend/api-gateway/**'
 
 jobs:
    containerize-api-gateway:

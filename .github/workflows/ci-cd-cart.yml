@@ -5,7 +5,7 @@ on:
       branches:
          - docker
       paths:
-         - './microservice-backend/cart-service/**'
+         - 'microservice-backend/cart-service/**'
 
 jobs:
    containerize-cart-service:

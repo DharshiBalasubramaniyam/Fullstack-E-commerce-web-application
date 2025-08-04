@@ -5,7 +5,7 @@ on:
       branches:
          - docker
       paths:
-         - './microservice-backend/category-service/**'
+         - 'microservice-backend/category-service/**'
 
 jobs:
    containerize-category-service:

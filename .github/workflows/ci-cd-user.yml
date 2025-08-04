@@ -5,7 +5,7 @@ on:
       branches:
          - docker
       paths:
-         - './microservice-backend/user-service/**'
+         - 'microservice-backend/user-service/**'
 
 jobs:
    containerize-user-service:
