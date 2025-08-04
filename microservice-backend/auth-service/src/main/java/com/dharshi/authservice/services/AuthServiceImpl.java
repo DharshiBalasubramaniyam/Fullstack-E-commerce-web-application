@@ -8,7 +8,6 @@ import com.dharshi.authservice.modals.Role;
 import com.dharshi.authservice.modals.User;
 import com.dharshi.authservice.repositories.UserRepository;
 import com.dharshi.authservice.security.UserDetailsImpl;
-import com.dharshi.authservice.security.UserDetailsServiceImpl;
 import com.dharshi.authservice.security.jwt.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
