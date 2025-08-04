@@ -1,0 +1,141 @@
+version: '3.8'
+
+networks:
+  default:
+    name: purely-network
+    driver: bridge
+
+services:
+  purely-web-app:
+    container_name: purely-web-app
+    image: dharshib/purely-web-app:latest
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    networks:
+      - default
+    ports:
+      - "5173:80"
+
+  service-registry:
+    container_name: purely-service-registry
+    image: dharshib/purely-service-registry:latest
+    build:
+      context: ./microservice-backend/service-registry
+      dockerfile: Dockerfile
+    networks:
+      - default
+    ports:
+      - "8176:8176"
+
+  category-service:
+    container_name: purely-category-service
+    image: dharshib/purely-category-service:latest
+    build:
+      context: ./microservice-backend/category-service
+      dockerfile: Dockerfile
+    networks:
+      - default
+    ports:
+      - "9000:9000"
+    depends_on:
+      - service-registry
+
+  notification-service:
+    container_name: purely-notification-service
+    image: dharshib/purely-notification-service:latest
+    build:
+      context: ./microservice-backend/notification-service
+      dockerfile: Dockerfile
+    networks:
+      - default
+    ports:
+      - "9020:9020"
+    depends_on:
+      - service-registry
+
+  product-service:
+    container_name: purely-product-service
+    image: dharshib/purely-product-service:latest
+    build:
+      context: ./microservice-backend/product-service
+      dockerfile: Dockerfile
+    networks:
+      - default
+    ports:
+      - "9010:9010"
+    depends_on:
+      - category-service
+
+  auth-service:
+    container_name: purely-auth-service
+    image: dharshib/purely-auth-service:latest
+    build:
+      context: ./microservice-backend/auth-service
+      dockerfile: Dockerfile
+    networks:
+      - default
+    ports:
+      - "9030:9030"
+    depends_on:
+      - notification-service
+  
+  user-service:
+    container_name: purely-user-service
+    image: dharshib/purely-user-service:latest
+    build:
+      context: ./microservice-backend/user-service
+      dockerfile: Dockerfile
+    networks:
+      - default
+    ports:
+      - "9050:9050"
+    depends_on:
+      - auth-service
+
+  cart-service:
+    container_name: purely-cart-service
+    image: dharshib/purely-cart-service:latest
+    build:
+      context: ./microservice-backend/cart-service
+      dockerfile: Dockerfile
+    networks:
+      - default
+    ports:
+      - "9060:9060"
+    depends_on:
+      - product-service
+      - user-service
+
+  order-service:
+    container_name: purely-order-service
+    image: dharshib/purely-order-service:latest
+    build:
+      context: ./microservice-backend/order-service
+      dockerfile: Dockerfile
+    networks:
+      - default
+    ports:
+      - "9070:9070"
+    depends_on:
+      - cart-service
+
+  api-gateway:
+    container_name: purely-api-gateway
+    image: dharshib/purely-api-gateway:latest
+    build:
+      context: ./microservice-backend/api-gateway
+      dockerfile: Dockerfile
+    networks:
+      - default
+    ports:
+      - "8080:8080"
+    depends_on:
+      - service-registry
+      - product-service
+      - category-service
+      - notification-service
+      - auth-service
+      - user-service
+      - cart-service
+      - order-service
