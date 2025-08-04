@@ -1,4 +1,4 @@
-name: CI/CD Pipeline Category Service
+name: CI/CD Pipeline for Category Service
 
 on: 
    push:

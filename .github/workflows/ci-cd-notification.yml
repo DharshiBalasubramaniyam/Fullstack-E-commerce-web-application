@@ -1,4 +1,4 @@
-name: CI/CD Pipeline Notification Service
+name: CI/CD Pipeline for Notification Service
 
 on: 
    push:

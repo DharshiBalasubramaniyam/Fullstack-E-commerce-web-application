@@ -1,4 +1,4 @@
-name: CI/CD Pipeline User Service
+name: CI/CD Pipeline for User Service
 
 on: 
    push:

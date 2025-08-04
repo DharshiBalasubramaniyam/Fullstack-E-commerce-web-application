@@ -1,4 +1,4 @@
-name: CI/CD Pipeline Service Registry
+name: CI/CD Pipeline for Service Registry
 
 on: 
    push:

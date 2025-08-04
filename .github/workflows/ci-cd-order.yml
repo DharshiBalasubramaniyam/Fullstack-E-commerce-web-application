@@ -1,4 +1,4 @@
-name: CI/CD Pipeline Order Service
+name: CI/CD Pipeline for Order Service
 
 on: 
    push:

@@ -1,4 +1,4 @@
-name: CI/CD Pipeline Web Application
+name: CI/CD Pipeline for Web Application
 
 on: 
    push:
