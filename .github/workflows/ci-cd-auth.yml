@@ -5,7 +5,7 @@ on:
       branches:
          - docker
       paths:
-         - './microservice-backend/auth-service/**'
+         - 'microservice-backend/auth-service/**'
 
 jobs:
    containerize-auth-service:
