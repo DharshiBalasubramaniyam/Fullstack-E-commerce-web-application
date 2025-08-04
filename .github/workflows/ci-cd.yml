@@ -1,0 +1,29 @@
+name: CI/CD Pipeline
+
+on: 
+  push:
+    branches:
+      - docker
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code  
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'npm' 
+
+      - name: build and push the docker image to dockerhub
+        run: |
+          # 1. Login to DockerHub
+          docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}} 
+
+          # 2. Build and push web application Docker image
+          docker build -t ${{secrets.DOCKER_USERNAME}}/purely-web-app:latest ./frontend  
+          docker push ${{secrets.DOCKER_USERNAME}}/purely-web-app:latest
