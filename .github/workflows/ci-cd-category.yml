@@ -3,9 +3,10 @@ name: CI/CD Pipeline for Category Service
 on: 
    push:
       branches:
-         - docker
+         - helm
       paths:
          - 'microservice-backend/category-service/**'
+         - 'helm-charts/category-service/**'
 
 jobs:
    containerize-category-service:

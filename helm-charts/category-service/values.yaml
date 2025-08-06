@@ -1,0 +1,11 @@
+category:
+  label: category
+  replicas: 1
+  containerPort: 9000
+  image: dharshib/purely-category-service:latest
+  service:
+    type: ClusterIP
+    port: 9000
+
+secrets:
+  label: purely-secret

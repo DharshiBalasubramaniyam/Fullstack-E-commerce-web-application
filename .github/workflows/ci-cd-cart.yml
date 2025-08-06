@@ -3,7 +3,7 @@ name: CI/CD for Cart Service
 on: 
    push:
       branches:
-         - docker
+         - helm
       paths:
          - 'microservice-backend/cart-service/**'
 

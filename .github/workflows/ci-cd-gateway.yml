@@ -3,9 +3,10 @@ name: CI/CD Pipeline for API Gateway
 on: 
    push:
       branches:
-         - docker
+         - helm
       paths:
          - 'microservice-backend/api-gateway/**'
+         - 'helm-charts/api-gateway/**'
 
 jobs:
    containerize-api-gateway:

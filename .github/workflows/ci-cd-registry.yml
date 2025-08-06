@@ -3,9 +3,10 @@ name: CI/CD Pipeline for Service Registry
 on: 
    push:
       branches:
-         - docker
+         - helm
       paths:
          - 'microservice-backend/service-registry/**'
+         - 'helm-charts/service-registry/**'
 
 jobs:
    containerize-service-registry:

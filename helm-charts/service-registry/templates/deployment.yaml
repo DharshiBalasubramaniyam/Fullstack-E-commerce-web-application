@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ printf "%s-depl" .Values.registry.label }}  
+  labels:
+    app: {{ .Values.registry.label }}
+spec:
+  replicas: {{ .Values.registry.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.registry.label }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.registry.label }}
+    spec:
+      containers:
+        - name: {{ printf "%s-container" .Values.registry.label }}
+          image: {{ .Values.registry.image }}
+          ports:
+            - containerPort: {{ .Values.registry.containerPort }}

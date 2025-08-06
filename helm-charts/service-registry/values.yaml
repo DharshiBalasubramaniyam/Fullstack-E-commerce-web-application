@@ -1,0 +1,8 @@
+registry:
+  label: registry
+  replicas: 1
+  containerPort: 8761
+  image: dharshib/purely-service-registry:latest
+  service:
+    type: LoadBalancer
+    port: 8761

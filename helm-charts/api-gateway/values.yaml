@@ -1,0 +1,11 @@
+gateway:
+  label: gateway
+  replicas: 1
+  containerPort: 8080
+  image: dharshib/purely-api-gateway:latest
+  service:
+    type: ClusterIP
+    port: 8080
+
+secrets:
+  label: purely-secret
