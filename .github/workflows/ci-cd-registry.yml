@@ -9,7 +9,7 @@ on:
          - 'helm-charts/service-registry/**'
 
 jobs:
-   containerize-service-registry:
+   build-and-deploy:
       runs-on: ubuntu-latest
 
       steps:
@@ -21,10 +21,37 @@ jobs:
            with:
                java-version: '17'
                distribution: 'temurin'
+         
+         - name: Configure AWS Credentials
+           uses: aws-actions/configure-aws-credentials@v1
+           with:
+               aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+               aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+               aws-region: ${{ secrets.AWS_REGION }}
 
-         - name: build and push the docker image to dockerhub
+         - name: Login to Amazon ECR
+           id: login-ecr
+           uses: aws-actions/amazon-ecr-login@v2
+      
+         - name: Build, tag, and push image to Amazon ECR
+           id: build-image
+           env:
+              ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+              IMAGE_TAG: ${{ github.sha }}
            run: |
-               docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+              docker build -t $ECR_REGISTRY/${{ secrets.ECR_REGISTRY_REPOSITORY }}:$IMAGE_TAG microservice-backend/service-registry
+              docker push $ECR_REGISTRY/${{ secrets.ECR_REGISTRY_REPOSITORY }}:$IMAGE_TAG
 
-               docker build -t ${{ secrets.DOCKER_USERNAME }}/purely-service-registry:latest ./microservice-backend/service-registry
-               docker push ${{ secrets.DOCKER_USERNAME }}/purely-service-registry:latest
+         - name: Update Kubeconfig
+           run: aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER }} --region ${{ secrets.AWS_REGION }}
+
+         - name: Install Helm
+           uses: azure/setup-helm@v1
+           with:
+              version: v3.12.0
+
+         - name: Deploy Helm Chart
+           env:
+              ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+              IMAGE_TAG: ${{ github.sha }}
+           run: helm upgrade --install helm-charts/service-registry --set registry.image=$ECR_REGISTRY/${{ secrets.ECR_REGISTRY_REPOSITORY }}:$IMAGE_TAG 
