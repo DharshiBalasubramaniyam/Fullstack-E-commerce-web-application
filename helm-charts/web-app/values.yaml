@@ -1,0 +1,9 @@
+registry:
+  label: web-app
+  replicas: 1
+  containerPort: 80
+  image: default
+  service:
+    type: LoadBalancer
+    port: 80
+    
