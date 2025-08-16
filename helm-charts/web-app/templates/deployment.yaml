@@ -19,3 +19,4 @@ spec:
           image: {{ .Values.web.image }}
           ports:
             - containerPort: {{ .Values.web.containerPort }}
+            
