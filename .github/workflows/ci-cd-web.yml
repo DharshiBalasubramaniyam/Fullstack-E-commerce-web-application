@@ -39,7 +39,7 @@ jobs:
               ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
               IMAGE_TAG: ${{ github.sha }}
            run: |
-              docker build -t $ECR_REGISTRY/${{ secrets.ECR_WEB_REPOSITORY }}:$IMAGE_TAG microservice-backend/api-gateway
+              docker build -t $ECR_REGISTRY/${{ secrets.ECR_WEB_REPOSITORY }}:$IMAGE_TAG frontend/
               docker push $ECR_REGISTRY/${{ secrets.ECR_WEB_REPOSITORY }}:$IMAGE_TAG
 
          - name: Update Kubeconfig
@@ -54,5 +54,5 @@ jobs:
            env:
               ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
               IMAGE_TAG: ${{ github.sha }}
-           run: helm upgrade --install api-gateway helm-charts/api-gateway --set gateway.image=$ECR_REGISTRY/${{ secrets.ECR_WEB_REPOSITORY }}:$IMAGE_TAG
+           run: helm upgrade --install web-app helm-charts/web-app --set web.image=$ECR_REGISTRY/${{ secrets.ECR_WEB_REPOSITORY }}:$IMAGE_TAG
            

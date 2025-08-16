@@ -1,4 +1,4 @@
-registry:
+web:
   label: web-app
   replicas: 1
   containerPort: 80
