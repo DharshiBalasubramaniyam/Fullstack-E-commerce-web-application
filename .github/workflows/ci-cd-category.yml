@@ -40,7 +40,7 @@ jobs:
               ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
               IMAGE_TAG: ${{ github.sha }}
            run: |
-              docker build -t $ECR_REGISTRY/${{ secrets.ECR_CATEGORY_REPOSITORY }}:$IMAGE_TAG microservice-backend/service-registry
+              docker build -t $ECR_REGISTRY/${{ secrets.ECR_CATEGORY_REPOSITORY }}:$IMAGE_TAG microservice-backend/category-service
               docker push $ECR_REGISTRY/${{ secrets.ECR_CATEGORY_REPOSITORY }}:$IMAGE_TAG
 
          - name: Update Kubeconfig
@@ -56,4 +56,3 @@ jobs:
               ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
               IMAGE_TAG: ${{ github.sha }}
            run: helm upgrade --install category-service helm-charts/category-service --set category.image=$ECR_REGISTRY/${{ secrets.ECR_CATEGORY_REPOSITORY }}:$IMAGE_TAG --set secret.EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=${{ secrets.EUREKA_CLIENT_SERVICEURL_DEFAULTZONE }} --set secret.SPRING_DATA_MONGODB_URI_CATEGORY=${{ secrets.SPRING_DATA_MONGODB_URI_CATEGORY }}
-           
