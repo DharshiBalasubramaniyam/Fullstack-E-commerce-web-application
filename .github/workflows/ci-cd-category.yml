@@ -10,7 +10,7 @@ on:
          - '.github/workflows/ci-cd-category.yml'
 
 jobs:
-   containerize-category-service:
+   build-and-deploy:
       runs-on: ubuntu-latest
 
       steps:
@@ -55,7 +55,7 @@ jobs:
            env:
               ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
               IMAGE_TAG: ${{ github.sha }}
-           run: helm upgrade --install service-registry helm-charts/service-registry \
+           run: helm upgrade --install category-service helm-charts/category-service \
                --set category.image=$ECR_REGISTRY/${{ secrets.ECR_CATEGORY_REPOSITORY }}:$IMAGE_TAG \
                --set secret.EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=${{ secrets.EUREKA_CLIENT_SERVICEURL_DEFAULTZONE }} \
                --set secret.SPRING_DATA_MONGODB_URI_CATEGORY=${{ secrets.SPRING_DATA_MONGODB_URI_CATEGORY }}
