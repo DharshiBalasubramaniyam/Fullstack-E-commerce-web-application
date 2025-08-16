@@ -22,8 +22,8 @@ spec:
           env:
             - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
               valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secret.label }}
+                configMapKeyRef:
+                  name: {{ .Values.config.label }}
                   key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
             - name: SPRING_DATA_MONGODB_URI
               valueFrom:
