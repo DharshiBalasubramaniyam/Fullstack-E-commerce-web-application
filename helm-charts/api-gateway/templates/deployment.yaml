@@ -25,3 +25,8 @@ spec:
                 configMapKeyRef:
                   name: {{ .Values.config.label }}
                   key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+            - name: EUREKA_INSTANCE_HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.config.label }}
+                  key: EUREKA_INSTANCE_HOSTNAME

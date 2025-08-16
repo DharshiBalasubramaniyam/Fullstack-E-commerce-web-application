@@ -10,3 +10,4 @@ gateway:
 config:
   label: gateway-config-map
   EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://registry-svc:80/eureka/
+  EUREKA_INSTANCE_HOSTNAME: registry-svc

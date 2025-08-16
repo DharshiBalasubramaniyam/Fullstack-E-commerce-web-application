@@ -5,3 +5,4 @@ metadata:
   namespace: default
 data:
   EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: {{ .Values.config.EUREKA_CLIENT_SERVICEURL_DEFAULTZONE | toString }}
+  EUREKA_INSTANCE_HOSTNAME: {{ .Values.config.EUREKA_INSTANCE_HOSTNAME | toString }}
