@@ -19,3 +19,14 @@ spec:
           image: {{ .Values.category.image }}
           ports:
             - containerPort: {{ .Values.category.containerPort }}
+          env:
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.label }}
+                  key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+            - name: SPRING_DATA_MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.label }}
+                  key: SPRING_DATA_MONGODB_URI_CATEGORY

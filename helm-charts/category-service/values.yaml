@@ -7,5 +7,7 @@ category:
     type: ClusterIP
     port: 9000
 
-secrets:
-  label: purely-secret
+secret:
+  label: category-secret
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://localhost:8761/eureka/
+  SPRING_DATA_MONGODB_URI_CATEGORY: YOUR_MONGODB_URI
