@@ -14,4 +14,4 @@ secret:
 config:
   label: category-config-map
   EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://registry-svc:80/eureka/
-  EUREKA_INSTANCE_HOSTNAME: category-service
+  EUREKA_INSTANCE_HOSTNAME: category-svc
