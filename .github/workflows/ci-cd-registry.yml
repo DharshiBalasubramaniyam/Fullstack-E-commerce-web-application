@@ -7,6 +7,7 @@ on:
       paths:
          - 'microservice-backend/service-registry/**'
          - 'helm-charts/service-registry/**'
+         - '.github/workflows/ci-cd-registry.yml'
 
 jobs:
    build-and-deploy:
@@ -54,4 +55,4 @@ jobs:
            env:
               ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
               IMAGE_TAG: ${{ github.sha }}
-           run: helm upgrade --install service-registry helm-charts/service-registry --set registry.image=$ECR_REGISTRY/${{ secrets.ECR_REGISTRY_REPOSITORY }}:$IMAGE_TAG 
+           run: helm upgrade --install service-registry helm-charts/service-registry --set registry.image=$ECR_REGISTRY/${{ secrets.ECR_REGISTRY_REPOSITORY }}:f5c8bf18db6ef86036288b5488072ac8d3706854
