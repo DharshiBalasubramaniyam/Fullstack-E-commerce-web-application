@@ -4,8 +4,8 @@ gateway:
   containerPort: 8080
   image: default
   service:
-    type: LoadBalancer
-    port: 80
+    type: ClusterIP
+    port: 8080
 
 config:
   label: gateway-config-map
