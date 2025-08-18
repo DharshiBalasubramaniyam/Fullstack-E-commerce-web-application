@@ -5,5 +5,5 @@ registry:
   image: default
   service:
     type: ClusterIP
-    port: 8761
+    port: 80
     
