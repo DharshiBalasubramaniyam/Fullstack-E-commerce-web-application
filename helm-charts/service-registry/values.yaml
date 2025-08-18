@@ -4,6 +4,6 @@ registry:
   containerPort: 8761
   image: default
   service:
-    type: LoadBalancer
-    port: 80
+    type: ClusterIP
+    port: 8761
     
