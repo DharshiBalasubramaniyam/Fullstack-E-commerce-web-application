@@ -37,5 +37,4 @@ jobs:
               version: v3.12.0
 
          - name: Deploy Helm Chart
-           env:
            run: helm upgrade --install ingress-alb helm-charts/ingress-alb
