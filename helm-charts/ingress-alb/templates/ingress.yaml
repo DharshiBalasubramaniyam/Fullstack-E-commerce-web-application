@@ -18,17 +18,3 @@ spec:
                 name: {{ .Values.ingress.rules.web.name }}
                 port:
                   number: {{ .Values.ingress.rules.web.port }}
-          - path: {{ .Values.ingress.rules.registry.path }}
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: {{ .Values.ingress.rules.registry.name }}
-                port:
-                  number: {{ .Values.ingress.rules.registry.port }}
-          - path: {{ .Values.ingress.rules.gateway.path }}
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: {{ .Values.ingress.rules.gateway.name }}
-                port:
-                  number: {{ .Values.ingress.rules.gateway.port }}
