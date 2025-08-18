@@ -1,0 +1,34 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.ingress.name }}
+  namespace: default
+  annotations:
+    alb.ingress.kubernetes.io/scheme: {{ .Values.ingress.scheme }}
+    alb.ingress.kubernetes.io/target-type: {{ .Values.ingress.target }}
+spec:
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  rules:
+    - http:
+        paths:
+          - path: {{ .Values.rules.web.path }}
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ .Values.rules.web.name }}
+                port:
+                  number: {{ .Values.rules.web.port }}
+          - path: {{ .Values.rules.registry.path }}
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ .Values.rules.registry.name }}
+                port:
+                  number: {{ .Values.rules.registry.port }}
+          - path: {{ .Values.rules.gateway.path }}
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ .Values.rules.gateway.name }}
+                port:
+                  number: {{ .Values.rules.gateway.port }}

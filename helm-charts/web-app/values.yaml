@@ -4,6 +4,6 @@ web:
   containerPort: 80
   image: default
   service:
-    type: LoadBalancer
+    type: ClusterIP
     port: 80
     
