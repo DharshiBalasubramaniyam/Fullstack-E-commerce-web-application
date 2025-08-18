@@ -11,24 +11,24 @@ spec:
   rules:
     - http:
         paths:
-          - path: {{ .Values.rules.web.path }}
+          - path: {{ .Values.ingress.rules.web.path }}
             pathType: ImplementationSpecific
             backend:
               service:
-                name: {{ .Values.rules.web.name }}
+                name: {{ .Values.ingress.rules.web.name }}
                 port:
-                  number: {{ .Values.rules.web.port }}
-          - path: {{ .Values.rules.registry.path }}
+                  number: {{ .Values.ingress.rules.web.port }}
+          - path: {{ .Values.ingress.rules.registry.path }}
             pathType: ImplementationSpecific
             backend:
               service:
-                name: {{ .Values.rules.registry.name }}
+                name: {{ .Values.ingress.rules.registry.name }}
                 port:
-                  number: {{ .Values.rules.registry.port }}
-          - path: {{ .Values.rules.gateway.path }}
+                  number: {{ .Values.ingress.rules.registry.port }}
+          - path: {{ .Values.ingress.rules.gateway.path }}
             pathType: ImplementationSpecific
             backend:
               service:
-                name: {{ .Values.rules.gateway.name }}
+                name: {{ .Values.ingress.rules.gateway.name }}
                 port:
-                  number: {{ .Values.rules.gateway.port }}
+                  number: {{ .Values.ingress.rules.gateway.port }}
