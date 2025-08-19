@@ -46,7 +46,6 @@
     padding: 10px;transition: 0.2s;
     font-size: 17px;
     color: var(--body);
-    text-transform: uppercase;
 }
 .app-header ul:last-of-type li {
     padding: 5px;

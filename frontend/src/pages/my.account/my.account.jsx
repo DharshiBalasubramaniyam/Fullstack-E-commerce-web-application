@@ -6,10 +6,20 @@ import './my.css'
 import OrderService from "../../api-service/order.service";
 import Loading from "../../components/loading/loading";
 import Info from "../../components/info/info";
+import Unauthorized from "../auth/auth_error/unauthorized";
+
 function MyAccount() {
     const { user } = useContext(AuthContext)
     const { isLoading, userOrders, getOrdersByUser } = OrderService()
-	
+
+    useEffect(() => {
+        getOrdersByUser()
+    }, [])
+
+    if (!user) {
+        return <Unauthorized />
+    }
+
     return (
         <>
             <Header />

@@ -7,7 +7,11 @@ import './checkout.css'
 
 function OrderSuccess() {
 
-    const { user, toggleUser } = useContext(AuthContext)
+    const { user } = useContext(AuthContext);
+
+    if (!user) {
+        return <Unauthorized />
+    }
 
     return (
         <main className='order-success'>

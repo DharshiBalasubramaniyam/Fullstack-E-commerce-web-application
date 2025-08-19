@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 import Loading from '../../components/loading/loading';
 import Info from '../../components/info/info';
 import ProductService from '../../api-service/product.service';
-import CartContext from '../../contexts/cart.contect';
+import CartContext from '../../contexts/cart.context';
 import { AuthContext } from '../../contexts/auth.context';
 import Footer from '../../components/footer/footer';
 

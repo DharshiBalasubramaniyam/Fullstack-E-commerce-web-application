@@ -5,7 +5,7 @@ import "../../assets/styles/index.css"
 import "./header.css"
 import Cart from "../cart/cart";
 import { AuthContext } from "../../contexts/auth.context";
-import CartContext from "../../contexts/cart.contect";
+import CartContext from "../../contexts/cart.context";
 
 function Header() {
     const navigate = useNavigate();

@@ -17,16 +17,6 @@ const RegistrationVerfication = lazy(() => import('../pages/auth/register/regist
 const RegistrationSuccessful = lazy(() => import('../pages/auth/register/registration.success.jsx'))
 
 function AppRoutes() {
-
-  const ProtectedRoute = ({ isAllowed, children }) => {
-    if (!isAllowed) {
-      return <Navigate to={`/unauthorized`} replace />;
-    }
-    return children;
-  };
-
-  const { user } = useContext(AuthContext);
-
   return (
     <Suspense fallback={<Loading />}>
       <Routes>
@@ -39,36 +29,9 @@ function AppRoutes() {
         <Route path="/auth/register" element={<Register />} />
         <Route path="/auth/userRegistrationVerfication/:email" element={<RegistrationVerfication />} />
         <Route path="/auth/success-registration" element={<RegistrationSuccessful />} />
-        <Route
-          path="/my/account"
-          element={useMemo(
-            () => (
-              <ProtectedRoute isAllowed={user?.token && user?.roles.includes("ROLE_USER")} >
-                <MyAccount />
-              </ProtectedRoute>
-            ),
-            []
-          )}
-        />
-        <Route path="/order/checkout" element={useMemo(
-          () => (
-            <ProtectedRoute isAllowed={user?.token && user?.roles.includes("ROLE_USER")} >
-              <CheckoutForm />
-            </ProtectedRoute>
-          ),
-          []
-        )}
-        />
-
-        <Route path="/order/success" element={useMemo(
-          () => (
-            <ProtectedRoute isAllowed={user?.token && user?.roles.includes("ROLE_USER")} >
-              <OrderSuccess />
-            </ProtectedRoute>
-          ),
-          []
-        )}
-        />
+        <Route path="/my/account" element={<MyAccount />} />
+        <Route path="/order/checkout" element={<CheckoutForm />} />
+        <Route path="/order/success" element={<OrderSuccess />} />  
       </Routes>
     </Suspense>
   )

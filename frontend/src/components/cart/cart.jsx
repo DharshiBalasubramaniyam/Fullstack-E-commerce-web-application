@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import './cart.css'
-import CartContext from '../../contexts/cart.contect';
+import CartContext from '../../contexts/cart.context';
 import { AiOutlineClose, AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Loading from '../loading/loading';
