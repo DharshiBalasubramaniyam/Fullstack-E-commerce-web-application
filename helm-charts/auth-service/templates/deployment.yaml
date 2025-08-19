@@ -29,7 +29,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.secret.label }}
-                  key: SPRING_DATA_MONGODB_URI_auth
+                  key: SPRING_DATA_MONGODB_URI_AUTH
             - name: EUREKA_INSTANCE_HOSTNAME
               valueFrom:
                 configMapKeyRef:
