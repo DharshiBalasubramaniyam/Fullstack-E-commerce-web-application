@@ -181,7 +181,7 @@ public class AuthServiceImpl implements AuthService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                     ApiResponseDto.builder()
                             .isSuccess(false)
-                            .message("Unable to authorize user right now. Try gain later!")
+                            .message("Unable to authorize user right now. Try again later!")
                             .build()
             );
         }
