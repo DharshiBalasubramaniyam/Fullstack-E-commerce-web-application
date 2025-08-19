@@ -3,7 +3,7 @@ name: CI/CD Pipeline for Auth Service
 on: 
    push:
       branches:
-         - helm
+         - main
       paths:
          - 'microservice-backend/auth-service/**'
          - 'helm-charts/auth-service/**'

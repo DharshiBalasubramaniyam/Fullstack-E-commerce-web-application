@@ -3,7 +3,7 @@ name: CI/CD Pipeline for Api Gateway
 on: 
    push:
       branches:
-         - helm
+         - main
       paths:
          - 'microservice-backend/api-gateway/**'
          - 'helm-charts/api-gateway/**'

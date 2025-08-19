@@ -3,7 +3,7 @@ name: CI/CD Pipeline for User Service
 on: 
    push:
       branches:
-         - helm
+         - main
       paths:
          - 'microservice-backend/user-service/**'
          - 'helm-charts/user-service/**'

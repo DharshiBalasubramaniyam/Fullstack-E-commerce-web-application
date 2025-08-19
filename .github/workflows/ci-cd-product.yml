@@ -3,7 +3,7 @@ name: CI/CD Pipeline for Product Service
 on: 
    push:
       branches:
-         - helm
+         - main
       paths:
          - 'microservice-backend/product-service/**'
          - 'helm-charts/product-service/**'
