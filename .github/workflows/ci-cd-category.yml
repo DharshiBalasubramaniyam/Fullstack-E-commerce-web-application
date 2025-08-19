@@ -3,7 +3,7 @@ name: CI/CD Pipeline for Category Service
 on: 
    push:
       branches:
-         - helm
+         - main
       paths:
          - 'microservice-backend/category-service/**'
          - 'helm-charts/category-service/**'

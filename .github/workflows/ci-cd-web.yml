@@ -3,7 +3,7 @@ name: CI/CD Pipeline for Web Application
 on: 
    push:
       branches:
-         - helm
+         - main
       paths:
          - 'frontend/**'
          - 'helm-charts/web-app/**'

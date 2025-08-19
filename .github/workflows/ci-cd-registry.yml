@@ -3,7 +3,7 @@ name: CI/CD Pipeline for Service Registry
 on: 
    push:
       branches:
-         - helm
+         - main
       paths:
          - 'microservice-backend/service-registry/**'
          - 'helm-charts/service-registry/**'

@@ -2,7 +2,7 @@ name: CI/CD Pipeline for Ingress ALB
 on: 
    push:
       branches:
-         - helm
+         - main
       paths:
          - 'helm-charts/ingress-alb/**'
          - '.github/workflows/ci-cd-ingress.yml'

@@ -3,7 +3,7 @@ name: CI/CD Pipeline for Order Service
 on: 
    push:
       branches:
-         - helm
+         - main
       paths:
          - 'microservice-backend/order-service/**'
          - 'helm-charts/order-service/**'

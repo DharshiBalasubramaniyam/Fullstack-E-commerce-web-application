@@ -3,7 +3,7 @@ name: CI/CD Pipeline for Cart Service
 on: 
    push:
       branches:
-         - helm
+         - main
       paths:
          - 'microservice-backend/cart-service/**'
          - 'helm-charts/cart-service/**'
