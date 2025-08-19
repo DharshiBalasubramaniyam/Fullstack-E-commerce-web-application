@@ -27,9 +27,9 @@ spring:
         - id: category-service
           uri: lb://CATEGORY-SERVICE
           predicates:
-            - Path=/category-service/**
+            - Path=/api/category-service/**
           filters:
-            - StripPrefix=1
+            - StripPrefix=2
 
         - id: product-service
           uri: lb://PRODUCT-SERVICE
