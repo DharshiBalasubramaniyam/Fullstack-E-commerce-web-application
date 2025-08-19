@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ printf "%s-depl" .Values.notification.label }}  
+  labels:
+    app: {{ .Values.notification.label }}
+spec:
+  replicas: {{ .Values.notification.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.notification.label }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.notification.label }}
+    spec:
+      containers:
+        - name: {{ printf "%s-container" .Values.notification.label }}
+          image: {{ .Values.notification.image }}
+          ports:
+            - containerPort: {{ .Values.notification.containerPort }}
+          env:
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.config.label }}
+                  key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+            - name: EUREKA_INSTANCE_HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.config.label }}
+                  key: EUREKA_INSTANCE_HOSTNAME
+            - name: SPRING_MAIL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.label }}
+                  key: SPRING_MAIL_USERNAME
+            - name: SPRING_MAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.label }}
+                  key: SPRING_MAIL_PASSWORD                  
