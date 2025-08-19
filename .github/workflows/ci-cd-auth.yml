@@ -1,4 +1,4 @@
-name: CI/CD for Auth Service
+name: CI/CD Pipeline for Auth Service
 
 on: 
    push:
@@ -6,9 +6,11 @@ on:
          - helm
       paths:
          - 'microservice-backend/auth-service/**'
+         - 'helm-charts/auth-service/**'
+         - '.github/workflows/ci-cd-auth.yml'
 
 jobs:
-   containerize-auth-service:
+   build-and-deploy:
       runs-on: ubuntu-latest
 
       steps:
@@ -21,9 +23,36 @@ jobs:
                java-version: '17'
                distribution: 'temurin'
 
-         - name: build and push the docker image to dockerhub
-           run: |
-               docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+         - name: Configure AWS Credentials
+           uses: aws-actions/configure-aws-credentials@v1
+           with:
+               aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+               aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+               aws-region: ${{ secrets.AWS_REGION }}
 
-               docker build -t ${{ secrets.DOCKER_USERNAME }}/purely-auth-service:latest ./microservice-backend/auth-service
-               docker push ${{ secrets.DOCKER_USERNAME }}/purely-auth-service:latest
+         - name: Login to Amazon ECR
+           id: login-ecr
+           uses: aws-actions/amazon-ecr-login@v2
+      
+         - name: Build, tag, and push image to Amazon ECR
+           id: build-image
+           env:
+              ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+              IMAGE_TAG: ${{ github.sha }}
+           run: |
+              docker build -t $ECR_REGISTRY/${{ secrets.ECR_AUTH_REPOSITORY }}:$IMAGE_TAG microservice-backend/auth-service
+              docker push $ECR_REGISTRY/${{ secrets.ECR_AUTH_REPOSITORY }}:$IMAGE_TAG
+
+         - name: Update Kubeconfig
+           run: aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER }} --region ${{ secrets.AWS_REGION }}
+
+         - name: Install Helm
+           uses: azure/setup-helm@v1
+           with:
+              version: v3.12.0
+
+         - name: Deploy Helm Chart
+           env:
+              ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+              IMAGE_TAG: ${{ github.sha }}
+           run: helm upgrade --install auth-service helm-charts/auth-service --set auth.image=$ECR_REGISTRY/${{ secrets.ECR_AUTH_REPOSITORY }}:$IMAGE_TAG --set secret.SPRING_DATA_MONGODB_URI_AUTH=${{ secrets.SPRING_DATA_MONGODB_URI_AUTH }}
