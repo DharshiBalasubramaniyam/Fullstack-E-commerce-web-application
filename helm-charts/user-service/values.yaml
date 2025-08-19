@@ -1,0 +1,17 @@
+user:
+  label: user
+  replicas: 1
+  containerPort: 9050
+  image: default
+  service:
+    type: ClusterIP
+    port: 9050
+
+secret:
+  label: user-secret
+  SPRING_DATA_MONGODB_URI_USER: PROVIDED_VIA_GITHUB_ACTIONS
+
+config:
+  label: user-config-map
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://registry-svc:80/eureka/
+  EUREKA_INSTANCE_HOSTNAME: user-svc
