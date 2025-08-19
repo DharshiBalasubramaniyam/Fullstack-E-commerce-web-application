@@ -1,0 +1,17 @@
+product:
+  label: product
+  replicas: 1
+  containerPort: 9010
+  image: default
+  service:
+    type: ClusterIP
+    port: 9010
+
+secret:
+  label: product-secret
+  SPRING_DATA_MONGODB_URI_PRODUCT: PROVIDED_VIA_GITHUB_ACTIONS
+
+config:
+  label: product-config-map
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://registry-svc:80/eureka/
+  EUREKA_INSTANCE_HOSTNAME: product-svc
