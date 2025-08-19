@@ -128,7 +128,7 @@ const CheckoutForm = () => {
                         <hr />
                         {cart?.cartItems.map((cartItem) => (
                             <div className="product" key={cartItem.productId}>
-                                <img src={`../../../public/products/${cartItem.imageUrl}`} alt={cartItem.productName} />
+                                <img src={`${cartItem.imageUrl}`} alt={cartItem.productName} />
                                 <div className="product-info">
                                     <h4>
                                         {cartItem.productName}
