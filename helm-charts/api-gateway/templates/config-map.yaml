@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.config.label }}
+  namespace: default
+data:
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: {{ .Values.config.EUREKA_CLIENT_SERVICEURL_DEFAULTZONE | toString }}
+  EUREKA_INSTANCE_HOSTNAME: {{ .Values.config.EUREKA_INSTANCE_HOSTNAME | toString }}

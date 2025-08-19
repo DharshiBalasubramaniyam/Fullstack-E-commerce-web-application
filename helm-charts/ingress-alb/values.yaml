@@ -1,0 +1,14 @@
+ingress:
+  name: ingress-alb
+  scheme: internet-facing
+  target: ip
+  ingressClassName: alb
+  rules:
+    web: 
+      path: /
+      port: 80
+      name: web-app-svc
+    gateway: 
+      path: /api
+      port: 80
+      name: gateway-svc

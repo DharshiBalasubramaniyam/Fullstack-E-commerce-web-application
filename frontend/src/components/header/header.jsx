@@ -5,14 +5,13 @@ import "../../assets/styles/index.css"
 import "./header.css"
 import Cart from "../cart/cart";
 import { AuthContext } from "../../contexts/auth.context";
-import CartContext from "../../contexts/cart.contect";
-
+import CartContext from "../../contexts/cart.context";
 
 function Header() {
     const navigate = useNavigate();
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [isCartOpen, setCart] = useState(false);
-    const { cart } = useContext(CartContext)
+    const { cart, getCartInformation } = useContext(CartContext)
     const { user, toggleUser } = useContext(AuthContext)
     const [searchKey, setSearchKey] = useState("");
 
@@ -37,6 +36,10 @@ function Header() {
         toggleUser()
         navigate("/")
     };
+
+     useEffect(() => {
+         getCartInformation();
+     }, [user]) 
 
     return (
         <>

@@ -37,7 +37,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ResponseEntity<ApiResponseDto<?>> getCategoryById(String categoryId) throws ServiceLogicException {
-
         try {
             Category category = categoryRepository.findById(categoryId).orElse(null);
             return ResponseEntity.ok(
@@ -116,5 +115,4 @@ public class CategoryServiceImpl implements CategoryService {
         }
         throw new CategoryNotFoundException("No category with id " + categoryId);
     }
-
 }

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ printf "%s-depl" .Values.category.label }}  
+  labels:
+    app: {{ .Values.category.label }}
+spec:
+  replicas: {{ .Values.category.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.category.label }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.category.label }}
+    spec:
+      containers:
+        - name: {{ printf "%s-container" .Values.category.label }}
+          image: {{ .Values.category.image }}
+          ports:
+            - containerPort: {{ .Values.category.containerPort }}
+          env:
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.config.label }}
+                  key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+            - name: SPRING_DATA_MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.label }}
+                  key: SPRING_DATA_MONGODB_URI_CATEGORY
+            - name: EUREKA_INSTANCE_HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.config.label }}
+                  key: EUREKA_INSTANCE_HOSTNAME

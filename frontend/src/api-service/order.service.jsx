@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import API_BASE_URL from "./apiConfig";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,6 @@ function OrderService() {
     }
 
     const placeOrder = async ({ fname, lname, address1, address2, city, phone }, cart) => {
-        console.log(fname, lname, address1, address2, city, phone, cart)
         setLoading(true)
         await axios.post(`${API_BASE_URL}/order-service/order/create`,
             { firstName: fname, lastName: lname, addressLine1: address1, addressLine2: address2, city: city, phoneNo: phone, cartId: cart },
@@ -45,12 +44,9 @@ function OrderService() {
             console.log(error)
             setUserOrders([])
         });
+
         setLoading(false)
     };
-
-    useEffect(() => {
-        getOrdersByUser()
-    }, [])
 
     return { isLoading, orderError, userOrders, getOrdersByUser, placeOrder };
 

@@ -1,0 +1,58 @@
+name: CI/CD Pipeline for Service Registry
+
+on: 
+   push:
+      branches:
+         - helm
+      paths:
+         - 'microservice-backend/service-registry/**'
+         - 'helm-charts/service-registry/**'
+         - '.github/workflows/ci-cd-registry.yml'
+
+jobs:
+   build-and-deploy:
+      runs-on: ubuntu-latest
+
+      steps:
+         - name: Checkout code  
+           uses: actions/checkout@v4
+
+         - name: Set up Java
+           uses: actions/setup-java@v3
+           with:
+               java-version: '17'
+               distribution: 'temurin'
+         
+         - name: Configure AWS Credentials
+           uses: aws-actions/configure-aws-credentials@v1
+           with:
+               aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+               aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+               aws-region: ${{ secrets.AWS_REGION }}
+
+         - name: Login to Amazon ECR
+           id: login-ecr
+           uses: aws-actions/amazon-ecr-login@v2
+      
+         - name: Build, tag, and push image to Amazon ECR
+           id: build-image
+           env:
+              ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+              IMAGE_TAG: ${{ github.sha }}
+           run: |
+              docker build -t $ECR_REGISTRY/${{ secrets.ECR_REGISTRY_REPOSITORY }}:$IMAGE_TAG microservice-backend/service-registry
+              docker push $ECR_REGISTRY/${{ secrets.ECR_REGISTRY_REPOSITORY }}:$IMAGE_TAG
+
+         - name: Update Kubeconfig
+           run: aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER }} --region ${{ secrets.AWS_REGION }}
+
+         - name: Install Helm
+           uses: azure/setup-helm@v1
+           with:
+              version: v3.12.0
+
+         - name: Deploy Helm Chart
+           env:
+              ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+              IMAGE_TAG: ${{ github.sha }}
+           run: helm upgrade --install service-registry helm-charts/service-registry --set registry.image=$ECR_REGISTRY/${{ secrets.ECR_REGISTRY_REPOSITORY }}:$IMAGE_TAG 

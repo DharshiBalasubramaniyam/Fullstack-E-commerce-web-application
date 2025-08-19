@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState, useEffect } from "react"
 import API_BASE_URL from "./apiConfig";
 import axios from 'axios';
 
@@ -64,7 +64,7 @@ function CartService() {
     }
 
     const getCartInformation = async () => {
-        if (!user.token) {
+        if (!user?.token) {
             setCart({})
             setError(false)
             return
@@ -84,9 +84,9 @@ function CartService() {
         setProcessing(false)
     }
 
-    useEffect(() => {
+     useEffect(() => {
         getCartInformation()
-    }, [])
+     }, [])
 
     return { cart, cartError, isProcessingCart, addItemToCart, updateItemQuantity, removeItemFromCart, getCartInformation };
 

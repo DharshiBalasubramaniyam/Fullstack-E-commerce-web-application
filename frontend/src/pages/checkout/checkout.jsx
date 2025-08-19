@@ -3,20 +3,27 @@ import './checkout.css'
 import { useForm } from 'react-hook-form';
 import CopyRight from '../../components/footer/copyright';
 import OrderService from '../../api-service/order.service';
-import { useContext, useEffect } from 'react';
-import CartContext from '../../contexts/cart.contect';
+import { useContext } from 'react';
+import CartContext from '../../contexts/cart.context';
 import { Link } from 'react-router-dom';
+import Unauthorized from '../auth/auth_error/unauthorized';
+import { AuthContext } from '../../contexts/auth.context';
 
 const CheckoutForm = () => {
-
+    
+    const { cart } = useContext(CartContext);
+    const { user } = useContext(AuthContext);
     const { register, handleSubmit, formState } = useForm();
     const { isLoading, error, placeOrder } = OrderService();
-    const { cart, cartError, isProcessingCart, getCartInformation } = useContext(CartContext);
 
     const onSubmit = async (data) => {
         placeOrder(data, cart.cartId)
     };
 
+    if(!user) {
+        return <Unauthorized/>
+    }
+	
     return (
         <>
             <header className='app-header'><Logo /></header>

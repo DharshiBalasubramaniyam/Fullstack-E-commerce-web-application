@@ -1,4 +1,4 @@
-import { Suspense, lazy, useContext } from 'react';
+import { Suspense, lazy, useContext, useMemo } from 'react';
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import Loading from "../components/loading/loading";
 import Products from '../pages/products/products.jsx';
@@ -17,43 +17,24 @@ const RegistrationVerfication = lazy(() => import('../pages/auth/register/regist
 const RegistrationSuccessful = lazy(() => import('../pages/auth/register/registration.success.jsx'))
 
 function AppRoutes() {
-
-    const ProtectedRoute = ({ isAllowed, redirectPath = '/unauthorized', children }) => {
-        if (!isAllowed) {
-            return <Navigate to={redirectPath} replace />;
-        }
-        return children ? children : <Outlet />
-    }
-
-    const getUser = () => {
-        return JSON.parse(localStorage.getItem("user"));
-    }
-
-    return (
-        <Suspense fallback={<Loading />}>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/products/:category" element={<Products />} />
-                <Route path="/search/:search" element={<Search />} />
-                <Route path="*" element={<NotFound />} />
-                <Route path="/unauthorized" element={<Unauthorized />} />
-                <Route path="/auth/login" element={<Login />} />
-
-                <Route element={<ProtectedRoute isAllowed={!getUser()?.token} />}>
-                    <Route path="/auth/register" element={<Register />} />
-                    <Route path="/auth/userRegistrationVerfication/:email" element={<RegistrationVerfication />} />
-                    <Route path="/auth/success-registration" element={<RegistrationSuccessful />} />
-                </Route>
-
-                <Route element={<ProtectedRoute isAllowed={getUser()?.token && getUser()?.roles.includes("ROLE_USER")} />}>
-                    <Route path="/order/checkout" element={<CheckoutForm />} />
-                    <Route path="/order/success" element={<OrderSuccess />} />
-                    <Route path="/my/account" element={<MyAccount />} />
-                </Route>
-
-            </Routes>
-        </Suspense>
-    )
+  return (
+    <Suspense fallback={<Loading />}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/products/:category" element={<Products />} />
+        <Route path="/search/:search" element={<Search />} />
+        <Route path="*" element={<NotFound />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="/auth/login" element={<Login />} />
+        <Route path="/auth/register" element={<Register />} />
+        <Route path="/auth/userRegistrationVerfication/:email" element={<RegistrationVerfication />} />
+        <Route path="/auth/success-registration" element={<RegistrationSuccessful />} />
+        <Route path="/my/account" element={<MyAccount />} />
+        <Route path="/order/checkout" element={<CheckoutForm />} />
+        <Route path="/order/success" element={<OrderSuccess />} />  
+      </Routes>
+    </Suspense>
+  )
 }
 
 export default AppRoutes;

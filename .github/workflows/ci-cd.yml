@@ -1,0 +1,50 @@
+name: CI/CD Pipeline
+
+on: 
+   push:
+      branches:
+         - main
+
+jobs:
+   containerize-web-app:
+      runs-on: ubuntu-latest
+
+      steps:
+         - name: Checkout code  
+           uses: actions/checkout@v4
+
+         - name: Set up Node.js
+           uses: actions/setup-node@v3
+           with:
+               node-version: 20
+
+         - name: build and push the docker image to dockerhub
+           run: |
+               # 1. Login to DockerHub
+               docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+               # 2. Build and push web application Docker image
+               docker build -t ${{ secrets.DOCKER_USERNAME }}/purely-web-app:latest ./frontend
+               docker push ${{ secrets.DOCKER_USERNAME }}/purely-web-app:latest
+
+   containerize-backend-services:
+      runs-on: ubuntu-latest
+
+      steps:
+         - name: Checkout code  
+           uses: actions/checkout@v4
+
+         - name: Set up Java
+           uses: actions/setup-java@v3
+           with:
+               java-version: '17'
+               distribution: 'temurin'
+
+         - name: build and push the docker image to dockerhub
+           run: |
+               # 1. Login to DockerHub
+               docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+               # 2. Build and push backend services Docker image
+               docker build -t ${{ secrets.DOCKER_USERNAME }}/purely-backend-services:latest ./backend
+               docker push ${{ secrets.DOCKER_USERNAME }}/purely-backend-services:latest

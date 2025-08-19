@@ -3,9 +3,7 @@ spring:
         name: order-service
     data:
         mongodb:
-            host: 127.0.0.1
-            port: 27017
-            database: purely_order_service
+            uri: 
     jpa:
         hibernate:
             ddl-auto: update

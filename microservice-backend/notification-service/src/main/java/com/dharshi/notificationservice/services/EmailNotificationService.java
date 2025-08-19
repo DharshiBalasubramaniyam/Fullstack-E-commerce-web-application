@@ -25,6 +25,7 @@ public class EmailNotificationService implements NotificationService {
     @Override
     public ResponseEntity<ApiResponseDto<?>> sendEmail(MailRequestDto requestDto) {
         try {
+            log.info("sending email...");
             String toAddress = requestDto.getTo();
             String fromAddress = fromMail;
             String senderName = "Purely";

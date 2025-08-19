@@ -1,0 +1,17 @@
+category:
+  label: category
+  replicas: 1
+  containerPort: 9000
+  image: default
+  service:
+    type: ClusterIP
+    port: 9000
+
+secret:
+  label: category-secret
+  SPRING_DATA_MONGODB_URI_CATEGORY: PROVIDED_VIA_GITHUB_ACTIONS
+
+config:
+  label: category-config-map
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://registry-svc:80/eureka/
+  EUREKA_INSTANCE_HOSTNAME: category-svc

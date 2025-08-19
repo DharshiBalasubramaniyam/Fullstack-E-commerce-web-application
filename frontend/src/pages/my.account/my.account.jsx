@@ -6,9 +6,19 @@ import './my.css'
 import OrderService from "../../api-service/order.service";
 import Loading from "../../components/loading/loading";
 import Info from "../../components/info/info";
+import Unauthorized from "../auth/auth_error/unauthorized";
+
 function MyAccount() {
-    const { user, toggleUser } = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
     const { isLoading, userOrders, getOrdersByUser } = OrderService()
+
+    useEffect(() => {
+        getOrdersByUser()
+    }, [])
+
+    if (!user) {
+        return <Unauthorized />
+    }
 
     return (
         <>
@@ -25,7 +35,6 @@ export default MyAccount;
 
 
 function ProfileCard({ user }) {
-
 
     return (
         <section className="profile-card">

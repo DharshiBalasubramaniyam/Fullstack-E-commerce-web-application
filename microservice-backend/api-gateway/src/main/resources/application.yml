@@ -13,51 +13,51 @@ spring:
         - id: auth-service
           uri: lb://AUTH-SERVICE
           predicates:
-            - Path=/auth-service/**
+            - Path=/api/auth-service/**
           filters:
-            - StripPrefix=1
+            - StripPrefix=2
 
         - id: notification-service
           uri: lb://NOTIFICATION-SERVICE
           predicates:
-            - Path=/notification-service/**
+            - Path=/api/notification-service/**
           filters:
-            - StripPrefix=1
+            - StripPrefix=2
 
         - id: category-service
           uri: lb://CATEGORY-SERVICE
           predicates:
-            - Path=/category-service/**
+            - Path=/api/category-service/**
           filters:
-            - StripPrefix=1
+            - StripPrefix=2
 
         - id: product-service
           uri: lb://PRODUCT-SERVICE
           predicates:
-            - Path=/product-service/**
+            - Path=/api/product-service/**
           filters:
-            - StripPrefix=1
+            - StripPrefix=2
 
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
-            - Path=/user-service/**
+            - Path=/api/user-service/**
           filters:
-            - StripPrefix=1
+            - StripPrefix=2
 
         - id: cart-service
           uri: lb://CART-SERVICE
           predicates:
-            - Path=/cart-service/**
+            - Path=/api/cart-service/**
           filters:
-            - StripPrefix=1
+            - StripPrefix=2
 
         - id: order-service
           uri: lb://ORDER-SERVICE
           predicates:
-            - Path=/order-service/**
+            - Path=/api/order-service/**
           filters:
-            - StripPrefix=1
+            - StripPrefix=2
 
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
@@ -73,5 +73,7 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+    fetchRegistry: true
+    registerWithEureka: true
   instance:
     hostname: localhost

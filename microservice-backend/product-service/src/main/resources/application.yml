@@ -3,9 +3,7 @@ spring:
         name: product-service
     data:
         mongodb:
-            host: 127.0.0.1
-            port: 27017
-            database: purely_product_service
+            uri: 
     jpa:
         hibernate:
             ddl-auto: update
