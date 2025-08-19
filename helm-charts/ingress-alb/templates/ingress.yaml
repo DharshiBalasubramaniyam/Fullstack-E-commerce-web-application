@@ -1,20 +1,26 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Values.ingress.name }}
-  namespace: default
+  name: purely-ingress
   annotations:
-    alb.ingress.kubernetes.io/scheme: {{ .Values.ingress.scheme }}
-    alb.ingress.kubernetes.io/target-type: {{ .Values.ingress.target }}
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
 spec:
-  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  ingressClassName: alb
   rules:
     - http:
         paths:
-          - path: {{ .Values.ingress.rules.web.path }}
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: {{ .Values.ingress.rules.web.name }}
-                port:
-                  number: {{ .Values.ingress.rules.web.port }}
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: web-app-svc
+              port:
+                number: 80
+        - path: /api
+          pathType: Prefix
+          backend:
+            service:
+              name: gateway-svc
+              port:
+                number: 80

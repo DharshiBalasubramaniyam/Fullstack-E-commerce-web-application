@@ -1,18 +1,14 @@
 ingress:
   name: ingress-alb
-  scheme: internal
-  target: instance
+  scheme: internet-facing
+  target: ip
   ingressClassName: alb
   rules:
     web: 
-      path: /()(.*)
+      path: /
       port: 80
       name: web-app-svc
-    registry:
-      path: /eureka(/|$)(.*)
-      port: 8761
-      name: registry-svc
     gateway: 
-      path: /api(/|$)(.*)
-      port: 8080
+      path: /api
+      port: 80
       name: gateway-svc
