@@ -467,8 +467,8 @@ Verify cluster resources:
 kubectl get pod,svc,ingress
 ```
 
-<img width="960" alt="Verify Deployment" src="https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/tree/main/assets/verify-deployment.png" />
+<img width="960" alt="Verify Deployment" src="assets/verify-deployment.png" />
 
 Copy the Ingress DNS address from the output and open it in your browser to view the live application.
 
-<img width="960" alt="Ingress Address" src="https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/tree/main/assets/ingress-address.png" />
+<img width="960" alt="Ingress Address" src="assets/ingress-address.png" />
