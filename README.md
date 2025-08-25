@@ -472,3 +472,9 @@ kubectl get pod,svc,ingress
 Copy the Ingress DNS address from the output and open it in your browser to view the live application.
 
 <img width="960" alt="Ingress Address" src="assets/ingress-address.png" />
+
+# Demo video
+
+https://github.com/user-attachments/assets/659f4c17-dcf7-44b4-8504-d05826f251b1
+
+
