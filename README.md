@@ -124,7 +124,7 @@ README.md
   
 ## 📊 Component Diagram 
 
-<img src="https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/tree/main/assets/component-diagram.png" />
+<img src="assets/component-diagram.png" />
 
 ## 💻 Frontend 
 
@@ -219,7 +219,7 @@ README.md
 
 ## 📊 Deployment Diagram
 
-<img alt="Deployment-Diagram" src="https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/tree/main/assets/deployment-diagram.png" />
+<img alt="Deployment-Diagram" src="assets/deployment-diagram.png" />
 
 ## 🐳 Containerization
 
@@ -333,7 +333,7 @@ mvn springboot:run
 
 2. Make sure all the services are up and running in the [Eureka Dashboard](http://localhost:8761) as below.
    
-<img width="960" alt="Eureka Dashboard" src="https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/tree/main/assets/eureka-dashboard.png" />
+<img width="960" alt="Eureka Dashboard" src="assets/eureka-dashboard.png" />
 
 ## Step 5: Run the frontend
 
@@ -399,31 +399,31 @@ terraform apply
 
 - This will create a VPC, subnets (2 public, 2 private), an Internet Gateway, a NAT Gateway, and route tables. You can verify the networking setup from `AWS console > VPC > Resource Map`.
 
-<img width="960" alt="VPC Resource Map" src="https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/tree/main/assets/vpc-resource-map.png" />
+<img width="960" alt="VPC Resource Map" src="assets/vpc-resource-map.png" />
 
 - This will deploy an EKS cluster (purely-cluster) and associated EKS node groups across two Availability Zones. You can verify the cluster setup from `AWS console > EKS >  clusters > purely-cluster`.
 
-<img width="960" alt="EKS Cluster" src="https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/tree/main/assets/eks-cluster.png" />
+<img width="960" alt="EKS Cluster" src="assets/eks-cluster.png" />
 
 - After Terraform finishes, update your kubeconfig (Ensure the local AWS CLI user has an access entry in the EKS cluster.):
 ```
 aws eks update-kubeconfig --region YOUR_REGION --name YOUR_CLUSTER_NAME
 ```
 
-<img width="960" alt="Update kubeconfig" src="https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/tree/main/assets/update-kube-config.png" />
+<img width="960" alt="Update kubeconfig" src="assets/update-kube-config.png" />
 
 - Verify cluster resources:
 ```
 kubectl get svc
 ```
 
-<img width="960" alt="Verify Cluster" src="https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/tree/main/assets/verify-cluster.png" />
+<img width="960" alt="Verify Cluster" src="assets/verify-cluster.png" />
 
 - For ingress routing, the AWS Load Balancer Controller is installed. To install the controller, check [this](https://docs.aws.amazon.com/eks/latest/userguide/lbc-helm.html) guide.
 
 - After installation verify whether the controller instances are running.
 
-<img width="960" alt="Verify ALB" src="https://github.com/DharshiBalasubramaniyam/Fullstack-E-commerce-web-application/tree/main/assets/verify-alb.png" />
+<img width="960" alt="Verify ALB" src="assets/verify-alb.png" />
 
 
 ## Step 4: CI/CD with GitHub Actions
