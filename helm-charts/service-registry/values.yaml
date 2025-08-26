@@ -4,7 +4,7 @@ registry:
   containerPort: 8761
   image: default
   requests:
-    cpu: 500m
+    cpu: 1000m
     memory: 512Mi
   limits:
     cpu: 1000m
