@@ -1,6 +1,6 @@
 registry:
   label: registry
-  replicas: 1
+  replicas: 2
   containerPort: 8761
   image: default
   service:
