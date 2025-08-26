@@ -6,7 +6,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ .Values.registry.label }}
+    name: {{ printf "%s-depl" .Values.registry.label }}  
   minReplicas: 1
   maxReplicas: 10
   metrics:
