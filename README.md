@@ -223,14 +223,14 @@ README.md
 
 ### Containerization
 
-- Each component (frontend, service-registry, api-gateway, and microservices) has its own Dockerfile, and is packaged into a Docker image.
+- Each component ([frontend](./frontend/Dockerfile), [service-registry](./service-registry/Dockerfile), [api-gateway](./api-gateway/Dockerfile), and [other microservices](./category-service/Dockerfile)) has its own Dockerfile, and is packaged into a Docker image.
 - Images pushed to **Amazon Elastic Container Registry (ECR)**.
 
 ### Kubernetes Orchestration
 
 - Each service is deployed as a separate Helm chart under [`/helm-charts`](`/helm-charts`) directory.
-- Each chart includes Kubernetes resources: `Deployment`, `Service`, `ConfigMaps`, and `Secrets`.
-- All components (frontend, service-registr, api-gateway, and microservices) deployed as `ClusterIP` service type.
+- Each chart includes Kubernetes resources: `Deployment`, `hpa`, `Service`, `ConfigMaps`, and `Secrets`.
+- All components ([Ingress](./helm-charts/ingress-alb), [frontend](./helm-charts/web-app), [service-registry](./helm-charts/service-registry), [api-gateway](./helm-charts/api-gateway), and [other microservices](./helm-charts/category-service)) deployed as `ClusterIP` service type.
 
 ### AWS Infrastructure
 
@@ -248,31 +248,22 @@ README.md
 
 #### Kubernetes Cluster (AWS EKS)
 
-- EKS Cluster deployed within the above VPC.
-- EKS Node Group (managed worker nodes) spread across the two AZs for high availability.
-- Worker nodes are deployed in private subnets, ensuring they are not exposed directly to the internet.
-
-#### Ingress Routing
-
-- Dedicated Helm chart for ingress configuration.
-- Configured via AWS Load Balancer Controller.
-- Routing strategy:
-  - `/` → React frontend service
-  - `/api/**` → Spring Cloud API Gateway service
-- Public access is restricted to the Ingress Controller only.
+- **EKS Cluster** deployed within the above VPC.
+- **EKS Node Group (managed worker nodes)** spread across the two AZs for high availability. Worker nodes are deployed in private subnets, ensuring they are not exposed directly to the internet.
+- **Application Load Balancer controller** is installed within the EKS cluster, to let traffic route using ingress.
+- **Metrics-server** is installed within the EKS cluster, to let `HPA` get the current CPU/memory usage for each Pod.
 
 ### Terraform (Infrastructure as Code)
 
 - Infrastructure provisioned using Terraform, ensuring reproducibility and automation.
 - Terraform manage:
-  - VPC (subnets, route tables, IGW, NAT Gateway).
-  - EKS Cluster (control plane and managed node groups).
-  - IAM Roles and Policies (for worker nodes and control plane).
-  - ECR Repositories for storing Docker images.
+  - [VPC](./terraform/vpc.tf) ([subnets](./terraform/vpc-subnets.tf), [Internet Gateway](./terraform/vpc-internet-gateway.tf), [NAT Gateway](/terraform/vpc-nat-gateway.tf), [route tables](./terraform/vpc-route-tables.tf)).
+  - [EKS Cluster](./terraform/eks-cluster.tf) (Control Plane, [Managed Node Groups](./terraform/eks-node-groups.tf), [Access Entry]((./terraform/eks-access-entries.tf)), [Metrics-server](./terraform/eks-metrics-server.tf), [Application Load Balancer Controller](./terraform/eks-alb-controller.tf)).
+  - [ECR Repositories](./terraform/ecr_registries.tf) for storing Docker images.
 
 ### CI/CD with GitHub Actions
 
-- Separate workflow files per service for isolation and independent deployments.
+- [Separate workflow files](./.github/workflows) per service for isolation and independent deployments.
 - Workflow stages:
   - Build & test
   - Build Docker image and push to ECR
