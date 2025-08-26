@@ -1,9 +1,22 @@
 registry:
   label: registry
-  replicas: 2
+  replicas: 1
   containerPort: 8761
   image: default
+  requests:
+    cpu: 500m
+    memory: 512Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+  averageUtilization:
+   cpu: 60
+   memory: 60
   service:
     type: ClusterIP
     port: 80
+  averageUtilization:
+   cpu: 60
+   memory: 60
+  
     

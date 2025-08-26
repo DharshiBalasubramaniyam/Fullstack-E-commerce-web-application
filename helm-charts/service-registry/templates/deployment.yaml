@@ -19,3 +19,10 @@ spec:
           image: {{ .Values.registry.image }}
           ports:
             - containerPort: {{ .Values.registry.containerPort }}
+                  resources:
+          requests:
+            cpu: {{ .Values.registry.requests.cpu }}
+            memory: {{ .Values.registry.requests.memory }}
+          limits:
+            cpu: {{ .Values.registry.limits.cpu }}
+            memory: {{ .Values.registry.limits.memory }}
