@@ -14,36 +14,36 @@
 - The architecture leverages **Spring Boot microservices**, **Spring Cloud Gateway**, and **Eureka Service Registry**, with a **React.js frontend** and **MongoDB databases**. 
 - The solution is containerized and deployed to **AWS Elastic Kubernetes Service (EKS)** using **Helm** and automated via **GitHub Actions CI/CD** pipelines.
 
-# 📑 Table of contents
+## 📑 Table of contents
 
 1.  [Project Tree](#-project-tree)
 2.  [Development Set up](#-development-set-up)
-    - [Component Diagram](#-component-diagram)
-    - [Frontend](#-frontend)
-    - [Service Registry](#%EF%B8%8F-service-registry)
-    - [Api Gateway](#-api-gateway)
-    - [Auth Service](#-auth-service)
-    - [Category Service](#%EF%B8%8F-category-service)
-    - [Product Service](#-product-service)
-    - [Cart Service](#-cart-service)
-    - [Order Service](#%EF%B8%8F-order-service)
-    - [Notification Service](#-notification-service)
-    - [Communication between services](#-communication-between-services)
+    - [Component Diagram](#component-diagram)
+    - [Frontend](#frontend)
+    - [Service Registry](#service-registry)
+    - [Api Gateway](#api-gateway)
+    - [Auth Service](#auth-service)
+    - [Category Service](#category-service)
+    - [Product Service](#product-service)
+    - [Cart Service](#cart-service)
+    - [Order Service](#order-service)
+    - [Notification Service](#notification-service)
+    - [Communication between services](#communication-between-services)
 3. [Deployment Set up](#-deployment-set-up)
-    - [Deployment Diagram](#-deployment-diagram)
-    - [Containerization](#-containerization)
-    - [Kubernetes Orchestration](#-kubernetes-orchestration)
-    - [AWS Infrastructure](#%EF%B8%8F-aws-infrastructure)
-      - [Networking (AWS VPC)](#-networking-aws-vpc)
-      - [Kubernetes Cluster (AWS EKS)](#%EF%B8%8F-kubernetes-cluster-aws-eks)
-      - [Ingress Routing](#-ingress-routing)
-    - [Terraform - Infrastructure as Code](#%EF%B8%8F-terraform-infrastructure-as-code)
-    - [CI/CD with GitHub Actions](#-cicd-with-github-actions)
+    - [Deployment Diagram](#deployment-diagram)
+    - [Containerization](#containerization)
+    - [Kubernetes Orchestration](#kubernetes-orchestration)
+    - [AWS Infrastructure](#aws-infrastructure)
+      - [Networking (AWS VPC)](#networking-aws-vpc)
+      - [Kubernetes Cluster (AWS EKS)](#kubernetes-cluster-aws-eks)
+      - [Ingress Routing](#ingress-routing)
+    - [Terraform - Infrastructure as Code](#terraform-infrastructure-as-code)
+    - [CI/CD with GitHub Actions](#cicd-with-github-actions)
 4. [How to run locally?](#%EF%B8%8F-how-to-run-locally)
 5. [How to deploy to AWS?](#%EF%B8%8F-how-to-deploy-to-amazon-eks)
 6. [Demo video](#-demo-video)
 
-# 📂 Project tree
+## 📂 Project tree
 
 ```
 .github/
@@ -114,7 +114,7 @@ LICENSE
 README.md
 ```
 
-# 👨‍💻 Development set up
+## 👨‍💻 Development set up
 
 - **Microservices Architecture**: Independent services for User, Auth, Product, Category, Cart, Order, and Notification.
 - **Service Discovery**: Centralized Eureka Service Registry manages dynamic discovery of microservices within the cluster. Simplifies communication and load balancing between services.
@@ -122,13 +122,13 @@ README.md
 - **Frontend**: Developed in React.js, providing a responsive user interface. Communicates with the backend exclusively via API Gateway.
 - **Databases**: Each microservice uses a dedicated MongoDB database.
   
-## 📊 Component Diagram 
+### Component Diagram 
 
 <img src="assets/component-diagram.png" />
 
-## 💻 Frontend 
+### Frontend 
 
-## 🗂️ Service Registry
+### Service Registry
 
 - The <a href="./microservice-backend/service-registry">Service Registry</a> serves as a centralized repository for storing information about all the available services in the microservices architecture. 
 
@@ -136,14 +136,14 @@ README.md
 
 - As services start, stop, or scale up/down dynamically in response to changing demand, they update their registration information in the Service Registry accordingly.
 
-## 🚪 API Gateway
+### API Gateway
 
 - The <a href="./microservice-backend/api-gateway">API gateway</a> acts as a centralized entry point for clients, providing a unified interface to access the microservices.
 
 - API gateway acts as the traffic cop of our microservices architecture. It routes incoming requests to the appropriate microservice, or instance based on predefined rules or configurations.
 
 
-## 🔒 Auth Service
+### Auth Service
 
 - The <a href="./microservice-backend/auth-service">Auth Service</a> is responsible for securely verifying user identities and facilitating token-based authentication.
 
@@ -155,7 +155,7 @@ README.md
 | <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/auth/isValidToken`   | token | Validate json web token  |
 
 
-## 🏷️ Category Service
+### Category Service
 
 - The <a href="./microservice-backend/category-service">Category Service</a> provides centralized data management and operations for product categories.
 
@@ -167,7 +167,7 @@ README.md
 | <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/category/get/all`   | - | Get all categories | No | Admin/User/Non user |
 | <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/category/get/byId`   | categoryId | Get category by id | No |  Admin/User/Non user  |
 
-## 📦 Product Service
+### Product Service
 
 - The <a href="./microservice-backend/product-service">Product Service</a> provides centralized data management and operations for available products.
 
@@ -180,7 +180,7 @@ README.md
 | <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/product/get/byCategory`   | categoryId | Get product by category | No |  Admin/User/Non user  |
 | <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/product/search`   | searchKey | Search products by key | No |  Admin/User/Non user  |
 
-## 🛒 Cart Service
+### Cart Service
 
 - The <a href="./microservice-backend/cart-service">Cart Service</a> provides centralized data management and operations for user carts.
 
@@ -192,7 +192,7 @@ README.md
 | <img alt="Static Badge" src="https://img.shields.io/badge/delete-red?style=for-the-badge"> | `/cart/remove`   | productId | Remove an item from the cart | Yes | User |
 | <img alt="Static Badge" src="https://img.shields.io/badge/delete-red?style=for-the-badge"> | `/cart/clear/byId`   | cartId | Remove all the items from the cart | Yes | User |
 
-## 🛍️ Order Service
+### Order Service
 
 - The <a href="./microservice-backend/order-service">Order Service</a> provides centralized data management and operations for orders.
 
@@ -203,7 +203,7 @@ README.md
 | <img alt="Static Badge" src="https://img.shields.io/badge/get-blue?style=for-the-badge"> | `/order/get/all`   | - | Get all orders | Yes | Admin |
 | <img alt="Static Badge" src="https://img.shields.io/badge/delete-red?style=for-the-badge"> | `/order/cancel`   | orderId | Cancel the order | Yes | User |
 
-## 🔔 Notification Service
+### Notification Service
 
 - The <a href="./microservice-backend/notification-service">Notification Service</a> provides centralized operations for send emails to user.
 
@@ -211,30 +211,30 @@ README.md
 |----------|----------|----------|
 | <img alt="Static Badge" src="https://img.shields.io/badge/post-green?style=for-the-badge"> | `/notification/send`   | Send email | 
 
-## 💬 Communication between services
+### Communication between services
 
 - OpenFeign, a declarative HTTP client library for Java, is used to simplify the process of making HTTP requests to other microservices.
   
-# 🚀 Deployment set up
+## 🚀 Deployment set up
 
-## 📊 Deployment Diagram
+### Deployment Diagram
 
 <img alt="Deployment-Diagram" src="assets/deployment-diagram.png" />
 
-## 🐳 Containerization
+### Containerization
 
 - Each component (frontend, service-registry, api-gateway, and microservices) has its own Dockerfile, and is packaged into a Docker image.
 - Images pushed to **Amazon Elastic Container Registry (ECR)**.
 
-## ⚓ Kubernetes Orchestration
+### Kubernetes Orchestration
 
 - Each service is deployed as a separate Helm chart under [`/helm-charts`](`/helm-charts`) directory.
 - Each chart includes Kubernetes resources: `Deployment`, `Service`, `ConfigMaps`, and `Secrets`.
 - All components (frontend, service-registr, api-gateway, and microservices) deployed as `ClusterIP` service type.
 
-## ☁️ AWS Infrastructure
+### AWS Infrastructure
 
-### 🌐 Networking (AWS VPC)
+#### Networking (AWS VPC)
 
 - A dedicated VPC across two Availability Zones (AZs).
 - Subnets:
@@ -246,13 +246,13 @@ README.md
   - Public route table routes internet-bound traffic via Internet Gateway.
   - Private route table routes internet-bound traffic via NAT Gateway.
 
-### ☸️ Kubernetes Cluster (AWS EKS)
+#### Kubernetes Cluster (AWS EKS)
 
 - EKS Cluster deployed within the above VPC.
 - EKS Node Group (managed worker nodes) spread across the two AZs for high availability.
 - Worker nodes are deployed in private subnets, ensuring they are not exposed directly to the internet.
 
-### ➡️ Ingress Routing
+#### Ingress Routing
 
 - Dedicated Helm chart for ingress configuration.
 - Configured via AWS Load Balancer Controller.
@@ -261,7 +261,7 @@ README.md
   - `/api/**` → Spring Cloud API Gateway service
 - Public access is restricted to the Ingress Controller only.
 
-## 🏗️ Terraform (Infrastructure as Code)
+### Terraform (Infrastructure as Code)
 
 - Infrastructure provisioned using Terraform, ensuring reproducibility and automation.
 - Terraform manage:
@@ -270,7 +270,7 @@ README.md
   - IAM Roles and Policies (for worker nodes and control plane).
   - ECR Repositories for storing Docker images.
 
-## 🔄 CI/CD with GitHub Actions
+### CI/CD with GitHub Actions
 
 - Separate workflow files per service for isolation and independent deployments.
 - Workflow stages:
@@ -278,9 +278,9 @@ README.md
   - Build Docker image and push to ECR
   - Deploy/update Helm release on EKS
 
-# 🖥️ How to run locally?
+## 🖥️ How to run locally?
 
-## 📋 Prerequistics
+### Prerequistics
 
 Make sure you have the following tools installed locally:
 - JAVA Development Kit (JDK 21)
@@ -289,7 +289,7 @@ Make sure you have the following tools installed locally:
 - npm
 - Git
   
-## Step 1: Fork and Clone the Repository
+### Step 1: Fork and Clone the Repository
 
 1. Fork the repository to your GitHub account.
 
@@ -300,7 +300,7 @@ git clone https://github.com/<your-username>/Fullstack-E-commerce-web-applicatio
 ```
 
 
-## Step 2: Setting up databases.
+### Step 2: Setting up databases.
 
 1. Create the following databases in MongoDB Atlas:
 
@@ -312,7 +312,7 @@ git clone https://github.com/<your-username>/Fullstack-E-commerce-web-applicatio
 
 2. You can find sample data for products and categories to get started [here](./sample-data/).
 
-## Step 3: Setting up e-mail configurations
+### Step 3: Setting up e-mail configurations
 
 1. In the `notification-service`, configure the following credentials in the [`application.properties`](./microservice-backend/notification-service/src/main/resources/application.properties) file to enable email sending functionality:
 
@@ -323,7 +323,7 @@ spring.mail.password=YOUR_PASSWORD
 
 Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with your actual email service credentials.
 
-## Step 4: Run the microservices.
+### Step 4: Run the microservices.
 
 1. First run [`service-registry`](./microservice-backend/service-registry/). Access the Eureka dashboard at [`http://localhost:8761`](http://localhost:8761). Next run the other services. 
 
@@ -335,7 +335,7 @@ mvn springboot:run
    
 <img width="960" alt="Eureka Dashboard" src="assets/eureka-dashboard.png" />
 
-## Step 5: Run the frontend
+### Step 5: Run the frontend
 
 1. Navigate to [frontend direcory](./frontend/).
 ```
@@ -360,9 +360,9 @@ npm run dev
 
 Access the application at [`http://localhost:5173/`](http://localhost:5173/)
 
-# ☁️ How to deploy to Amazon EKS?
+## ☁️ How to deploy to Amazon EKS?
 
-## 📋 Prerequistics
+### Prerequistics
 
 Make sure you have the following tools installed locally:
 - kubectl
@@ -371,17 +371,17 @@ Make sure you have the following tools installed locally:
 - ekctl
 - Terraform
 
-## Step 1: Containerization
+### Step 1: Containerization
 
 - Each component (frontend, service-registry, api-gateway, and microservices) has its own Dockerfile.
 - You don’t need to change anything here. The components will be automatically built and push images to Amazon ECR when running CI/CD.
   
-## Step 2: Kubernetes Orchestration
+### Step 2: Kubernetes Orchestration
 
 - Each service is deployed as a separate Helm chart under [`/helm-charts`](`/helm-charts`) directory. Leave them as that.
 - No need to modify the chart structure unless adding new services or debugging purposes.
 
-## Step 3: AWS Infrastructure  
+### Step 3: AWS Infrastructure  
 
 - AWS resources are provisioned using Terraform manifests in the [`terraform/`](terraform/) directory.
 - By default, you can’t directly access an eks cluster without the **AmazonEKSClusterAdminPolicy**.
@@ -426,7 +426,7 @@ kubectl get svc
 <img width="960" alt="Verify ALB" src="assets/verify-alb.png" />
 
 
-## Step 4: CI/CD with GitHub Actions
+### Step 4: CI/CD with GitHub Actions
 
 - IAM User for CI/CD
   - Create an IAM user with permissions to EKS and ECR.
@@ -473,7 +473,7 @@ Copy the Ingress DNS address from the output and open it in your browser to view
 
 <img width="960" alt="Ingress Address" src="assets/ingress-address.png" />
 
-# Demo video
+## Demo video
 
 https://github.com/user-attachments/assets/659f4c17-dcf7-44b4-8504-d05826f251b1
 
