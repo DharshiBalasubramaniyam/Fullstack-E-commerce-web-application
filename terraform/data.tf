@@ -6,7 +6,16 @@ data "aws_iam_user" "local_cli_user" {
     user_name = var.local_cli_user_name
 }
 
-data "aws_caller_identity" "current" {}
+data "aws_caller_identity" "current" {
+}
+
+data "aws_eks_cluster" "purely_cluster" {
+    name = aws_eks_cluster.purely_cluster.name
+}
+
+data "aws_eks_cluster_auth" "purely_cluster" {
+    name = aws_eks_cluster.purely_cluster.name
+}
 
 # eksctl utils associate-iam-oidc-provider --region=us-east-1 --cluster=purely-cluster --approve
 # eksctl create iamserviceaccount --cluster=purely-cluster --namespace=kube-system --name=alb-controller --attach-policy-arn=arn:aws:iam::019847571531:policy/AWSLoadBalancerControllerIAMPolicy --override-existing-serviceaccounts --region us-east-1 --approve
