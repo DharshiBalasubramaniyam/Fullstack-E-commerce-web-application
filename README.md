@@ -462,19 +462,11 @@ aws eks update-kubeconfig --region YOUR_REGION --name YOUR_CLUSTER_NAME
 <img width="960" alt="Describe Ingress" src="assets/ingress-describe.png" /> 
 
   - Verify the Eureka server via port forwarding
-<img width="960" alt="Eureka Dashboard Port forward" src="assets/eureka-dashboard-port-forward.png" />
+<img width="960" alt="Eureka Dashboard Port forward" src="assets/verify-eureka.png" />
 
 <img width="960" alt="Eureka Dashboard" src="assets/eureka-dashboard.png" /> 
 
-```
-kubectl get pod,svc,ingress
-```
-
-<img width="960" alt="Verify Deployment" src="assets/verify-deployment.png" />
-
-Copy the Ingress DNS address from the output and open it in your browser to view the live application.
-
-<img width="960" alt="Ingress Address" src="assets/ingress-address.png" />
+Copy the Ingress DNS address from the `kubectl get ingress` and open it in your browser to view the live application.
 
 ## Demo video
 
