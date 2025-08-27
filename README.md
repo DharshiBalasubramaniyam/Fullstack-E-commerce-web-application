@@ -39,7 +39,6 @@
     - [AWS Infrastructure](#aws-infrastructure)
       - [Networking (AWS VPC)](#networking-aws-vpc)
       - [Kubernetes Cluster (AWS EKS)](#kubernetes-cluster-aws-eks)
-      - [Ingress Routing](#ingress-routing)
     - [Terraform - Infrastructure as Code](#terraform-infrastructure-as-code)
     - [CI/CD with GitHub Actions](#cicd-with-github-actions)
 4. [How to run locally?](#%EF%B8%8F-how-to-run-locally)
@@ -384,7 +383,7 @@ Make sure you have the following tools installed locally:
   - In this project:  Access entries are defined in [`terraform/eks_access_entry.tf`](terraform/eks_access_entry.tf).
   - Update IAM usernames for GitHub Actions and local CLI in [terraform/variables.tf](terraform/variables.tf).
 
-- Then, Run the following commands:
+- Then, run the following commands:
   
 ```
 terraform init
@@ -396,23 +395,18 @@ terraform apply
 
 <img width="960" alt="VPC Resource Map" src="assets/vpc-resource-map.png" />
 
-- This will deploy an EKS cluster (purely-cluster) and associated EKS node groups across two Availability Zones. You can verify the cluster setup from `AWS console > EKS >  clusters > purely-cluster`.
+- This will deploy an EKS cluster (purely-cluster), EKS node groups, Application Load Balancer controller, Metrics server, and Cluster autoscaler.
+- After Terraform finishes, update your kubeconfig (Ensure the local AWS CLI user has an access entry in the EKS cluster.
 
-<img width="960" alt="EKS Cluster" src="assets/eks-cluster.png" />
-
-- After Terraform finishes, update your kubeconfig (Ensure the local AWS CLI user has an access entry in the EKS cluster.):
 ```
 aws eks update-kubeconfig --region YOUR_REGION --name YOUR_CLUSTER_NAME
 ```
 
 <img width="960" alt="Update kubeconfig" src="assets/update-kube-config.png" />
 
-- Verify cluster resources:
-```
-kubectl get svc
-```
+- Next, ensure that nodes, Application Load Balancer controller, Metrics server, and Cluster autoscaler are installed properly.
 
-<img width="960" alt="Verify Cluster" src="assets/verify-cluster.png" />
+<img width="960" alt="EKS Cluster" src="assets/verify-cluster.png" />
 
 ### Step 4: CI/CD with GitHub Actions
 
@@ -449,7 +443,28 @@ kubectl get svc
 
 ✅ Deployment Complete!
 
-Verify cluster resources:
+- Verify cluster resources:
+  - Nodes
+<img width="960" alt="Verify Nodes" src="assets/verify-nodes.png" />
+
+  - Deployment
+<img width="960" alt="Verify Deployment" src="assets/verify-deployment.png" />
+
+  - Horizontal Pod Autoscaler
+<img width="960" alt="Verify HPA" src="assets/verify-hpa.png" />
+
+  - Service
+<img width="960" alt="Verify Service" src="assets/verify-svc.png" />
+
+  - Ingress
+<img width="960" alt="Verify Ingress" src="assets/verify-ingress.png" />
+
+<img width="960" alt="Describe Ingress" src="assets/ingress-describe.png" /> 
+
+  - Verify the Eureka server via port forwarding
+<img width="960" alt="Eureka Dashboard Port forward" src="assets/eureka-dashboard-port-forward.png" />
+
+<img width="960" alt="Eureka Dashboard" src="assets/eureka-dashboard.png" /> 
 
 ```
 kubectl get pod,svc,ingress
