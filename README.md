@@ -4,9 +4,12 @@
   <img alt="Static Badge" src="https://img.shields.io/badge/Spring%20Boot-yellowgreen?style=for-the-badge">
   <img alt="Static Badge" src="https://img.shields.io/badge/React.js-darkblue?style=for-the-badge">
   <img alt="Static Badge" src="https://img.shields.io/badge/mongodb-darkgreen?style=for-the-badge">
+  <img alt="Static Badge" src="https://img.shields.io/badge/jwt-hotpink?style=for-the-badge">
   <img alt="Static Badge" src="https://img.shields.io/badge/docker-blue?style=for-the-badge">
   <img alt="Static Badge" src="https://img.shields.io/badge/kubernetes-skyblue?style=for-the-badge">
+  <img alt="Static Badge" src="https://img.shields.io/badge/terraform-purple?style=for-the-badge">
   <img alt="Static Badge" src="https://img.shields.io/badge/AWS%20EKS-tomato?style=for-the-badge">
+  <img alt="Static Badge" src="https://img.shields.io/badge/AWS%20ECR-orange?style=for-the-badge">
   <img alt="Static Badge" src="https://img.shields.io/badge/GITHUB%20ACTIONS-white?style=for-the-badge">
 </p>
 
