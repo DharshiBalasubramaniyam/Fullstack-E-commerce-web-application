@@ -37,8 +37,8 @@ spec:
                   key: EUREKA_INSTANCE_HOSTNAME
           resources:
             requests:
-              cpu: {{ .Values.cart.requests.cpu }}
-              memory: {{ .Values.cart.requests.memory }}
+              cpu: {{ .Values.category.requests.cpu }}
+              memory: {{ .Values.category.requests.memory }}
             limits:
-              cpu: {{ .Values.cart.limits.cpu }}
-              memory: {{ .Values.cart.limits.memory }}
+              cpu: {{ .Values.category.limits.cpu }}
+              memory: {{ .Values.category.limits.memory }}
