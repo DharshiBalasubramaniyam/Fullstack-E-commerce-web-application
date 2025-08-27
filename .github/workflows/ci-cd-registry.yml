@@ -1,4 +1,4 @@
-name: CI/CD Pipeline for Eureka Service Registry
+name: CI/CD Pipeline for Service Registry
 
 on: 
    push:
