@@ -24,9 +24,6 @@ function Cart({ isCartOpen, onClose }) {
         navigate(`/order/checkout`)
     }
 
-    useEffect(() => {
-
-    }, [])
     return (
         <>
             <div className={isCartOpen ? "shoppingCart active" : "shoppingCart"}>
