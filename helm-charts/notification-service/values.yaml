@@ -4,11 +4,11 @@ notification:
   containerPort: 9020
   image: default
   requests:
-    cpu: 1000m
-    memory: 512Mi
+    cpu: 250m
+    memory: 256Mi
   limits:
-    cpu: 1000m
-    memory: 1Gi
+    cpu: 500m
+    memory: 512Gi
   averageUtilization:
    cpu: 60
    memory: 60
