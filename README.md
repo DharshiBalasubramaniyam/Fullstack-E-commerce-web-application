@@ -41,7 +41,7 @@
     - [CI/CD with GitHub Actions](#cicd-with-github-actions)
 4. [How to run locally?](#%EF%B8%8F-how-to-run-locally)
 5. [How to deploy to AWS?](#%EF%B8%8F-how-to-deploy-to-amazon-eks)
-6. [Demo video](#-demo-video)
+6. [Demo video](#demo-video)
 
 ## 📂 Project tree
 
@@ -236,29 +236,30 @@ README.md
 
 #### Networking (AWS VPC)
 
-- A dedicated VPC across two Availability Zones (AZs).
-- Subnets:
+- A dedicated [VPC](./terraform/vpc.tf) across two Availability Zones (AZs).
+- [Subnets](./terraform/vpc-subnets.tf):
   - 2 Public subnets (1 in each AZ).
   - 2 Private subnets (1 in each AZ).
-- Internet Gateway: Attached to VPC for public subnet access for public subnets.
-- NAT Gateway: Deployed in one public subnet, allowing outbound internet access for resources in private subnets (e.g., EKS worker nodes pulling Docker images).
-- Route Tables:
+- [Internet Gateway](./terraform/vpc-internet-gateway.tf): Attached to VPC for public subnet access for public subnets.
+- [NAT Gateway](/terraform/vpc-nat-gateway.tf): Deployed in one public subnet, allowing outbound internet access for resources in private subnets (e.g., EKS worker nodes pulling Docker images).
+- [Route Tables](./terraform/vpc-route-tables.tf):
   - Public route table routes internet-bound traffic via Internet Gateway.
   - Private route table routes internet-bound traffic via NAT Gateway.
 
 #### Kubernetes Cluster (AWS EKS)
 
-- **EKS Cluster** deployed within the above VPC.
-- **EKS Node Group (managed worker nodes)** spread across the two AZs for high availability. Worker nodes are deployed in private subnets, ensuring they are not exposed directly to the internet.
-- **Application Load Balancer controller** is installed within the EKS cluster, to let traffic route using ingress.
-- **Metrics-server** is installed within the EKS cluster, to let `HPA` get the current CPU/memory usage for each Pod.
+- [**EKS Cluster**](./terraform/eks-cluster.tf) deployed within the above VPC.
+- [**EKS Node Group (managed worker nodes)**](./terraform/eks-node-groups.tf) spread across the two AZs for high availability. Worker nodes are deployed in private subnets, ensuring they are not exposed directly to the internet.
+- [**Application Load Balancer controller**](./terraform/eks-alb-controller.tf) is installed within the EKS cluster, to let traffic route using ingress.
+- [**Metrics-server**](./terraform/eks-metrics-server.tf) is installed within the EKS cluster, to let `Horizontal Pod AutoScaler` get the current CPU/memory usage for each Pod.
+- [**Cluster AutoScaler**](./terraform/eks-cluster-autoscaler.tf) is installed within the EKS Cluster, automatically adjusting the number of worker nodes in the EKS cluster based on pending pods. 
 
 ### Terraform (Infrastructure as Code)
 
 - Infrastructure provisioned using Terraform, ensuring reproducibility and automation.
 - Terraform manage:
   - [VPC](./terraform/vpc.tf) ([subnets](./terraform/vpc-subnets.tf), [Internet Gateway](./terraform/vpc-internet-gateway.tf), [NAT Gateway](/terraform/vpc-nat-gateway.tf), [route tables](./terraform/vpc-route-tables.tf)).
-  - [EKS Cluster](./terraform/eks-cluster.tf) (Control Plane, [Managed Node Groups](./terraform/eks-node-groups.tf), [Access Entry]((./terraform/eks-access-entries.tf)), [Metrics-server](./terraform/eks-metrics-server.tf), [Application Load Balancer Controller](./terraform/eks-alb-controller.tf)).
+  - [EKS Cluster](./terraform/eks-cluster.tf) (Control Plane, [Managed Node Groups](./terraform/eks-node-groups.tf), [Access Entry]((./terraform/eks-access-entries.tf)), [Metrics-server](./terraform/eks-metrics-server.tf), [Application Load Balancer Controller](./terraform/eks-alb-controller.tf), [Cluster Autoscaler](./terraform/eks-cluster-autoscaler.tf)).
   - [ECR Repositories](./terraform/ecr_registries.tf) for storing Docker images.
 
 ### CI/CD with GitHub Actions
@@ -409,13 +410,6 @@ kubectl get svc
 ```
 
 <img width="960" alt="Verify Cluster" src="assets/verify-cluster.png" />
-
-- For ingress routing, the AWS Load Balancer Controller is installed. To install the controller, check [this](https://docs.aws.amazon.com/eks/latest/userguide/lbc-helm.html) guide.
-
-- After installation verify whether the controller instances are running.
-
-<img width="960" alt="Verify ALB" src="assets/verify-alb.png" />
-
 
 ### Step 4: CI/CD with GitHub Actions
 
