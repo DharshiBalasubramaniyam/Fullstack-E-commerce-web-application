@@ -4,9 +4,12 @@
   <img alt="Static Badge" src="https://img.shields.io/badge/Spring%20Boot-yellowgreen?style=for-the-badge">
   <img alt="Static Badge" src="https://img.shields.io/badge/React.js-darkblue?style=for-the-badge">
   <img alt="Static Badge" src="https://img.shields.io/badge/mongodb-darkgreen?style=for-the-badge">
+  <img alt="Static Badge" src="https://img.shields.io/badge/jwt-hotpink?style=for-the-badge">
   <img alt="Static Badge" src="https://img.shields.io/badge/docker-blue?style=for-the-badge">
   <img alt="Static Badge" src="https://img.shields.io/badge/kubernetes-skyblue?style=for-the-badge">
+  <img alt="Static Badge" src="https://img.shields.io/badge/terraform-purple?style=for-the-badge">
   <img alt="Static Badge" src="https://img.shields.io/badge/AWS%20EKS-tomato?style=for-the-badge">
+  <img alt="Static Badge" src="https://img.shields.io/badge/AWS%20ECR-orange?style=for-the-badge">
   <img alt="Static Badge" src="https://img.shields.io/badge/GITHUB%20ACTIONS-white?style=for-the-badge">
 </p>
 
@@ -41,7 +44,7 @@
     - [CI/CD with GitHub Actions](#cicd-with-github-actions)
 4. [How to run locally?](#%EF%B8%8F-how-to-run-locally)
 5. [How to deploy to AWS?](#%EF%B8%8F-how-to-deploy-to-amazon-eks)
-6. [Demo video](#-demo-video)
+6. [Demo video](#demo-video)
 
 ## 📂 Project tree
 
@@ -223,56 +226,48 @@ README.md
 
 ### Containerization
 
-- Each component (frontend, service-registry, api-gateway, and microservices) has its own Dockerfile, and is packaged into a Docker image.
+- Each component ([frontend](./frontend/Dockerfile), [service-registry](./service-registry/Dockerfile), [api-gateway](./api-gateway/Dockerfile), and [other microservices](./category-service/Dockerfile)) has its own Dockerfile, and is packaged into a Docker image.
 - Images pushed to **Amazon Elastic Container Registry (ECR)**.
 
 ### Kubernetes Orchestration
 
 - Each service is deployed as a separate Helm chart under [`/helm-charts`](`/helm-charts`) directory.
-- Each chart includes Kubernetes resources: `Deployment`, `Service`, `ConfigMaps`, and `Secrets`.
-- All components (frontend, service-registr, api-gateway, and microservices) deployed as `ClusterIP` service type.
+- Each chart includes Kubernetes resources: `Deployment`, `hpa`, `Service`, `ConfigMaps`, and `Secrets`.
+- All components ([Ingress](./helm-charts/ingress-alb), [frontend](./helm-charts/web-app), [service-registry](./helm-charts/service-registry), [api-gateway](./helm-charts/api-gateway), and [other microservices](./helm-charts/category-service)) deployed as `ClusterIP` service type.
 
 ### AWS Infrastructure
 
 #### Networking (AWS VPC)
 
-- A dedicated VPC across two Availability Zones (AZs).
-- Subnets:
+- A dedicated [VPC](./terraform/vpc.tf) across two Availability Zones (AZs).
+- [Subnets](./terraform/vpc-subnets.tf):
   - 2 Public subnets (1 in each AZ).
   - 2 Private subnets (1 in each AZ).
-- Internet Gateway: Attached to VPC for public subnet access for public subnets.
-- NAT Gateway: Deployed in one public subnet, allowing outbound internet access for resources in private subnets (e.g., EKS worker nodes pulling Docker images).
-- Route Tables:
+- [Internet Gateway](./terraform/vpc-internet-gateway.tf): Attached to VPC for public subnet access for public subnets.
+- [NAT Gateway](/terraform/vpc-nat-gateway.tf): Deployed in one public subnet, allowing outbound internet access for resources in private subnets (e.g., EKS worker nodes pulling Docker images).
+- [Route Tables](./terraform/vpc-route-tables.tf):
   - Public route table routes internet-bound traffic via Internet Gateway.
   - Private route table routes internet-bound traffic via NAT Gateway.
 
 #### Kubernetes Cluster (AWS EKS)
 
-- EKS Cluster deployed within the above VPC.
-- EKS Node Group (managed worker nodes) spread across the two AZs for high availability.
-- Worker nodes are deployed in private subnets, ensuring they are not exposed directly to the internet.
-
-#### Ingress Routing
-
-- Dedicated Helm chart for ingress configuration.
-- Configured via AWS Load Balancer Controller.
-- Routing strategy:
-  - `/` → React frontend service
-  - `/api/**` → Spring Cloud API Gateway service
-- Public access is restricted to the Ingress Controller only.
+- [**EKS Cluster**](./terraform/eks-cluster.tf) deployed within the above VPC.
+- [**EKS Node Group (managed worker nodes)**](./terraform/eks-node-groups.tf) spread across the two AZs for high availability. Worker nodes are deployed in private subnets, ensuring they are not exposed directly to the internet.
+- [**Application Load Balancer controller**](./terraform/eks-alb-controller.tf) is installed within the EKS cluster, to let traffic route using ingress.
+- [**Metrics-server**](./terraform/eks-metrics-server.tf) is installed within the EKS cluster, to let `Horizontal Pod AutoScaler` get the current CPU/memory usage for each Pod.
+- [**Cluster AutoScaler**](./terraform/eks-cluster-autoscaler.tf) is installed within the EKS Cluster, automatically adjusting the number of worker nodes in the EKS cluster based on pending pods. 
 
 ### Terraform (Infrastructure as Code)
 
 - Infrastructure provisioned using Terraform, ensuring reproducibility and automation.
 - Terraform manage:
-  - VPC (subnets, route tables, IGW, NAT Gateway).
-  - EKS Cluster (control plane and managed node groups).
-  - IAM Roles and Policies (for worker nodes and control plane).
-  - ECR Repositories for storing Docker images.
+  - [VPC](./terraform/vpc.tf) ([subnets](./terraform/vpc-subnets.tf), [Internet Gateway](./terraform/vpc-internet-gateway.tf), [NAT Gateway](/terraform/vpc-nat-gateway.tf), [route tables](./terraform/vpc-route-tables.tf)).
+  - [EKS Cluster](./terraform/eks-cluster.tf) (Control Plane, [Managed Node Groups](./terraform/eks-node-groups.tf), [Access Entry]((./terraform/eks-access-entries.tf)), [Metrics-server](./terraform/eks-metrics-server.tf), [Application Load Balancer Controller](./terraform/eks-alb-controller.tf), [Cluster Autoscaler](./terraform/eks-cluster-autoscaler.tf)).
+  - [ECR Repositories](./terraform/ecr_registries.tf) for storing Docker images.
 
 ### CI/CD with GitHub Actions
 
-- Separate workflow files per service for isolation and independent deployments.
+- [Separate workflow files](./.github/workflows) per service for isolation and independent deployments.
 - Workflow stages:
   - Build & test
   - Build Docker image and push to ECR
@@ -418,13 +413,6 @@ kubectl get svc
 ```
 
 <img width="960" alt="Verify Cluster" src="assets/verify-cluster.png" />
-
-- For ingress routing, the AWS Load Balancer Controller is installed. To install the controller, check [this](https://docs.aws.amazon.com/eks/latest/userguide/lbc-helm.html) guide.
-
-- After installation verify whether the controller instances are running.
-
-<img width="960" alt="Verify ALB" src="assets/verify-alb.png" />
-
 
 ### Step 4: CI/CD with GitHub Actions
 
