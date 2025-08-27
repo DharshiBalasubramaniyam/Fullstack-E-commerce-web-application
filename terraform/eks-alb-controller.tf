@@ -1,17 +1,7 @@
-resource "aws_iam_openid_connect_provider" "alb_openid_connect_provider" {
-  url = data.aws_eks_cluster.purely_cluster.identity[0].oidc[0].issuer
-
-  client_id_list = [
-    "sts.amazonaws.com",
-  ]
-
-  thumbprint_list = ["9e99a48a9960b14926bb7f3b02e22da2b0ab7280"]
-}
-
 resource "aws_iam_policy" "AWSLoadBalancerControllerIAMPolicy" {
   name        = "AWSLoadBalancerControllerIAMPolicy"
   description = "A custom IAM policy for Application Load Balancer Controller access"
-  policy      = file("AWSLoadBalancerControllerIAMPolicy.json")
+  policy      = file("policies/AWSLoadBalancerControllerIAMPolicy.json")
 }
 
 resource "aws_iam_role" "AWSLoadBalancerControllerIAMRole" {

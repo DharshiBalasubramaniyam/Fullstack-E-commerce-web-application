@@ -62,7 +62,7 @@ resource "aws_ecr_repository" "purely_order_registry" {
 }
 
 resource "aws_ecr_repository" "purely_cart_registry" {
-  name = "purely_auth_registry"
+  name = "purely_cart_registry"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
@@ -71,7 +71,7 @@ resource "aws_ecr_repository" "purely_cart_registry" {
 }
 
 resource "aws_ecr_repository" "purely_notification_registry" {
-  name = "purely_auth_registry"
+  name = "purely_notification_registry"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
@@ -80,7 +80,7 @@ resource "aws_ecr_repository" "purely_notification_registry" {
 }
 
 resource "aws_ecr_repository" "purely_user_registry" {
-  name = "purely_auth_registry"
+  name = "purely_user_registry"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
