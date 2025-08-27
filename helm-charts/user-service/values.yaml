@@ -8,7 +8,7 @@ user:
     memory: 128Mi
   limits:
     cpu: 500m
-    memory: 512Gi
+    memory: 512Mi
   averageUtilization:
    cpu: 60
    memory: 60
