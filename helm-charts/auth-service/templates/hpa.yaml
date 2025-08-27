@@ -1,12 +1,12 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ printf "%s-hpa" .Values.registry.label }}
+  name: {{ printf "%s-hpa" .Values.auth.label }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ printf "%s-depl" .Values.registry.label }}  
+    name: {{ printf "%s-depl" .Values.auth.label }}  
   minReplicas: 1
   maxReplicas: 5
   metrics:
@@ -15,10 +15,10 @@ spec:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: {{ .Values.registry.averageUtilization.cpu }}
+        averageUtilization: {{ .Values.auth.averageUtilization.cpu }}
   - type: Resource
     resource:
       name: memory
       target:
         type: Utilization
-        averageUtilization: {{ .Values.registry.averageUtilization.memory }}
+        averageUtilization: {{ .Values.auth.averageUtilization.memory }}

@@ -3,6 +3,15 @@ cart:
   replicas: 1
   containerPort: 9060
   image: default
+  requests:
+    cpu: 1000m
+    memory: 512Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+  averageUtilization:
+   cpu: 60
+   memory: 60
   service:
     type: ClusterIP
     port: 9060

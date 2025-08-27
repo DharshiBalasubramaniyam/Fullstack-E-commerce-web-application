@@ -35,3 +35,10 @@ spec:
                 configMapKeyRef:
                   name: {{ .Values.config.label }}
                   key: EUREKA_INSTANCE_HOSTNAME
+          resources:
+            requests:
+              cpu: {{ .Values.auth.requests.cpu }}
+              memory: {{ .Values.auth.requests.memory }}
+            limits:
+              cpu: {{ .Values.auth.limits.cpu }}
+              memory: {{ .Values.auth.limits.memory }}

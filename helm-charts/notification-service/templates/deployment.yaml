@@ -39,4 +39,11 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.secret.label }}
-                  key: SPRING_MAIL_PASSWORD                  
+                  key: SPRING_MAIL_PASSWORD   
+          resources:
+            requests:
+              cpu: {{ .Values.notification.requests.cpu }}
+              memory: {{ .Values.notification.requests.memory }}
+            limits:
+              cpu: {{ .Values.notification.limits.cpu }}
+              memory: {{ .Values.notification.limits.memory }}               

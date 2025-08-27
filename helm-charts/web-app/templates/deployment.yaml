@@ -19,4 +19,10 @@ spec:
           image: {{ .Values.web.image }}
           ports:
             - containerPort: {{ .Values.web.containerPort }}
-            
+          resources:
+            requests:
+              cpu: {{ .Values.web.requests.cpu }}
+              memory: {{ .Values.web.requests.memory }}
+            limits:
+              cpu: {{ .Values.web.limits.cpu }}
+              memory: {{ .Values.web.limits.memory }}            
