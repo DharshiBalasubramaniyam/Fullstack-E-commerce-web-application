@@ -48,72 +48,82 @@
 ## 📂 Project tree
 
 ```
-.github/
-    └── workflows/
-        ├── ci-cd-auth.yml
-        ├── ci-cd-cart.yml
-        ├── ci-cd-category.yml
-        ├── ci-cd-gateway.yml
-        ├── ci-cd-ingress.yml
-        ├── ci-cd-notification.yml
-        ├── ci-cd-order.yml
-        ├── ci-cd-product.yml
-        ├── ci-cd-registry.yml
-        ├── ci-cd-user.yml
-        └── ci-cd-web.yml
-frontend/
-    ├── public/
-    ├── src/
-        ├── api-service/
-        ├── assets/
-        ├── components/
-        ├── contexts/
-        ├── pages/
-        ├── routes/
-        ├── App.jsx
-    ├── Dockerfile
-    ├── package.json
-helm-charts/
-    ├── api-gateway/
-    ├── auth-service/
-    ├── cart-service/
-    ├── category-service/
-    ├── ingress-alb/
-    ├── notification-service/
-    ├── order-service/
-    ├── product-service/
-    ├── service-registry/
-    ├── user-service/
-    └── web-app/
-microservice-backend/
-    ├── api-gateway/
-    ├── auth-service/
-    ├── cart-service/
-    ├── category-service/
-    ├── notification-service/
-    ├── order-service/
-    ├── product-service/
-    ├── service-registry/
-    └── user-service/
-sample-data/
-    ├── purely_category_service.categories.json
-    └── purely_product_service.products.json
-terraform/
-    ├── data.tf
-    ├── ecr_registry.tf
-    ├── eks_access_entry.tf
-    ├── eks_cluster.tf
-    ├── eks_node_group.tf
-    ├── internet_gateway.tf
-    ├── nat_gateway.tf
-    ├── provider.tf
-    ├── route_tables.tf
-    ├── subnets.tf
-    ├── variables.tf
-    └── vpc.tf
-.gitignore
-LICENSE
-README.md
+fullstack-E-commerce-web-application/
+├── .github/
+│   └── workflows/
+│       ├── ci-cd-auth.yml
+│       ├── ci-cd-cart.yml
+│       ├── ci-cd-category.yml
+│       ├── ci-cd-gateway.yml
+│       ├── ci-cd-ingress.yml
+│       ├── ci-cd-notification.yml
+│       ├── ci-cd-order.yml
+│       ├── ci-cd-product.yml
+│       ├── ci-cd-registry.yml
+│       ├── ci-cd-user.yml
+│       └── ci-cd-web.yml
+├── assets/
+├── frontend/
+│   ├── nginx/
+│   ├── public/
+│   ├── src/
+│   │   ├── api-service/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   ├── contexts/
+│   │   ├── pages/
+│   │   ├── routes/
+|   |   ├── App.jsx
+│   │   └── main.jsx
+│   ├── Dockerfile
+│   └── index.html
+├── helm-charts/
+│   ├── api-gateway/
+│   ├── auth-service/
+│   ├── cart-service/
+│   ├── category-service/
+│   ├── ingress-alb/
+│   ├── notification-service/
+│   ├── order-service/
+│   ├── product-service/
+│   ├── service-registry/
+│   ├── user-service/
+│   └── web-app/
+├── microservice-backend/
+│   ├── api-gateway/
+│   ├── auth-service/
+│   ├── cart-service/
+│   ├── category-service/
+│   ├── notification-service/
+│   ├── order-service/
+│   ├── product-service/
+│   ├── service-registry/
+│   └── user-service/
+├── sample-data/
+│   ├── purely_category_service.categories.json
+│   └── purely_product_service.products.json
+└── terraform/
+│   ├── .terraform.lock.hcl
+│   ├── common-data.tf
+│   ├── common-provider.tf
+│   ├── common-variables.tf
+│   ├── ecr-registries.tf
+│   ├── eks-access-entries.tf
+│   ├── eks-alb-controller.tf
+│   ├── eks-cluster-autoscaler.tf
+│   ├── eks-cluster.tf
+│   ├── eks-metrics-server.tf
+│   ├── eks-node-groups.tf
+│   ├── eks-openid-connect-provider.tf
+│   ├── policies/
+│   │   ├── AWSLoadBalancerControllerIAMPolicy.json
+│   │   └── EKSClusterAutoscalerIAMPolicy.json
+│   ├── vpc-internet-gateway.tf
+│   ├── vpc-nat-gateway.tf
+│   ├── vpc-route-tables.tf
+│   ├── vpc-subnets.tf
+│   └── vpc.tf
+└── README.md
 ```
 
 ## 👨‍💻 Development set up
@@ -406,7 +416,7 @@ aws eks update-kubeconfig --region YOUR_REGION --name YOUR_CLUSTER_NAME
 
 - Next, ensure that nodes, Application Load Balancer controller, Metrics server, and Cluster autoscaler are installed properly.
 
-<img width="960" alt="EKS Cluster" src="assets/verify-cluster.png" />
+<img width="960" alt="EKS Cluster" src="assets/verify-cluster-kube-system.png" />
 
 ### Step 4: CI/CD with GitHub Actions
 
@@ -448,7 +458,7 @@ aws eks update-kubeconfig --region YOUR_REGION --name YOUR_CLUSTER_NAME
 <img width="960" alt="Verify Nodes" src="assets/verify-nodes.png" />
 
   - Deployment
-<img width="960" alt="Verify Deployment" src="assets/verify-deployment.png" />
+<img width="960" alt="Verify Deployment" src="assets/verify-deployments.png" />
 
   - Horizontal Pod Autoscaler
 <img width="960" alt="Verify HPA" src="assets/verify-hpa.png" />
@@ -464,7 +474,7 @@ aws eks update-kubeconfig --region YOUR_REGION --name YOUR_CLUSTER_NAME
   - Verify the Eureka server via port forwarding
 <img width="960" alt="Eureka Dashboard Port forward" src="assets/verify-eureka.png" />
 
-<img width="960" alt="Eureka Dashboard" src="assets/eureka-dashboard.png" /> 
+<img width="960" alt="Eureka Dashboard" src="assets/eureka-dashboard-port-forward.png" /> 
 
 Copy the Ingress DNS address from the `kubectl get ingress` and open it in your browser to view the live application.
 
