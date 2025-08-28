@@ -103,7 +103,6 @@ fullstack-E-commerce-web-application/
 │   ├── purely_category_service.categories.json
 │   └── purely_product_service.products.json
 └── terraform/
-│   ├── .terraform.lock.hcl
 │   ├── common-data.tf
 │   ├── common-provider.tf
 │   ├── common-variables.tf
@@ -264,7 +263,11 @@ fullstack-E-commerce-web-application/
 - [**EKS Node Group (managed worker nodes)**](./terraform/eks-node-groups.tf) spread across the two AZs for high availability. Worker nodes are deployed in private subnets, ensuring they are not exposed directly to the internet.
 - [**Application Load Balancer controller**](./terraform/eks-alb-controller.tf) is installed within the EKS cluster, to let traffic route using ingress.
 - [**Metrics-server**](./terraform/eks-metrics-server.tf) is installed within the EKS cluster, to let `Horizontal Pod AutoScaler` get the current CPU/memory usage for each Pod.
-- [**Cluster AutoScaler**](./terraform/eks-cluster-autoscaler.tf) is installed within the EKS Cluster, automatically adjusting the number of worker nodes in the EKS cluster based on pending pods. 
+- [**Cluster AutoScaler**](./terraform/eks-cluster-autoscaler.tf) is installed within the EKS Cluster, automatically adjusting the number of worker nodes in the EKS cluster based on pending pods.
+
+> Horizontal Pod AutoScaler (HPA) is a Kubernetes resource that automatically scales the number of pods in a Deployment, ReplicaSet, or StatefulSet. It continuously watches pod resource metrics (like CPU %, memory %, or custom metrics) from metrics-server. If usage goes above or below a defined threshold, it increases or decreases pods.
+
+> Cluster Autoscaler (CA) is a Kubernetes component that automatically adjusts the number of worker nodes in the cluster. If HPA scales up pods but no nodes have enough resources to run them, CA adds new nodes. If nodes are scaled down, it removes nodes to save cost.
 
 ### Terraform (Infrastructure as Code)
 
