@@ -480,6 +480,4 @@ Copy the Ingress DNS address from the `kubectl get ingress` and open it in your 
 
 ## Demo video
 
-https://github.com/user-attachments/assets/659f4c17-dcf7-44b4-8504-d05826f251b1
-
-
+https://github.com/user-attachments/assets/d648cb16-6008-44b0-ad2a-b6752df40702
