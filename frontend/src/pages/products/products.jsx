@@ -8,21 +8,23 @@ import ProductService from '../../api-service/product.service';
 import CartContext from '../../contexts/cart.context';
 import { AuthContext } from '../../contexts/auth.context';
 import Footer from '../../components/footer/footer';
+import Pagination from "react-js-pagination";
 
 function Products() {
 
     const { category } = useParams();
     const location = useLocation();
-    const { getAllCategories, getAllProducts, getProductsByCategory, isLoading, categories, products, error } = ProductService()
+    const { getAllCategories, getAllProducts, getProductsByCategory, setPageNumber, isLoading, categories, products, error, pageNumber, totalItemsCount, pageSize } = ProductService()
 
     useEffect(() => {
         getAllCategories()
         if (location.state) {
+            setPageNumber(1)
             getProductsByCategory(location.state.categoryId)
         } else {
             getAllProducts()
         }
-    }, [category])
+    }, [category, pageNumber])
 
     return (
         <>
@@ -33,6 +35,15 @@ function Products() {
                 <>
                     <CategoryWrapper category={category} categoryList={categories} />
                     <ProductsWrapper products={products} />
+                    <Pagination
+                        activePage={pageNumber}
+                        itemsCountPerPage={pageSize}
+                        totalItemsCount={totalItemsCount}
+                        pageRangeDisplayed={5}
+                        onChange={(pageNumber) => {
+                            setPageNumber(pageNumber)
+                        }}
+                    />
                 </>
             )}
             <Footer />

@@ -2,6 +2,7 @@ package com.dharshi.productservice.services;
 
 import com.dharshi.productservice.dtos.ApiResponseDto;
 import com.dharshi.productservice.dtos.CategoryDto;
+import com.dharshi.productservice.dtos.PageResponseDto;
 import com.dharshi.productservice.dtos.ProductRequestDto;
 import com.dharshi.productservice.exceptions.ResourceNotFoundException;
 import com.dharshi.productservice.exceptions.ServiceLogicException;
@@ -10,6 +11,10 @@ import com.dharshi.productservice.models.Product;
 import com.dharshi.productservice.repositories.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -74,14 +79,23 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ResponseEntity<ApiResponseDto<?>> getAllProducts() throws ServiceLogicException {
+    public ResponseEntity<ApiResponseDto<?>> getAllProducts(
+            int pageNumber,
+            int pageSize
+    ) throws ServiceLogicException {
         try {
-            List<Product> products = productRepository.findAll();
+            Pageable pageable =  PageRequest.of(pageNumber, pageSize).withSort(Sort.Direction.ASC, "productName");
+            Page<Product> products = productRepository.findAll(pageable);
             return ResponseEntity.ok(
                     ApiResponseDto.builder()
                             .isSuccess(true)
-                            .response(products)
-                            .message(products.size() + " results found!")
+                            .response(PageResponseDto.builder()
+                                    .totalNoOfPages(products.getTotalPages())
+                                    .totalNoOfRecords(products.getTotalElements())
+                                    .data(products.toList())
+                                    .build()
+                            )
+                            .message(products.toList().size() + " results found!")
                             .build()
             );
         }catch (Exception e) {
@@ -107,18 +121,26 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ResponseEntity<ApiResponseDto<?>> getProductByCategory(String categoryId) throws ServiceLogicException, ResourceNotFoundException {
+    public ResponseEntity<ApiResponseDto<?>> getProductByCategory(String categoryId,
+                                                                  int pageNumber,
+                                                                  int pageSize) throws ServiceLogicException, ResourceNotFoundException {
         try {
             CategoryDto category = categoryService.getCategoryById(categoryId).getBody().getResponse();
 
             if (category != null){
-                List<Product> products = productRepository.findByCategoryId(categoryId);
+                Pageable pageable =  PageRequest.of(pageNumber, pageSize).withSort(Sort.Direction.ASC, "productName");
+                Page<Product> products = productRepository.findByCategoryId(categoryId, pageable);
 
                 return ResponseEntity.ok(
                         ApiResponseDto.builder()
                                 .isSuccess(true)
-                                .response(products)
-                                .message(products.size() + " results found!")
+                                .response(PageResponseDto.builder()
+                                        .totalNoOfPages(products.getTotalPages())
+                                        .totalNoOfRecords(products.getTotalElements())
+                                        .data(products.toList())
+                                        .build()
+                                )
+                                .message(products.toList().size() + " results found!")
                                 .build()
                 );
             }

@@ -12,11 +12,13 @@ import org.springframework.stereotype.Service;
 public interface ProductService {
     ResponseEntity<ApiResponseDto<?>> addProduct(ProductRequestDto requestDto) throws ServiceLogicException, ResourceNotFoundException;
 
-    ResponseEntity<ApiResponseDto<?>> getAllProducts() throws ServiceLogicException;
+    ResponseEntity<ApiResponseDto<?>> getAllProducts(int pageNumber,
+                                                     int pageSize) throws ServiceLogicException;
 
     ResponseEntity<ApiResponseDto<?>> getProductById(String productId) throws ServiceLogicException;
 
-    ResponseEntity<ApiResponseDto<?>> getProductByCategory(String categoryId) throws ServiceLogicException, ResourceNotFoundException;
+    ResponseEntity<ApiResponseDto<?>> getProductByCategory(String categoryId, int pageNumber,
+                                                           int pageSize) throws ServiceLogicException, ResourceNotFoundException;
 
     ResponseEntity<ApiResponseDto<?>> searchProducts(String searchKey) throws ServiceLogicException;
 

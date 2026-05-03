@@ -7,10 +7,15 @@ function ProductService() {
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
     const [error, setError] = useState(false);
+    const [pageNumber, setPageNumber] = useState(1);
+    const [totalItemsCount, settotalItemsCount] = useState(1);
+    const pageSize = 5;
 
     const getAllCategories = async () => {
         setLoading(true)
-        await axios.get(`${API_BASE_URL}/category-service/category/get/all`)
+        await axios.get(
+            `${API_BASE_URL}/category-service/category/get/all`,
+        )
             .then((response) => {
                 setCategories(response.data.response);
                 setError(false)
@@ -25,9 +30,18 @@ function ProductService() {
     const getAllProducts = async () => {
         setLoading(true)
         setProducts([])
-        await axios.get(`${API_BASE_URL}/product-service/product/get/all`)
+        await axios.get(
+            `${API_BASE_URL}/product-service/product/get/all`,
+            {
+                params: {
+                    pageNumber: pageNumber >= 1 ? pageNumber - 1 : 0,
+                    pageSize: pageSize
+                }
+            }
+        )
             .then((response) => {
-                    setProducts(response.data.response);
+                    setProducts(response.data.response?.data);
+                    settotalItemsCount(response.data.response?.totalNoOfRecords);
                     setError(false)
             })
             .catch((error) => {
@@ -41,11 +55,14 @@ function ProductService() {
         setLoading(true)
         await axios.get(`${API_BASE_URL}/product-service/product/get/byCategory`, {
             params:{
-                id: id
+                id: id,
+                pageNumber: pageNumber >= 1 ? pageNumber - 1 : 0,
+                pageSize: pageSize
             }
         })
             .then((response) => {
-                    setProducts(response.data.response);
+                    setProducts(response.data.response?.data);
+                    settotalItemsCount(response.data.response?.totalNoOfRecords);
                     setError(false)
             })
             .catch((error) => {
@@ -59,7 +76,7 @@ function ProductService() {
         setLoading(true)
         await axios.get(`${API_BASE_URL}/product-service/product/search`, {
             params:{
-                searchKey: key
+                searchKey: key,
             }
         })
             .then((response) => {
@@ -73,7 +90,7 @@ function ProductService() {
         setLoading(false)
     }
 
-    return {getAllCategories, getAllProducts, getProductsByCategory, searchProducts, isLoading, categories, products, error};
+    return {getAllCategories, getAllProducts, getProductsByCategory, searchProducts,setPageNumber, isLoading, categories, products, error, pageNumber, totalItemsCount, pageSize};
 }
 
 export default ProductService;
