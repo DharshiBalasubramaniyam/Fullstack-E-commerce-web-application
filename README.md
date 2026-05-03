@@ -309,7 +309,7 @@ git clone https://github.com/<your-username>/Fullstack-E-commerce-web-applicatio
 
 ### Step 2: Setting up databases.
 
-1. Create the following databases in MongoDB Atlas:
+1. Create the following databases in MongoDB Atlas and update the `spring.data.mongodb.uri` value in `application.yml` file of each service:
 
 - `purely_auth_service`
 - `purely_category_service`
