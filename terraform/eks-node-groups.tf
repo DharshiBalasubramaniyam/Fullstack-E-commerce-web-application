@@ -1,6 +1,7 @@
 resource "aws_eks_node_group" "purely_node_group" {
   cluster_name = aws_eks_cluster.purely_cluster.name
   node_group_name = "purely_node_group"
+  instance_types  = ["t3.small"]
   node_role_arn = aws_iam_role.purely_node_group_role.arn
   
   subnet_ids = [

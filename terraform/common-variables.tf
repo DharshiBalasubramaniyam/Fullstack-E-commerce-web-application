@@ -11,7 +11,7 @@ variable "github_actions_user_name" {
 }
 
 variable "local_cli_user_name" {
-	default = "dhar-cli"
+	default = "tanika-cli"
 }
 
 variable "AmazonEKSClusterAdminPolicyArn" {
