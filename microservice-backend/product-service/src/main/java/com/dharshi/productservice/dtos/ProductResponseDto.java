@@ -27,4 +27,6 @@ public class ProductResponseDto {
 
     private List<InventoryDto> inventory;
 
+    private boolean inStock;
+
 }

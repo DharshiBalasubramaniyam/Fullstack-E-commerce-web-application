@@ -165,6 +165,7 @@ public class ProductServiceImpl implements ProductService {
                         .productName(product.getProductName())
                         .price(product.getPrice())
                         .imageUrl(product.getImageUrl())
+                        .inStock(product.isInStock())
                         .description(product.getDescription())
                         .categoryId(product.getCategoryId())
                         .categoryName(product.getCategoryName())
@@ -243,6 +244,7 @@ public class ProductServiceImpl implements ProductService {
                 .price(requestDto.getPrice())
                 .description(requestDto.getDescription())
                 .imageUrl(requestDto.getImageUrl())
+                .inStock(requestDto.isInStock())
                 .categoryId(categoryDto.getId())
                 .categoryName(categoryDto.getCategoryName())
                 .build();

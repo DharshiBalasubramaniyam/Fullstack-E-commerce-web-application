@@ -26,6 +26,8 @@ public class Product {
 
     private String categoryName;
 
+    private boolean inStock;
+
     private List<ProductVariant> variants;
 
 }
