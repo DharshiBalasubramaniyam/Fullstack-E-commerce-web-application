@@ -3,6 +3,8 @@ package com.dharshi.cartservice.dtos;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Builder
 public class ProductDto {
@@ -20,5 +22,10 @@ public class ProductDto {
     private String categoryId;
 
     private String categoryName;
+
+    private boolean inStock;
+
+    private List<ProductVariantDto> variants;
+
 
 }

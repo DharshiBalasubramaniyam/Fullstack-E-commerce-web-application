@@ -11,7 +11,9 @@ public interface CartService {
 
     ResponseEntity<ApiResponseDto<?>> getCartItemsByUser(String userId) throws ResourceNotFoundException, ServiceLogicException;
 
-    ResponseEntity<ApiResponseDto<?>> removeCartItemFromCart(String userId, String productId) throws ServiceLogicException, ResourceNotFoundException;
+    ResponseEntity<ApiResponseDto<?>> removeCartItemFromCart(String userId, String productId, String sku) throws ServiceLogicException, ResourceNotFoundException;
     ResponseEntity<ApiResponseDto<?>> clearCartById(String id) throws ServiceLogicException, ResourceNotFoundException;
     ResponseEntity<ApiResponseDto<?>> getCartById(String id) throws ServiceLogicException;
+
+    ResponseEntity<ApiResponseDto<?>> updateQuantity(String userId, CartItemRequestDto requestDto) throws ServiceLogicException;
 }

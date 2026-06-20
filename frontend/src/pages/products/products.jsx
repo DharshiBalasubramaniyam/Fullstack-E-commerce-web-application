@@ -124,15 +124,18 @@ function ProductsWrapper({ products }) {
                                 >
                                     <img src={`${product.imageUrl}`} className="image" alt='product'></img>
                                     <div className='price' aria-label='image'>Rs. {product.price}</div>
+                                    {
+                                        !product.inStock ? <div className='out-of-stock' aria-label='image'>Out of stock</div> : <></>
+                                    }
                                     <div className='text-part'>
                                         <div className='name'>{product.productName}</div>
                                         <div className='description'>{product.description}</div>
                                     </div>
-                                    <button
+                                    {/* <button
                                         onClick={() => onAddToCart(product.id)}
                                     >
                                         Add to cart
-                                    </button>
+                                    </button> */}
                                 </div>
                             )
                         })

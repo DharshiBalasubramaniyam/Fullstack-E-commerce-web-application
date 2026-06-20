@@ -20,7 +20,13 @@ public class InventoryController {
     @GetMapping("/product/{productId}")
     public ResponseEntity<ApiResponseDto<?>> getInventoryByProduct(@PathVariable("productId") String productId)
             throws ServiceLogicException {
-        return inventoryService.getInventoryByProducts(productId);
+        return inventoryService.getInventoryByProduct(productId);
+    }
+
+    @GetMapping("/product/{productId}/{sku}")
+    public ResponseEntity<ApiResponseDto<?>> getInventoryByProduct(@PathVariable("productId") String productId, @PathVariable("sku") String sku)
+            throws ServiceLogicException {
+        return inventoryService.getInventoryByProductAndSku(productId, sku);
     }
 
 }

@@ -25,6 +25,13 @@ public class CartController {
         return cartService.addItemToCart(authentication.getPrincipal().toString(), requestDto);
     }
 
+    @PutMapping("/qty")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    ResponseEntity<ApiResponseDto<?>> updateQuantity(Authentication authentication, @RequestBody CartItemRequestDto requestDto)
+            throws ResourceNotFoundException, ServiceLogicException{
+        return cartService.updateQuantity(authentication.getPrincipal().toString(), requestDto);
+    }
+
     @GetMapping("/get/byUser")
     @PreAuthorize("hasRole('ROLE_USER')")
     ResponseEntity<ApiResponseDto<?>> getCartItemsByUser(Authentication authentication)
@@ -34,9 +41,9 @@ public class CartController {
 
     @DeleteMapping("/remove")
     @PreAuthorize("hasRole('ROLE_USER')")
-    ResponseEntity<ApiResponseDto<?>> removeCartItemFromCart(Authentication authentication, @RequestParam String productId)
+    ResponseEntity<ApiResponseDto<?>> removeCartItemFromCart(Authentication authentication, @RequestParam String productId, @RequestParam String sku)
             throws ServiceLogicException, ResourceNotFoundException {
-        return cartService.removeCartItemFromCart(authentication.getPrincipal().toString(), productId);
+        return cartService.removeCartItemFromCart(authentication.getPrincipal().toString(), productId, sku);
     }
 
     @GetMapping("/get/byId")

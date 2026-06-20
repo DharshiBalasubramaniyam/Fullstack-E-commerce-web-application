@@ -13,8 +13,71 @@ function ProductDescription() {
 
     const { productId } = useParams();
     const location = useLocation();
-    const { getProductDescription, isLoading, description, error, colors, sizes, activeColor, setActiveColor, activeSize, setActiveSize  } = ProductDescriptionService()
+    const navigate = useNavigate();
+    const { getProductDescription, isLoading, description, error, colors, sizes, activeColor, setActiveColor, activeSize, setActiveSize, variants, inventory } = ProductDescriptionService()
+    const { user, toggleUser } = useContext(AuthContext)
 
+    const [maxQty, setMaxQty] = useState(1);
+    const [activeQty, setActiveQty] = useState(1);
+    const [activePrice, setActivePrice] = useState(-1);
+
+    const { cart, addItemToCart } = useContext(CartContext);
+    const [addingToCart, setAddingToCart] = useState(false);
+
+    const checkStock = () => {
+        const _varient = variants?.find(v => v.size === activeSize && v.color === activeColor);
+        console.log("Varient => ", _varient)
+        if (!_varient) {
+            setMaxQty(0);
+            setActivePrice(-1)
+            return;
+        };
+
+        const _inventory = inventory?.find(i => i.sku === _varient.sku) 
+        console.log("inventory => ", _inventory)
+
+        if (!_inventory) {
+            setMaxQty(0);
+            setActivePrice(-1)
+            return;
+        }
+        if (_inventory || _inventory?.availableStock <= 0) setMaxQty(0);
+        if (_inventory) {
+            const existInCart = cart.cartItems.find(item => item?.productId === productId && item?.variant?.sku === _varient.sku);
+            if (existInCart) {
+                setMaxQty(Math.max(_inventory.availableStock - existInCart.quantity, 0))
+            } else {
+                setMaxQty(_inventory.availableStock)
+            }
+            if (maxQty == 0) {
+                setActivePrice(-1)
+            } else {
+                setActivePrice(_varient.price)
+            }
+        }
+    }
+
+    const onAddToCart = async () => {
+        if (!user) {
+            navigate("/auth/login")
+            return
+        }
+        const _varient = variants?.find(v => v.size === activeSize && v.color === activeColor);
+        if (!_varient) {
+            alert("The product is out of stock!")
+        }
+        setAddingToCart(true)
+        console.log("Add start")
+        await addItemToCart(productId, _varient, activeQty)
+        console.log("Add end")
+        setAddingToCart(false)
+        setActiveQty(1)
+    }
+
+    useEffect(() => {
+        checkStock()
+    }, [activeSize, activeColor, cart])
+    
     useEffect(() => {
         if (location.state) {
             getProductDescription(productId)
@@ -34,7 +97,7 @@ function ProductDescription() {
                     <div className="detail-wrapper">
                         <h2>{description?.productName || "Yoga Mat 4mm - with Bag"}</h2>
                         <p>{description?.description || "A high-quality yoga mat with a non-slip surface for enhanced stability and comfort."}</p>
-                        <h3>Price: ${description?.price || "19.99"}</h3>
+                        <h3>Price: ${activePrice > 0 ? activePrice : description?.price}</h3>
                         <div className='color-wrapper'>
                             <span>Color</span>
                             <ul className='color-selector'>
@@ -64,13 +127,44 @@ function ProductDescription() {
                         </div>
 
                         <div className='qty-selector'>
-                            <button className='qty-btn'>-</button>
-                            <span className='qty'>1</span>
-                            <button className='qty-btn'>+</button>
+                            <button 
+                                className='qty-btn'
+                                disabled={maxQty == 0 || activeQty==1}
+                                onClick={() => {
+                                    if (activeQty > 0) {
+                                        setActiveQty(prev => prev-1)
+                                    }
+                                }}
+                            >
+                                -
+                            </button>
+                            <span className='qty'>{activeQty}</span>
+                            <button 
+                                className='qty-btn'
+                                disabled={maxQty == 0 || activeQty==maxQty}
+                                onClick={() => {
+                                    if (activeQty < maxQty) {
+                                        setActiveQty(prev => prev+1)
+                                    }
+                                }}
+                            >
+                                +
+                            </button>
+                            {
+                                maxQty == 0 ? (
+                                    <button 
+                                        className='out-of-stock'
+                                    >
+                                        Out of stock
+                                    </button>
+                                ) : <></>
+                            }
                         </div>
                         <ul className='action-btns'>
-                            <li className='btn add-to-cart'>Add to Cart</li>
-                            <li className='btn buy-now'>Buy Now</li>
+                            <li
+                                className={maxQty > 0 && !addingToCart ? 'btn add-to-cart' : 'btn add-to-cart-disabled'}
+                                onClick={onAddToCart}
+                            >{addingToCart ? "Adding to Cart" : "Add to Cart"}</li>
                         </ul>
                     </div>
                 </div>

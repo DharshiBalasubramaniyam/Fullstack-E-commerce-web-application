@@ -17,9 +17,23 @@ public class InventoryServiceImpl implements  InventoryService{
     private InventoryRepository inventoryRepository;
 
     @Override
-    public ResponseEntity<ApiResponseDto<?>> getInventoryByProducts(String productId) throws ServiceLogicException {
+    public ResponseEntity<ApiResponseDto<?>> getInventoryByProduct(String productId) throws ServiceLogicException {
         try {
             List<Inventory> inventoryList = inventoryRepository.findByProductId(productId);
+            return ResponseEntity.ok(ApiResponseDto
+                    .builder()
+                    .response(inventoryList)
+                    .build()
+            );
+        } catch (Exception e) {
+            throw new ServiceLogicException("Unable fetch inventory. product id " + productId);
+        }
+    }
+
+    @Override
+    public ResponseEntity<ApiResponseDto<?>> getInventoryByProductAndSku(String productId, String sku) throws ServiceLogicException {
+        try {
+            List<Inventory> inventoryList = inventoryRepository.findByProductIdAndSku(productId, sku);
             return ResponseEntity.ok(ApiResponseDto
                     .builder()
                     .response(inventoryList)

@@ -119,6 +119,21 @@
   font-size: 16px;
 }
 
+.out-of-stock {
+  padding: 6px 12px;
+  border: none;
+  background: #ffa4ac;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.qty-btn:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .qty-btn:hover {
   background: #bbb;
 }
@@ -148,13 +163,21 @@
 }
 
 .add-to-cart {
-  background: #fff;
-  border: 2px solid #000;
+  background: var(--primary);
+  border: 2px solid var(--primary);
+  color: #fff;
 }
 
 .add-to-cart:hover {
-  background: #000;
+  background: transparent;
+  color: var(--primary);
+}
+
+.add-to-cart-disabled {
+  background: var(--primary);
+  border: 2px solid var(--primary);
   color: #fff;
+  opacity: 0.5;
 }
 
 .buy-now {

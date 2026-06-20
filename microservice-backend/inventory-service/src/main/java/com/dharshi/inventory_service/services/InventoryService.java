@@ -11,5 +11,7 @@ import java.util.List;
 @Service
 public interface InventoryService {
 
-    ResponseEntity<ApiResponseDto<?>> getInventoryByProducts(String productId) throws ServiceLogicException;
+    ResponseEntity<ApiResponseDto<?>> getInventoryByProduct(String productId) throws ServiceLogicException;
+
+    ResponseEntity<ApiResponseDto<?>> getInventoryByProductAndSku(String productId, String sku) throws ServiceLogicException;
 }

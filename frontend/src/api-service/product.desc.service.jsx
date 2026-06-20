@@ -11,6 +11,8 @@ function ProductDescriptionService() {
     const [sizes, setSizes] = useState(null);
     const [activeSize, setActiveSize] = useState(null);
     const [error, setError] = useState(false);
+    const [variants, setVariants] = useState(null)
+    const [inventory, setInventory] = useState(null)
 
     const getProductDescription = async (productId) => {
         setLoading(true)
@@ -28,6 +30,8 @@ function ProductDescriptionService() {
                 setSizes(Array.from(new Set(response.data.response?.variants?.map(variant => variant.size))));
                 setActiveColor(response.data.response?.variants[0]?.color);
                 setActiveSize(response.data.response?.variants[0]?.size);
+                setVariants(response.data.response?.variants)
+                setInventory(response.data.response?.inventory)
                 setError(false)
             })
             .catch((error) => {
@@ -39,7 +43,7 @@ function ProductDescriptionService() {
         setLoading(false)
     }
 
-    return { getProductDescription, isLoading, description, error, colors, sizes, activeColor, setActiveColor, activeSize, setActiveSize };
+    return { getProductDescription, isLoading, description, error, colors, sizes, activeColor, setActiveColor, activeSize, setActiveSize, variants, inventory };
 }
 
 export default ProductDescriptionService;

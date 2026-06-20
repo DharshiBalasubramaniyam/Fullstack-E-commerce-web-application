@@ -3,6 +3,8 @@ package com.dharshi.cartservice.dtos;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Builder
 public class CartItemResponseDto {
@@ -13,5 +15,6 @@ public class CartItemResponseDto {
     private double amount;
     private String imageUrl;
     private String categoryName;
+    private ProductVariantDto variant;
 
 }

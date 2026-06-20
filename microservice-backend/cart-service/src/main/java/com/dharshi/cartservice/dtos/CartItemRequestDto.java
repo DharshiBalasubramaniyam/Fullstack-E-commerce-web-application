@@ -7,5 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class CartItemRequestDto {
     private String productId;
+    private ProductVariantDto variant;
     private int quantity;
 }
