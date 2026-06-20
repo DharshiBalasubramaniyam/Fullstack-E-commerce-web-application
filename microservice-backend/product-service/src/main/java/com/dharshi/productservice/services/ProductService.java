@@ -2,6 +2,7 @@ package com.dharshi.productservice.services;
 
 import com.dharshi.productservice.dtos.ApiResponseDto;
 import com.dharshi.productservice.dtos.ProductRequestDto;
+import com.dharshi.productservice.dtos.ProductVariantRequestDto;
 import com.dharshi.productservice.exceptions.ResourceNotFoundException;
 import com.dharshi.productservice.exceptions.ServiceLogicException;
 import org.springframework.http.ResponseEntity;
@@ -23,4 +24,6 @@ public interface ProductService {
     ResponseEntity<ApiResponseDto<?>> searchProducts(String searchKey) throws ServiceLogicException;
 
     ResponseEntity<ApiResponseDto<?>> editProduct(String productId, ProductRequestDto requestDto) throws ServiceLogicException, ResourceNotFoundException;
+
+    ResponseEntity<ApiResponseDto<?>> addProductVariant(ProductVariantRequestDto requestDto) throws ResourceNotFoundException, ServiceLogicException;
 }

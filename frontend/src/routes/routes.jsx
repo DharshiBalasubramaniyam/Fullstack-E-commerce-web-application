@@ -9,6 +9,7 @@ import MyAccount from '../pages/my.account/my.account.jsx';
 import NotFound from '../pages/auth/auth_error/notfound.jsx';
 import Unauthorized from '../pages/auth/auth_error/unauthorized.jsx';
 import { AuthContext } from '../contexts/auth.context.jsx';
+import ProductDescription from '../pages/productDescription/productDescription.jsx';
 
 const Home = lazy(() => import('../pages/home/home.jsx'))
 const Login = lazy(() => import('../pages/auth/login/login.jsx'))
@@ -22,6 +23,7 @@ function AppRoutes() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products/:category" element={<Products />} />
+        <Route path="/product/view/:productId" element={<ProductDescription />} />
         <Route path="/search/:search" element={<Search />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/unauthorized" element={<Unauthorized />} />

@@ -117,7 +117,11 @@ function ProductsWrapper({ products }) {
                     isLoading ? <Loading /> :
                         products.map((product) => {
                             return (
-                                <div className='box' key={product.id}>
+                                <div 
+                                    className='box' 
+                                    key={product.id}
+                                    onClick={() => navigate(`/product/view/${product.id}`, { state: { productId: product.id } })}
+                                >
                                     <img src={`${product.imageUrl}`} className="image" alt='product'></img>
                                     <div className='price' aria-label='image'>Rs. {product.price}</div>
                                     <div className='text-part'>

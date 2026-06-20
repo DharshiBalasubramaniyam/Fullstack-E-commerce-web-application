@@ -1,17 +1,14 @@
-package com.dharshi.productservice.models;
+package com.dharshi.productservice.dtos;
 
+import com.dharshi.productservice.models.ProductVariant;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Data
 @Builder
-@Document(collection = "products")
-public class Product {
-    @Id
+@Data
+public class ProductResponseDto {
     private String id;
 
     private String productName;
@@ -27,5 +24,7 @@ public class Product {
     private String categoryName;
 
     private List<ProductVariant> variants;
+
+    private List<InventoryDto> inventory;
 
 }

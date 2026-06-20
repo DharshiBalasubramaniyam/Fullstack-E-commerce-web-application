@@ -1,14 +1,15 @@
 package com.dharshi.productservice.services;
 
-import com.dharshi.productservice.dtos.ApiResponseDto;
-import com.dharshi.productservice.dtos.CategoryDto;
-import com.dharshi.productservice.dtos.PageResponseDto;
-import com.dharshi.productservice.dtos.ProductRequestDto;
+import com.dharshi.productservice.dtos.*;
+import com.dharshi.productservice.exceptions.ResourceAlreadyExistsException;
 import com.dharshi.productservice.exceptions.ResourceNotFoundException;
 import com.dharshi.productservice.exceptions.ServiceLogicException;
 import com.dharshi.productservice.feigns.CategoryService;
+import com.dharshi.productservice.feigns.InventoryService;
 import com.dharshi.productservice.models.Product;
+import com.dharshi.productservice.models.ProductVariant;
 import com.dharshi.productservice.repositories.ProductRepository;
+import com.netflix.discovery.converters.Auto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Slf4j
 @Component
@@ -29,6 +32,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private InventoryService inventoryService;
 
     @Override
     public ResponseEntity<ApiResponseDto<?>> addProduct(ProductRequestDto requestDto) throws ServiceLogicException, ResourceNotFoundException {
@@ -79,6 +85,48 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public ResponseEntity<ApiResponseDto<?>> addProductVariant(ProductVariantRequestDto requestDto) throws ResourceNotFoundException, ServiceLogicException {
+        try {
+            Product product = productRepository.findById(requestDto.getProductId()).orElse(null);
+            if (product == null)
+                throw new ResourceNotFoundException("Product not found with id " + requestDto.getProductId());
+
+            List<ProductVariant> variants = product.getVariants();
+
+            Optional<ProductVariant> existingV = variants.stream().filter(
+                    v -> v.getSize().equals(requestDto.getSize()) && v.getColor().equals(requestDto.getColor())
+            ).findFirst();
+
+            if (existingV.isPresent()) {
+                throw new ResourceAlreadyExistsException("Variant already exists color = " + requestDto.getColor() + ", size = " + requestDto.getSize());
+            }
+
+            ProductVariant newVariant = ProductVariant.builder()
+                    .color(requestDto.getColor())
+                    .size(requestDto.getSize())
+                    .sku(requestDto.getSku())
+                    .price(requestDto.getPrice())
+                    .build();
+
+            variants.add(newVariant);
+            product.setVariants(variants);
+            product = productRepository.save(product);
+
+            return ResponseEntity.ok(
+                    ApiResponseDto.builder()
+                            .isSuccess(true)
+                            .message("Product variant saved successfully!")
+                            .response(product)
+                            .build()
+            );
+        } catch(ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
+        } catch(Exception e) {
+            throw new ServiceLogicException("Unable save variant!");
+        }
+    }
+
+    @Override
     public ResponseEntity<ApiResponseDto<?>> getAllProducts(
             int pageNumber,
             int pageSize
@@ -106,17 +154,35 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ResponseEntity<ApiResponseDto<?>> getProductById(String productId) throws ServiceLogicException{
         try {
-            Product product = productRepository.findById(productId).orElse(null);
+            Product product = productRepository.findById(productId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Product not found. product id: " + productId));
+
+            List<InventoryDto> inventoryList = Objects.requireNonNull(inventoryService.getInventoryByProduct(productId).getBody()).getResponse();
+
+            ProductResponseDto productResponseDto = ProductResponseDto
+                        .builder()
+                        .id(product.getId())
+                        .productName(product.getProductName())
+                        .price(product.getPrice())
+                        .imageUrl(product.getImageUrl())
+                        .description(product.getDescription())
+                        .categoryId(product.getCategoryId())
+                        .categoryName(product.getCategoryName())
+                        .variants(product.getVariants())
+                        .inventory(inventoryList)
+                        .build();
 
             return ResponseEntity.ok(
                     ApiResponseDto.builder()
                             .isSuccess(true)
-                            .response(product)
+                            .response(productResponseDto)
                             .build()
             );
 
-        }catch (Exception e) {
-            throw new ServiceLogicException("Unable to find products!");
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            e.printStackTrace();
+            throw new ServiceLogicException("[getProductById] Unable to find products: " + e.getMessage());
         }
     }
 
