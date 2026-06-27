@@ -82,7 +82,7 @@ git push -u origin prod
 
 | Service | Host Port | URL |
 |---------|-----------|-----|
-| Frontend | 80 | http://localhost |
+| Frontend | 3000 | http://localhost:3000 |
 | API Gateway | 8080 | http://localhost:8080 |
 | Eureka Dashboard | 8761 | http://localhost:8761 |
 | Auth Service | 9030 | http://localhost:9030 |
@@ -113,7 +113,7 @@ docker compose up --build
 #    → open http://localhost:8761
 
 # 6. Open the application
-#    → open http://localhost
+#    → open http://localhost:3000
 ```
 
 ### Commands — daily usage
@@ -343,6 +343,24 @@ Examples:
 ---
 
 ## 📋 Changelog
+
+---
+
+### 2026-06-27 — Fix broken Docker base image + port conflict
+
+**Branch:** `dev`
+
+#### Summary
+
+`openjdk:21-jdk-slim` does not exist on Docker Hub (the `openjdk` official image was deprecated and this tag was never published). Replaced with `eclipse-temurin:21-jdk-alpine` in all 9 service Dockerfiles. Frontend port changed from `80` to `3000` to avoid conflict with a system-level pgadmin/nginx process occupying port 80 on the host.
+
+#### Files modified
+
+| File | Change |
+|------|--------|
+| `microservice-backend/*/Dockerfile` (all 9) | `FROM openjdk:21-jdk-slim` → `FROM eclipse-temurin:21-jdk-alpine` |
+| `docker-compose.yml` | Frontend port mapping `80:80` → `3000:80` |
+| `IMPLEMENTATION.md` | Updated port map and local setup commands to reflect port 3000 |
 
 ---
 
