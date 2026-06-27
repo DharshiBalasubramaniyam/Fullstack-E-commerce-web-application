@@ -1,0 +1,55 @@
+# Reusable template: Helm upgrade/install to an AKS namespace
+# Usage: - template: templates/helm-deploy.yml
+#          parameters:
+#            serviceName:          auth-service
+#            helmValuesKey:        auth          # top-level key in values.yaml
+#            helmChartPath:        helm-charts/auth-service
+#            namespace:            dev           # Kubernetes namespace
+#            imageTag:             $(Build.BuildId)
+#            azureServiceConnection: azure-service-connection
+#            extraHelmArgs:        "--set secret.SPRING_DATA_MONGODB_URI_AUTH=$(SPRING_DATA_MONGODB_URI_AUTH)"
+
+parameters:
+  - name: serviceName
+    type: string
+  - name: helmValuesKey
+    type: string
+  - name: helmChartPath
+    type: string
+  - name: namespace
+    type: string
+  - name: imageTag
+    type: string
+  - name: azureServiceConnection
+    type: string
+  - name: extraHelmArgs
+    type: string
+    default: ''
+
+steps:
+  - task: AzureCLI@2
+    displayName: Deploy ${{ parameters.serviceName }} → ${{ parameters.namespace }}
+    inputs:
+      azureSubscription: ${{ parameters.azureServiceConnection }}
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        # Authenticate against AKS
+        az aks get-credentials \
+          --resource-group $(AKS_RESOURCE_GROUP) \
+          --name $(AKS_CLUSTER_NAME) \
+          --overwrite-existing
+
+        # Ensure namespace exists
+        kubectl create namespace ${{ parameters.namespace }} \
+          --dry-run=client -o yaml | kubectl apply -f -
+
+        # Deploy / upgrade Helm release
+        helm upgrade --install \
+          ${{ parameters.serviceName }}-${{ parameters.namespace }} \
+          ${{ parameters.helmChartPath }} \
+          --namespace ${{ parameters.namespace }} \
+          --set ${{ parameters.helmValuesKey }}.image=$(ACR_REGISTRY)/${{ parameters.serviceName }}:${{ parameters.imageTag }} \
+          --values ${{ parameters.helmChartPath }}/values-${{ parameters.namespace }}.yaml \
+          --atomic --timeout 5m \
+          ${{ parameters.extraHelmArgs }}

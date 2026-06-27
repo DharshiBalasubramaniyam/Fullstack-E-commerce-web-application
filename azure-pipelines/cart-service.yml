@@ -1,0 +1,145 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Cart Service — Azure DevOps Pipeline
+# Triggers on: dev | test | prod branches
+# Stages: Build → Package → Deploy (environment-specific)
+#
+# Required variable groups in Azure DevOps:
+#   purely-dev | purely-test | purely-prod
+#   Each group must contain:
+#     ACR_REGISTRY, ACR_SERVICE_CONNECTION, AKS_CLUSTER_NAME,
+#     AKS_RESOURCE_GROUP, AZURE_SERVICE_CONNECTION,
+#     SPRING_DATA_MONGODB_URI_CART
+# ─────────────────────────────────────────────────────────────────────────────
+
+trigger:
+  branches:
+    include:
+      - dev
+      - test
+      - prod
+  paths:
+    include:
+      - microservice-backend/cart-service/**
+      - helm-charts/cart-service/**
+      - azure-pipelines/cart-service.yml
+
+pr: none
+
+variables:
+  SERVICE_NAME: cart-service
+  SERVICE_DIR: microservice-backend/cart-service
+  HELM_CHART_PATH: helm-charts/cart-service
+  HELM_VALUES_KEY: cart
+
+stages:
+
+  # ── 1. Build & Test ──────────────────────────────────────────────────────────
+  - stage: Build
+    displayName: Build & Test
+    jobs:
+      - job: BuildTest
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - template: templates/java-build.yml
+            parameters:
+              serviceDir: $(SERVICE_DIR)
+
+  # ── 2. Docker Build & Push to ACR ────────────────────────────────────────────
+  - stage: Package
+    displayName: Docker Build & Push
+    dependsOn: Build
+    jobs:
+      - job: DockerPush
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - template: templates/docker-build-push.yml
+            parameters:
+              serviceName: $(SERVICE_NAME)
+              serviceDir: $(SERVICE_DIR)
+              acrServiceConnection: $(ACR_SERVICE_CONNECTION)
+
+  # ── 3a. Deploy → dev ─────────────────────────────────────────────────────────
+  - stage: Deploy_Dev
+    displayName: Deploy to dev
+    dependsOn: Package
+    condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'dev'))
+    variables:
+      - group: purely-dev
+    jobs:
+      - deployment: DeployHelm
+        pool:
+          vmImage: ubuntu-latest
+        environment: dev
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                - template: templates/helm-deploy.yml
+                  parameters:
+                    serviceName: $(SERVICE_NAME)
+                    helmValuesKey: $(HELM_VALUES_KEY)
+                    helmChartPath: $(HELM_CHART_PATH)
+                    namespace: dev
+                    imageTag: $(Build.BuildId)
+                    azureServiceConnection: $(AZURE_SERVICE_CONNECTION)
+                    extraHelmArgs: >-
+                      --set secret.SPRING_DATA_MONGODB_URI_CART=$(SPRING_DATA_MONGODB_URI_CART)
+
+  # ── 3b. Deploy → test ────────────────────────────────────────────────────────
+  - stage: Deploy_Test
+    displayName: Deploy to test
+    dependsOn: Package
+    condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'test'))
+    variables:
+      - group: purely-test
+    jobs:
+      - deployment: DeployHelm
+        pool:
+          vmImage: ubuntu-latest
+        environment: test
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                - template: templates/helm-deploy.yml
+                  parameters:
+                    serviceName: $(SERVICE_NAME)
+                    helmValuesKey: $(HELM_VALUES_KEY)
+                    helmChartPath: $(HELM_CHART_PATH)
+                    namespace: test
+                    imageTag: $(Build.BuildId)
+                    azureServiceConnection: $(AZURE_SERVICE_CONNECTION)
+                    extraHelmArgs: >-
+                      --set secret.SPRING_DATA_MONGODB_URI_CART=$(SPRING_DATA_MONGODB_URI_CART)
+
+  # ── 3c. Deploy → prod ────────────────────────────────────────────────────────
+  - stage: Deploy_Prod
+    displayName: Deploy to prod
+    dependsOn: Package
+    condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'prod'))
+    variables:
+      - group: purely-prod
+    jobs:
+      - deployment: DeployHelm
+        pool:
+          vmImage: ubuntu-latest
+        environment: prod
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                - template: templates/helm-deploy.yml
+                  parameters:
+                    serviceName: $(SERVICE_NAME)
+                    helmValuesKey: $(HELM_VALUES_KEY)
+                    helmChartPath: $(HELM_CHART_PATH)
+                    namespace: prod
+                    imageTag: $(Build.BuildId)
+                    azureServiceConnection: $(AZURE_SERVICE_CONNECTION)
+                    extraHelmArgs: >-
+                      --set secret.SPRING_DATA_MONGODB_URI_CART=$(SPRING_DATA_MONGODB_URI_CART)

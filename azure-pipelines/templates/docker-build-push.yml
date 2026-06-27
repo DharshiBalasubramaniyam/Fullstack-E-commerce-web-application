@@ -1,0 +1,27 @@
+# Reusable template: Docker build + push to Azure Container Registry (ACR)
+# Usage: - template: templates/docker-build-push.yml
+#          parameters:
+#            serviceName: auth-service
+#            serviceDir:  microservice-backend/auth-service
+#            acrServiceConnection: acr-service-connection
+
+parameters:
+  - name: serviceName
+    type: string
+  - name: serviceDir
+    type: string
+  - name: acrServiceConnection
+    type: string
+
+steps:
+  - task: Docker@2
+    displayName: Build and push ${{ parameters.serviceName }} to ACR
+    inputs:
+      command: buildAndPush
+      repository: ${{ parameters.serviceName }}
+      dockerfile: ${{ parameters.serviceDir }}/Dockerfile
+      buildContext: ${{ parameters.serviceDir }}
+      containerRegistry: ${{ parameters.acrServiceConnection }}
+      tags: |
+        $(Build.BuildId)
+        latest-$(Build.SourceBranchName)

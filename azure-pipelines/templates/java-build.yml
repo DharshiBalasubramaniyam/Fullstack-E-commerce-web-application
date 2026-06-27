@@ -1,0 +1,30 @@
+# Reusable template: Maven build + unit tests
+# Usage: - template: templates/java-build.yml
+#          parameters:
+#            serviceDir: microservice-backend/auth-service
+
+parameters:
+  - name: serviceDir
+    type: string
+  - name: javaVersion
+    type: string
+    default: '17'
+
+steps:
+  - task: JavaToolInstaller@0
+    displayName: Set up Java ${{ parameters.javaVersion }}
+    inputs:
+      versionSpec: ${{ parameters.javaVersion }}
+      jdkArchitectureOption: x64
+      jdkSourceOption: PreInstalled
+
+  - task: Maven@4
+    displayName: Maven build & test
+    inputs:
+      mavenPomFile: ${{ parameters.serviceDir }}/pom.xml
+      mavenOptions: -Xmx2048m
+      goals: clean verify
+      publishJUnitResults: true
+      testResultsFiles: ${{ parameters.serviceDir }}/**/surefire-reports/TEST-*.xml
+      javaHomeOption: JDKVersion
+      jdkVersionOption: ${{ parameters.javaVersion }}

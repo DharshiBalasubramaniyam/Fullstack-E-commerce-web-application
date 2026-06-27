@@ -1,0 +1,108 @@
+trigger:
+  branches:
+    include: [dev, test, prod]
+  paths:
+    include:
+      - microservice-backend/service-registry/**
+      - helm-charts/service-registry/**
+      - azure-pipelines/service-registry.yml
+pr: none
+
+variables:
+  SERVICE_NAME: service-registry
+  SERVICE_DIR: microservice-backend/service-registry
+  HELM_CHART_PATH: helm-charts/service-registry
+  HELM_VALUES_KEY: registry
+
+stages:
+  - stage: Build
+    displayName: Build & Test
+    jobs:
+      - job: BuildTest
+        pool: { vmImage: ubuntu-latest }
+        steps:
+          - template: templates/java-build.yml
+            parameters:
+              serviceDir: $(SERVICE_DIR)
+
+  - stage: Package
+    displayName: Docker Build & Push
+    dependsOn: Build
+    jobs:
+      - job: DockerPush
+        pool: { vmImage: ubuntu-latest }
+        steps:
+          - template: templates/docker-build-push.yml
+            parameters:
+              serviceName: $(SERVICE_NAME)
+              serviceDir: $(SERVICE_DIR)
+              acrServiceConnection: $(ACR_SERVICE_CONNECTION)
+
+  - stage: Deploy_Dev
+    displayName: Deploy to dev
+    dependsOn: Package
+    condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'dev'))
+    variables: [group: purely-dev]
+    jobs:
+      - deployment: DeployHelm
+        pool: { vmImage: ubuntu-latest }
+        environment: dev
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                - template: templates/helm-deploy.yml
+                  parameters:
+                    serviceName: $(SERVICE_NAME)
+                    helmValuesKey: $(HELM_VALUES_KEY)
+                    helmChartPath: $(HELM_CHART_PATH)
+                    namespace: dev
+                    imageTag: $(Build.BuildId)
+                    azureServiceConnection: $(AZURE_SERVICE_CONNECTION)
+
+  - stage: Deploy_Test
+    displayName: Deploy to test
+    dependsOn: Package
+    condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'test'))
+    variables: [group: purely-test]
+    jobs:
+      - deployment: DeployHelm
+        pool: { vmImage: ubuntu-latest }
+        environment: test
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                - template: templates/helm-deploy.yml
+                  parameters:
+                    serviceName: $(SERVICE_NAME)
+                    helmValuesKey: $(HELM_VALUES_KEY)
+                    helmChartPath: $(HELM_CHART_PATH)
+                    namespace: test
+                    imageTag: $(Build.BuildId)
+                    azureServiceConnection: $(AZURE_SERVICE_CONNECTION)
+
+  - stage: Deploy_Prod
+    displayName: Deploy to prod
+    dependsOn: Package
+    condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'prod'))
+    variables: [group: purely-prod]
+    jobs:
+      - deployment: DeployHelm
+        pool: { vmImage: ubuntu-latest }
+        environment: prod
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                - template: templates/helm-deploy.yml
+                  parameters:
+                    serviceName: $(SERVICE_NAME)
+                    helmValuesKey: $(HELM_VALUES_KEY)
+                    helmChartPath: $(HELM_CHART_PATH)
+                    namespace: prod
+                    imageTag: $(Build.BuildId)
+                    azureServiceConnection: $(AZURE_SERVICE_CONNECTION)
