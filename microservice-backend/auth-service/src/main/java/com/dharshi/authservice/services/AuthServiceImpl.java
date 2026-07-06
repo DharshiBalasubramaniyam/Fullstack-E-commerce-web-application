@@ -74,10 +74,15 @@ public class AuthServiceImpl implements AuthService {
 
             if (savedUser.getId() != null) {
                 try {
-                    sendRegistrationVerificationEmail(user);;
+                    sendRegistrationVerificationEmail(user);
                 }catch (Exception e) {
-                    removeDisabledUser(savedUser.getId());
-                    throw new ServiceLogicException("Failed to send verification email.Recheck your email or try again later!");
+                    log.warn("Registration created but email delivery failed for {}: {}", user.getEmail(), e.getMessage());
+                    return ResponseEntity.status(HttpStatus.CREATED).body(
+                            ApiResponseDto.builder().isSuccess(true)
+                                    .message("User account created, but verification email could not be sent. Use the verification code from response.")
+                                    .response(user.getVerificationCode())
+                                    .build()
+                    );
                 }
             }
 

@@ -15,6 +15,11 @@ crash.log
 *.tfvars
 *.tfvars.json
 
+# Local environment secrets — never commit real credentials
+.env
+.env.local
+.env.*.local
+
 # Provider-specific temporary files
 .terraform.d/
 
