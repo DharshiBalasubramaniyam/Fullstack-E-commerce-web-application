@@ -19,4 +19,6 @@ public class ProductRequestDto {
 
     private String categoryId;
 
+    private boolean inStock;
+
 }

@@ -6,6 +6,7 @@ import com.dharshi.orderservice.enums.EOrderStatus;
 import com.dharshi.orderservice.exceptions.ResourceNotFoundException;
 import com.dharshi.orderservice.exceptions.ServiceLogicException;
 import com.dharshi.orderservice.feigns.CartService;
+import com.dharshi.orderservice.feigns.InventoryService;
 import com.dharshi.orderservice.feigns.NotificationService;
 import com.dharshi.orderservice.feigns.UserService;
 import com.dharshi.orderservice.modals.Order;
@@ -16,9 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Component
 @Slf4j
@@ -36,40 +35,90 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private InventoryService inventoryService;
 
-    public ResponseEntity<ApiResponseDto<?>> createOrder(String token, OrderRequestDto request) throws ResourceNotFoundException, ServiceLogicException {
+
+    public ResponseEntity<ApiResponseDto<?>> createOrder(String token, String userId, OrderRequestDto request) throws ResourceNotFoundException, ServiceLogicException {
+
+        boolean isInventoryCompleted = false;
+        boolean isOrderCompleted = false;
+        boolean isCartCompleted = false;
+        String orderId = null;
+        List<InventoryReserveRequestDto> inventoryReserveReqList = new ArrayList<>();
 
         try {
-
             CartDto cart = cartService.getCartById(request.getCartId(), token).getBody().getResponse();
-            UserDto user = userService.getUserById(cart.getUserId()).getBody().getResponse();
 
-            if (user==null || cart == null || cart.getCartItems().isEmpty()) {
-                throw new ResourceNotFoundException("No items in the cart!");
-            }
+            if (cart != null) {
+                try {
+                    UserDto user = userService.getUserById(cart.getUserId()).getBody().getResponse();
 
-            Order order = orderRequestDtoToOrder(request, cart);
-            order = orderRepository.insert(order);
-            try {
-                if (order.getId() != null && clearCart(cart, token) && sendConfirmationEmail(user, order)) {
+                    // 1. Reserve inventory
+                    inventoryReserveReqList = cart.getCartItems()
+                            .stream().map(cartItemDto -> InventoryReserveRequestDto
+                                        .builder()
+                                        .productId(cartItemDto.getProductId())
+                                        .sku(cartItemDto.getVariant().getSku())
+                                        .quantity(cartItemDto.getQuantity())
+                                        .build()
+                            ).toList();
+                    ApiResponseDto<Map<String, String>> inventoryResponse =  inventoryService.reserveInventoryInBulk(inventoryReserveReqList).getBody();
+                    if (inventoryResponse != null && !inventoryResponse.isSuccess() && inventoryResponse.getMessage().startsWith("OutOfStock")) {
+                        String productId = inventoryResponse.getResponse().get("productId");
+                        Optional<CartItemDto> item = cart.getCartItems()
+                                .stream().filter(cartItemDto -> cartItemDto.getProductId().equals(productId))
+                                .findFirst();
+                        return ResponseEntity.ok(
+                                ApiResponseDto.builder()
+                                        .isSuccess(false)
+                                        .message("Out of stock")
+                                        .response(item)
+                                        .build()
+                        );
+
+                    }
+                    isInventoryCompleted = inventoryResponse != null && inventoryResponse.isSuccess();
+
+                    // 2. Create order
+                    Order order = orderRequestDtoToOrder(request, cart);
+                    order = orderRepository.insert(order);
+                    orderId = order.getId();
+                    isOrderCompleted = true;
+
+                    // 3. Clear cart
+                    ApiResponseDto<?> cartResponse =  cartService.clearCartById(cart.getCartId(), token).getBody();
+                    isCartCompleted = cartResponse != null && cartResponse.isSuccess();
+
+                    // 4. Send notification email
+                    sendConfirmationEmail(user, order);
+
                     return ResponseEntity.ok(
                             ApiResponseDto.builder()
                                     .isSuccess(true)
                                     .message("Order has been successfully placed!")
                                     .build()
                     );
+                } catch (Exception e) {
+                    if (isInventoryCompleted) {
+                        inventoryService.releaseInventoryInBulk(inventoryReserveReqList);
+                    }
+                    if (isOrderCompleted && orderId != null) {
+                        orderRepository.deleteById(orderId);
+                    }
+                    if (isCartCompleted) {
+                        cartService.restoreCart(cart, token);
+                    }
+                    log.error("Failed to create order: " + e.getMessage());
+                    throw new ServiceLogicException("Unable to proceed order!");
                 }
-                throw new ServiceLogicException("Unable to proceed order!");
-            }catch (Exception e) {
-                orderRepository.deleteById(order.getId());
-                throw new ServiceLogicException(e.getMessage());
+            } else {
+                throw new ResourceNotFoundException("Cart not found: " + request.getCartId());
             }
-
-        }catch (ResourceNotFoundException e) {
+        } catch (ResourceNotFoundException e) {
             throw new ResourceNotFoundException(e.getMessage());
-        }catch (Exception e) {
-            log.error("Failed to create order: " + e.getMessage());
-            throw new ServiceLogicException("Unable to proceed order!");
+        } catch (Exception e) {
+            throw new ServiceLogicException("Error finding cart: " + request.getCartId());
         }
     }
 
@@ -121,6 +170,10 @@ public class OrderServiceImpl implements OrderService {
                                 .build()
                 );
             }
+
+            // TODO: Remove reserved products
+            // TODO: Send notification email
+            // TODO: Restock cart
         }catch (Exception e) {
             log.error("Failed to create order: " + e.getMessage());
             throw new ServiceLogicException("Unable to find orders!");

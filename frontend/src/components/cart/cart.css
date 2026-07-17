@@ -73,7 +73,7 @@
 .cart-product {
     display: flex;
     width: 100%;
-    height: 120px;
+    height: 150px;
     background-color: var(--body);
     margin-bottom: 10px;
     border: 1px solid var(--light);

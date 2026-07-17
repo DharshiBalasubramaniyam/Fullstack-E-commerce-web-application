@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: inventory-service
+  data:
+    mongodb:
+      uri: mongodb+srv://demo:2001@mycluster.ndj34hk.mongodb.net/purely_inventory?retryWrites=true&w=majority&appName=mycluster
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 9011
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost

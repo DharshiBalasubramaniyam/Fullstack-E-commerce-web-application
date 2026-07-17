@@ -8,21 +8,23 @@ import ProductService from '../../api-service/product.service';
 import CartContext from '../../contexts/cart.context';
 import { AuthContext } from '../../contexts/auth.context';
 import Footer from '../../components/footer/footer';
+import Pagination from "react-js-pagination";
 
 function Products() {
 
     const { category } = useParams();
     const location = useLocation();
-    const { getAllCategories, getAllProducts, getProductsByCategory, isLoading, categories, products, error } = ProductService()
+    const { getAllCategories, getAllProducts, getProductsByCategory, setPageNumber, isLoading, categories, products, error, pageNumber, totalItemsCount, pageSize } = ProductService()
 
     useEffect(() => {
         getAllCategories()
         if (location.state) {
+            setPageNumber(1)
             getProductsByCategory(location.state.categoryId)
         } else {
             getAllProducts()
         }
-    }, [category])
+    }, [category, pageNumber])
 
     return (
         <>
@@ -33,6 +35,15 @@ function Products() {
                 <>
                     <CategoryWrapper category={category} categoryList={categories} />
                     <ProductsWrapper products={products} />
+                    <Pagination
+                        activePage={pageNumber}
+                        itemsCountPerPage={pageSize}
+                        totalItemsCount={totalItemsCount}
+                        pageRangeDisplayed={5}
+                        onChange={(pageNumber) => {
+                            setPageNumber(pageNumber)
+                        }}
+                    />
                 </>
             )}
             <Footer />
@@ -106,18 +117,25 @@ function ProductsWrapper({ products }) {
                     isLoading ? <Loading /> :
                         products.map((product) => {
                             return (
-                                <div className='box' key={product.id}>
+                                <div 
+                                    className='box' 
+                                    key={product.id}
+                                    onClick={() => navigate(`/product/view/${product.id}`, { state: { productId: product.id } })}
+                                >
                                     <img src={`${product.imageUrl}`} className="image" alt='product'></img>
                                     <div className='price' aria-label='image'>Rs. {product.price}</div>
+                                    {
+                                        !product.inStock ? <div className='out-of-stock' aria-label='image'>Out of stock</div> : <></>
+                                    }
                                     <div className='text-part'>
                                         <div className='name'>{product.productName}</div>
                                         <div className='description'>{product.description}</div>
                                     </div>
-                                    <button
+                                    {/* <button
                                         onClick={() => onAddToCart(product.id)}
                                     >
                                         Add to cart
-                                    </button>
+                                    </button> */}
                                 </div>
                             )
                         })

@@ -1,110 +1,265 @@
-[{
-  "_id": {
-    "$oid": "6773f35c0f5832bdbc95ebc4"
+[
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebc4"
+    },
+    "productName": "Yoga Mat 4mm - with Bag",
+    "price": 25.99,
+    "description": "A high-quality yoga mat with a non-slip surface for enhanced stability and comfort.",
+    "imageUrl": "https://gadgetcity.lk/wp-content/uploads/2021/07/ym6.jpg",
+    "categoryId": "6773f28a0f5832bdbc95ebbd",
+    "inStock": true,
+    "categoryName": "Fitness Equipment",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebc4-1",
+        "size": "4mm",
+        "color": "Purple",
+        "price": 25.99
+      },
+      {
+        "sku": "6773f35c0f5832bdbc95ebc4-2",
+        "size": "4mm",
+        "color": "Blue",
+        "price": 25.99
+      },
+      {
+        "sku": "6773f35c0f5832bdbc95ebc4-3",
+        "size": "4mm",
+        "color": "Green",
+        "price": 25.99
+      }
+    ]
   },
-  "productName": "Yoga Mat",
-  "price": 25.99,
-  "description": "A high-quality yoga mat with a non-slip surface for enhanced stability and comfort.",
-  "imageUrl": "https://gadgetcity.lk/wp-content/uploads/2021/07/ym6.jpg",
-  "categoryId": "6773f28a0f5832bdbc95ebbd",
-  "categoryName": "Fitness Equipment"
-},
-{
-  "_id": {
-    "$oid": "6773f35c0f5832bdbc95ebc5"
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebc5"
+    },
+    "productName": "Dumbbells Set for Home Workouts",
+    "price": 50,
+    "description": "Adjustable dumbbells for a versatile home workout experience.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbd",
+    "inStock": true,
+    "categoryName": "Fitness Equipment",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebc5-1",
+        "size": "1 Kg",
+        "color": "Black",
+        "price": 50
+      },
+      {
+        "sku": "6773f35c0f5832bdbc95ebc5-2",
+        "size": "1 Kg",
+        "color": "Blue",
+        "price": 50
+      },
+      {
+        "sku": "6773f35c0f5832bdbc95ebc5-3",
+        "size": "2 Kg",
+        "color": "Black",
+        "price": 90
+      },
+      {
+        "sku": "6773f35c0f5832bdbc95ebc5-4",
+        "size": "5 Kg",
+        "color": "Black",
+        "price": 200
+      }
+    ]
   },
-  "productName": "Dumbbells Set",
-  "price": 50,
-  "description": "Adjustable dumbbells for a versatile home workout experience.",
-  "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
-  "categoryId": "6773f28a0f5832bdbc95ebbd",
-  "categoryName": "Fitness Equipment"
-},
-{
-  "_id": {
-    "$oid": "6773f35c0f5832bdbc95ebc6"
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebc6"
+    },
+    "productName": "Pure Nutrition Plant Protein Powder for Men, Women - Chocolate, 1Kg",
+    "price": 45.5,
+    "description": "Premium whey protein powder to support muscle recovery and growth.",
+    "imageUrl": "https://www.happyway.com.au/cdn/shop/articles/calories-in-protein-shake_2048x2048.jpg?v=1529997057",
+    "categoryId": "6773f28a0f5832bdbc95ebbe",
+    "inStock": true,
+    "categoryName": "Nutrition and Supplements",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebc6-1",
+        "size": "1 Kg",
+        "color": "Chocolate",
+        "price": 45.5
+      }
+    ]
   },
-  "productName": "Protein Powder",
-  "price": 45.5,
-  "description": "Premium whey protein powder to support muscle recovery and growth.",
-  "imageUrl": "https://www.happyway.com.au/cdn/shop/articles/calories-in-protein-shake_2048x2048.jpg?v=1529997057",
-  "categoryId": "6773f28a0f5832bdbc95ebbe",
-  "categoryName": "Nutrition and Supplements"
-},
-{
-  "_id": {
-    "$oid": "6773f35c0f5832bdbc95ebc7"
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebc7"
+    },
+    "productName": "Vitamin C - 30 Capsules",
+    "price": 12.99,
+    "description": "Boost your immune system with these high-quality Vitamin C tablets.",
+    "imageUrl": "https://images.everydayhealth.com/images/nutrients/vitamins/possible-benefits-of-vitamin-c-supplements-1440x810.jpg",
+    "categoryId": "6773f28a0f5832bdbc95ebbe",
+    "inStock": true,
+    "categoryName": "Nutrition and Supplements",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebc7-1",
+        "size": "30 Capsules",
+        "price": 12.99
+      }
+    ]
   },
-  "productName": "Vitamin C Tablets",
-  "price": 12.99,
-  "description": "Boost your immune system with these high-quality Vitamin C tablets.",
-  "imageUrl": "https://images.everydayhealth.com/images/nutrients/vitamins/possible-benefits-of-vitamin-c-supplements-1440x810.jpg",
-  "categoryId": "6773f28a0f5832bdbc95ebbe",
-  "categoryName": "Nutrition and Supplements"
-},
-{
-  "_id": {
-    "$oid": "6773f35c0f5832bdbc95ebc8"
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebc8"
+    },
+    "productName": "Aloe Vera Soothing Gel Face Moisturizer 300 ml",
+    "price": 18.75,
+    "description": "A lightweight, hydrating face moisturizer suitable for all skin types.",
+    "imageUrl": "https://m.media-amazon.com/images/I/51cXkIfVBtL.jpg",
+    "categoryId": "6773f28a0f5832bdbc95ebbf",
+    "inStock": true,
+    "categoryName": "Personal Care",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebc8-1",
+        "size": "300 ml",
+        "price": 18.75
+      }
+    ]
   },
-  "productName": "Face Moisturizer",
-  "price": 18.75,
-  "description": "A lightweight, hydrating face moisturizer suitable for all skin types.",
-  "imageUrl": "https://m.media-amazon.com/images/I/51cXkIfVBtL.jpg",
-  "categoryId": "6773f28a0f5832bdbc95ebbf",
-  "categoryName": "Personal Care"
-},
-{
-  "_id": {
-    "$oid": "6773f35c0f5832bdbc95ebc9"
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebc9"
+    },
+    "productName": "Hydrating Mineral Sunscreen Broad Spectrum SPF 50 Face Lotion - 75ml",
+    "price": 9.99,
+    "description": "100% mineral sunscreen filters reflect the sun’s rays.",
+    "imageUrl": "https://aspenkaynaturals.com/cdn/shop/products/image_06506f13-4eff-4564-8046-cc28dbd84af4.jpg?v=1686971291",
+    "categoryId": "6773f28a0f5832bdbc95ebbf",
+    "inStock": true,
+    "categoryName": "Personal Care",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebc9-1",
+        "size": "75ml",
+        "price": 9.99
+      }
+    ]
   },
-  "productName": "Shampoo Bar",
-  "price": 9.99,
-  "description": "Eco-friendly and nourishing shampoo bar for healthy, shiny hair.",
-  "imageUrl": "https://aspenkaynaturals.com/cdn/shop/products/image_06506f13-4eff-4564-8046-cc28dbd84af4.jpg?v=1686971291",
-  "categoryId": "6773f28a0f5832bdbc95ebbf",
-  "categoryName": "Personal Care"
-},
-{
-  "_id": {
-    "$oid": "6773f35c0f5832bdbc95ebca"
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebca"
+    },
+    "productName": "Meditation Round Linen Chair Cushion 40cm",
+    "price": 32,
+    "description": "Comfortable and supportive cushion for long meditation sessions.",
+    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMPAM4TOLlH_C-qRMmHj8LP8Cj9K5iSpOegw&s",
+    "categoryId": "6773f28a0f5832bdbc95ebc0",
+    "inStock": true,
+    "categoryName": "Mental Wellness",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebca-1",
+        "size": "40cm",
+        "color": "Gray",
+        "price": 32
+      },
+      {
+        "sku": "6773f35c0f5832bdbc95ebca-2",
+        "size": "40cm",
+        "color": "Blue",
+        "price": 32
+      },
+      {
+        "sku": "6773f35c0f5832bdbc95ebca-3",
+        "size": "40cm",
+        "color": "Green",
+        "price": 32
+      }
+    ]
   },
-  "productName": "Meditation Cushion",
-  "price": 32,
-  "description": "Comfortable and supportive cushion for long meditation sessions.",
-  "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMPAM4TOLlH_C-qRMmHj8LP8Cj9K5iSpOegw&s",
-  "categoryId": "6773f28a0f5832bdbc95ebc0",
-  "categoryName": "Mental Wellness"
-},
-{
-  "_id": {
-    "$oid": "6773f35c0f5832bdbc95ebcb"
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebcb"
+    },
+    "productName": "Mini 220ML Air Humidifier USB Essential Oil Diffuser",
+    "price": 24.5,
+    "description": "Relax with essential oils using this easy-to-use aromatherapy diffuser.",
+    "imageUrl": "https://images-cdn.ubuy.co.id/65ca214e83cec32622549c8c-wqjnweq-aroma-essential-oil-diffuser-led.jpg",
+    "categoryId": "6773f28a0f5832bdbc95ebc0",
+    "inStock": true,
+    "categoryName": "Mental Wellness",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebcb-1",
+        "size": "220ML",
+        "color": "White",
+        "price": 24.5
+      },
+      {
+        "sku": "6773f35c0f5832bdbc95ebcb-2",
+        "size": "220ML",
+        "color": "Black",
+        "price": 24.5
+      },
+      {
+        "sku": "6773f35c0f5832bdbc95ebcb-3",
+        "size": "220ML",
+        "color": "Pink",
+        "price": 24.5
+      }
+    ]
   },
-  "productName": "Aromatherapy Diffuser",
-  "price": 24.5,
-  "description": "Relax with essential oils using this easy-to-use aromatherapy diffuser.",
-  "imageUrl": "https://images-cdn.ubuy.co.id/65ca214e83cec32622549c8c-wqjnweq-aroma-essential-oil-diffuser-led.jpg",
-  "categoryId": "6773f28a0f5832bdbc95ebc0",
-  "categoryName": "Mental Wellness"
-},
-{
-  "_id": {
-    "$oid": "6773f35c0f5832bdbc95ebcc"
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebcc"
+    },
+    "productName": "Resistance Bands",
+    "price": 14.99,
+    "description": "Durable and versatile resistance bands for strength training and flexibility exercises.",
+    "imageUrl": "https://media.seniority.in/catalog/product/cache/242b55c74bcaf9102cfc5599e255893a/s/e/sen742-loopband_1_.jpg",
+    "categoryId": "6773f28a0f5832bdbc95ebc1",
+    "inStock": true,
+    "categoryName": "Home Gym Essentials",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebcc-1",
+        "size": "Set of 5",
+        "color": "Multicolor",
+        "price": 14.99
+      }
+    ]
   },
-  "productName": "Resistance Bands",
-  "price": 14.99,
-  "description": "Durable and versatile resistance bands for strength training and flexibility exercises.",
-  "imageUrl": "https://media.seniority.in/catalog/product/cache/242b55c74bcaf9102cfc5599e255893a/s/e/sen742-loopband_1_.jpg",
-  "categoryId": "6773f28a0f5832bdbc95ebc1",
-  "categoryName": "Home Gym Essentials"
-},
-{
-  "_id": {
-    "$oid": "6773f35c0f5832bdbc95ebcd"
-  },
-  "productName": "Stability Ball",
-  "price": 19.99,
-  "description": "An anti-burst stability ball perfect for yoga, Pilates, and core workouts.",
-  "imageUrl": "https://lino.lk/wp-content/uploads/2018/06/yoga-ball-1-768x768.jpg",
-  "categoryId": "6773f28a0f5832bdbc95ebc1",
-  "categoryName": "Home Gym Essentials"
-}]
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebcd"
+    },
+    "productName": "Exercise Yoga Ball Yoga Balance Stability Swiss Ball - 75cm",
+    "price": 19.99,
+    "description": "An anti-burst stability ball perfect for yoga, Pilates, and core workouts.",
+    "imageUrl": "https://lino.lk/wp-content/uploads/2018/06/yoga-ball-1-768x768.jpg",
+    "categoryId": "6773f28a0f5832bdbc95ebc1",
+    "inStock": true,
+    "categoryName": "Home Gym Essentials",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebcd-1",
+        "size": "75cm",
+        "color": "Blue",
+        "price": 19.99
+      },
+      {
+        "sku": "6773f35c0f5832bdbc95ebcd-2",
+        "size": "75cm",
+        "color": "Pink",
+        "price": 19.99
+      },
+      {
+        "sku": "6773f35c0f5832bdbc95ebcd-3",
+        "size": "75cm",
+        "color": "Purple",
+        "price": 19.99
+      }
+    ]
+  }
+]

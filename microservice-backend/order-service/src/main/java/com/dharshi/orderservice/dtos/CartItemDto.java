@@ -13,5 +13,5 @@ public class CartItemDto {
     private double amount;
     private String imageUrl;
     private String categoryName;
-
+    private ProductVariantDto variant;
 }

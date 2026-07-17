@@ -3,6 +3,7 @@ package com.dharshi.cartservice.services;
 import com.dharshi.cartservice.dtos.*;
 import com.dharshi.cartservice.exceptions.ResourceNotFoundException;
 import com.dharshi.cartservice.exceptions.ServiceLogicException;
+import com.dharshi.cartservice.feigns.InventoryService;
 import com.dharshi.cartservice.feigns.ProductService;
 import com.dharshi.cartservice.feigns.UserService;
 import com.dharshi.cartservice.modals.Cart;
@@ -27,6 +28,9 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private InventoryService inventoryService;
 
     @Override
     public ResponseEntity<ApiResponseDto<?>> addItemToCart(String userId, CartItemRequestDto requestDto) throws ResourceNotFoundException, ServiceLogicException {
@@ -81,7 +85,7 @@ public class CartServiceImpl implements CartService {
                                 .build()
                 );
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             log.error("Failed to find cart: " + e.getMessage());
             throw new ServiceLogicException("Unable to find cart!");
         }
@@ -90,11 +94,11 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public ResponseEntity<ApiResponseDto<?>> removeCartItemFromCart(String userId, String productId) throws ServiceLogicException, ResourceNotFoundException {
+    public ResponseEntity<ApiResponseDto<?>> removeCartItemFromCart(String userId, String productId, String sku) throws ServiceLogicException, ResourceNotFoundException {
         try {
             if(cartRepository.existsByUserId(userId)) {
                 Cart userCart = cartRepository.findByUserId(userId);
-                Set<CartItem> removedItemsSet = removeCartItem(userCart.getCartItems(), productId);
+                Set<CartItem> removedItemsSet = removeCartItem(userCart.getCartItems(), productId, sku);
                 userCart.setCartItems(removedItemsSet);
                 cartRepository.save(userCart);
 
@@ -117,31 +121,32 @@ public class CartServiceImpl implements CartService {
     @Override
     public ResponseEntity<ApiResponseDto<?>> clearCartById(String id) throws ServiceLogicException, ResourceNotFoundException {
         try {
-            if(cartRepository.existsById(id)) {
-                Cart userCart = cartRepository.findById(id).orElse(null);
-                userCart.setCartItems(new HashSet<>());
-                cartRepository.save(userCart);
-
-                return ResponseEntity.ok(
-                        ApiResponseDto.builder()
-                                .isSuccess(true)
-                                .message("Cart has been successfully cleared!")
-                                .build()
-                );
-
+            Cart userCart = cartRepository.findById(id).orElse(null);
+            if(userCart == null) {
+                throw new ResourceNotFoundException("No cart found for id " + id);
             }
 
-        }catch (Exception e) {
+            userCart.setCartItems(new HashSet<>());
+            cartRepository.save(userCart);
+
+            return ResponseEntity.ok(
+                    ApiResponseDto.builder()
+                            .isSuccess(true)
+                            .message("Cart has been successfully cleared!")
+                            .build()
+            );
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
+        } catch (Exception e) {
             log.error("Failed to add item to cart: " + e.getMessage());
             throw new ServiceLogicException("Unable to add item to cart!");
         }
-        throw new ResourceNotFoundException("No cart found for id " + id);
+
     }
 
     @Override
     public ResponseEntity<ApiResponseDto<?>> getCartById(String id) throws ServiceLogicException {
         try {
-
             Cart cart = cartRepository.findById(id).orElse(null);
             CartResponseDto cartResponse = cartToCartResponseDto(cart);
 
@@ -153,9 +158,87 @@ public class CartServiceImpl implements CartService {
                             .build()
             );
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             log.error("Failed to find cart: " + e.getMessage());
             throw new ServiceLogicException("Unable to find cart!");
+        }
+    }
+
+    @Override
+    public ResponseEntity<ApiResponseDto<?>> updateQuantity(String userId, CartItemRequestDto requestDto) throws ServiceLogicException {
+        try {
+            Cart userCart = cartRepository.findByUserId(userId);
+            CartItem existItem = getExistingCartItem(userCart.getCartItems(), requestDto.getProductId(), requestDto.getVariant().getSku());
+
+            if (existItem == null) {
+                throw new ResourceNotFoundException("Cart item not found.");
+            }
+
+            List<InventoryDto> inventoryList = inventoryService.getInventoryByProductAndSku(existItem.getProductId(), existItem.getVariant().getSku()).getBody().getResponse();
+
+            if (!inventoryList.isEmpty()) {
+                int maxQty = inventoryList.getFirst().getAvailableStock();
+                if (existItem.getQuantity() + requestDto.getQuantity() > maxQty) {
+                    return ResponseEntity.ok(
+                            ApiResponseDto
+                                    .builder()
+                                    .isSuccess(false)
+                                    .message("The maximum quantity is " + maxQty)
+                                    .build()
+                    );
+                } else {
+                    existItem.setQuantity(existItem.getQuantity() + requestDto.getQuantity());
+                    cartRepository.save(userCart);
+                    return ResponseEntity.ok(
+                            ApiResponseDto
+                                    .builder()
+                                    .isSuccess(false)
+                                    .message("The quantity updated successfully")
+                                    .build()
+                    );
+                }
+            } else {
+                throw new ResourceNotFoundException("Inventory not found.");
+            }
+        } catch (Exception e) {
+            log.error("Failed to update qty: " + e.getMessage());
+            throw new ServiceLogicException("Unable to update qty!");
+        }
+    }
+
+    @Override
+    public ResponseEntity<ApiResponseDto<?>> restoreCart(CartResponseDto cart) throws ServiceLogicException, ResourceNotFoundException {
+        try {
+            Cart userCart = cartRepository.findById(cart.getCartId()).orElse(null);
+            if(userCart == null) {
+                throw new ResourceNotFoundException("No cart found for id " + cart.getCartId());
+            }
+
+            Set<CartItem> userCartItems = userCart.getCartItems();
+
+            for (CartItemResponseDto cartItemResponseDto: cart.getCartItems()) {
+                CartItem cartItem = CartItem.builder()
+                        .productId(cartItemResponseDto.getProductId())
+                        .quantity(cartItemResponseDto.getQuantity())
+                        .variant(cartItemResponseDto.getVariant())
+                        .build();
+                userCartItems.add(cartItem);
+            }
+
+            userCart.setCartItems(userCartItems);
+            cartRepository.save(userCart);
+
+            return ResponseEntity.ok(
+                    ApiResponseDto.builder()
+                            .isSuccess(true)
+                            .message("Cart has been successfully cleared!")
+                            .build()
+            );
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
+        } catch (Exception e) {
+            log.error("Failed to add item to cart: " + e.getMessage());
+            throw new ServiceLogicException("Unable to add item to cart!");
         }
     }
 
@@ -172,12 +255,15 @@ public class CartServiceImpl implements CartService {
     private CartItem getNewCartItem(CartItemRequestDto requestDto) {
         return CartItem.builder()
                 .productId(requestDto.getProductId())
-                .quantity(1)
+                .variant(requestDto.getVariant())
+                .quantity(requestDto.getQuantity())
                 .build();
     }
 
-    private CartItem getExistingCartItem(Set<CartItem> userCartItems, String productId) {
-        List<CartItem> existingCartItems = userCartItems.stream().filter(item -> item.getProductId().equals(productId)).toList();
+    private CartItem getExistingCartItem(Set<CartItem> userCartItems, String productId, String sku) {
+        List<CartItem> existingCartItems = userCartItems
+            .stream()
+            .filter(item -> item.getProductId().equals(productId) && item.getVariant().getSku().equals(sku)).toList();
         if (existingCartItems.isEmpty()){
             return null;
         }
@@ -192,13 +278,13 @@ public class CartServiceImpl implements CartService {
 
     private CartItem createCartItem(Set<CartItem> userCartItems, CartItemRequestDto requestDto) {
 
-        CartItem cartItem = getExistingCartItem(userCartItems, requestDto.getProductId());
+        CartItem cartItem = getExistingCartItem(userCartItems, requestDto.getProductId(), requestDto.getVariant().getSku());
 
         if (cartItem == null) {
             cartItem = getNewCartItem(requestDto);
-        }else {
+        } else {
             if (requestDto.getQuantity() <= 0) requestDto.setQuantity(-1);
-            if (requestDto.getQuantity() > 0) requestDto.setQuantity(1);
+            if (requestDto.getQuantity() > 0) requestDto.setQuantity(requestDto.getQuantity());
             if (cartItem.getQuantity() + requestDto.getQuantity() <= 0) requestDto.setQuantity(0);
             userCartItems.remove(cartItem);
             cartItem.setQuantity(cartItem.getQuantity() + requestDto.getQuantity());
@@ -230,7 +316,7 @@ public class CartServiceImpl implements CartService {
 
     private CartItemResponseDto cartItemToCartItemResponseDto(CartItem cartItem) {
         ProductDto product = productService.getProductById(cartItem.getProductId()).getBody().getResponse();
-
+        
         return CartItemResponseDto.builder()
                 .productId(product.getId())
                 .productName(product.getProductName())
@@ -238,12 +324,13 @@ public class CartServiceImpl implements CartService {
                 .quantity(cartItem.getQuantity())
                 .categoryName(product.getCategoryName())
                 .imageUrl(product.getImageUrl())
+                .variant(cartItem.getVariant())
                 .amount(product.getPrice() * cartItem.getQuantity())
                 .build();
     }
 
-    private Set<CartItem> removeCartItem(Set<CartItem> userCartItems, String productId) {
-        CartItem existingCartItem = getExistingCartItem(userCartItems, productId);
+    private Set<CartItem> removeCartItem(Set<CartItem> userCartItems, String productId, String sku) {
+        CartItem existingCartItem = getExistingCartItem(userCartItems, productId, sku);
 
         if (existingCartItem != null) {
             userCartItems.remove(existingCartItem);

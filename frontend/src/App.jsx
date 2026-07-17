@@ -8,12 +8,12 @@ import CartContext from "./contexts/cart.context";
 function App() {
 
   const { user, toggleUser } = useAuth();
-  const { cart, cartError, isProcessingCart, addItemToCart, removeItemFromCart, getCartInformation } = CartService();
+  const { cart, cartError, isProcessingCart, addItemToCart, updateItemQuantity, removeItemFromCart, getCartInformation } = CartService();
 
   return (
     <BrowserRouter>
       <AuthContext.Provider value={{ user, toggleUser }}>
-        <CartContext.Provider value={{ cart, cartError, isProcessingCart, addItemToCart, removeItemFromCart, getCartInformation }}>
+        <CartContext.Provider value={{ cart, cartError, isProcessingCart, addItemToCart, updateItemQuantity, removeItemFromCart, getCartInformation }}>
           <AppRoutes />
         </CartContext.Provider>
       </AuthContext.Provider>

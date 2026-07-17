@@ -10,18 +10,34 @@ import { useNavigate } from "react-router-dom";
 
 function Cart({ isCartOpen, onClose }) {
 
-    const { cart, cartError, isProcessingCart, addItemToCart, removeItemFromCart, getCartInformation } = useContext(CartContext)
+    const { cart, cartError, isProcessingCart, addItemToCart, removeItemFromCart, updateItemQuantity, getCartInformation } = useContext(CartContext)
     const {user} = useContext(AuthContext);
     const navigate = useNavigate()
 
-    const onProductRemove = (id) => {
-        removeItemFromCart(id)
+    const onProductRemove = async (id, sku) => {
+        await removeItemFromCart(id, sku)
     }
-    const onQuantityChange = (id, qty) => {
-        addItemToCart(id, qty)
+    const onQuantityChange = async (id, variant, qty) => {
+        await updateItemQuantity(id, variant, qty)
     }
     const onCheckout = () => {
         navigate(`/order/checkout`)
+    }
+
+    const getVariantText = (variant) => {
+        if (!variant) return ""
+        let text = "";
+        if (variant?.color) {
+            text = text + variant.color;
+            if (variant.size) { 
+                text = text + " / "
+            }
+        }  
+        if (variant?.size) {
+            text = text + variant.size;
+        }
+        if (text.length > 0) return " [" + text + "]"
+        return text
     }
 
     return (
@@ -39,34 +55,37 @@ function Cart({ isCartOpen, onClose }) {
                     !isProcessingCart && (
                         <>
                             <div className="cart-products">
-                                {cart.cartItems && cart?.cartItems.map((cartItem) => (
-                                    <div className="cart-product" key={cartItem.productId}>
+                                {cart.cartItems && cart?.cartItems.map((cartItem, index) => (
+                                    <div className="cart-product" key={cartItem.productId+index}>
                                         <img src={`${cartItem.imageUrl}`} alt={cartItem.productName} />
                                         <div className="product-info">
                                             <h4>
-                                                {cartItem.productName}
+                                                <>
+                                                    {cartItem.productName + getVariantText(cartItem.variant)}
+                                                </>
                                                 <div
                                                     className={cartItem.quantity === 20 ? "btn close-btn disable" : "btn close-btn"}
-                                                    onClick={() => onProductRemove(cartItem.productId)}
+                                                    onClick={() => onProductRemove(cartItem.productId, cartItem.variant.sku)}
                                                 >
                                                     <RiDeleteBin6Line size={20} />
                                                 </div>
 
                                             </h4>
+                                            
                                             <span className="product-price">
                                                 {cartItem.price} x {cartItem.quantity} = Rs.  {parseFloat(cartItem.amount).toFixed(2)}
                                             </span>
                                             <div className="quantity-control">
                                                 <span
                                                     className={cartItem.quantity === 1 ? "disable" : ""}
-                                                    onClick={() => onQuantityChange(cartItem.productId, -1)}
+                                                    onClick={() => onQuantityChange(cartItem.productId, cartItem.variant, -1)}
                                                 >
                                                     <AiOutlineMinus size={18} />
                                                 </span>
                                                 <span className="count">{cartItem.quantity}</span>
                                                 <span
                                                     className={cartItem.quantity === 20 ? "disable" : ""}
-                                                    onClick={() => onQuantityChange(cartItem.productId, 1)}
+                                                    onClick={() => onQuantityChange(cartItem.productId, cartItem.variant, 1)}
                                                 >
                                                     <AiOutlinePlus size={18} />
                                                 </span>

@@ -89,6 +89,79 @@
     color:var(--body);
     background-color: var(--primary);
  }
+.box .out-of-stock{
+    position: absolute;
+    top:13px; 
+    right:13px;
+    border-radius: .5rem;
+    padding:0.3rem;
+    font-size: 12px;
+    font-weight: bold;
+    color:var(--body);
+    background-color: rgba(21, 152, 43, 0.5);
+ }
+
+
+/* Pagination */
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Each item */
+.pagination li {
+  display: inline-block;
+}
+
+/* Links */
+.pagination li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid var(--light);
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--primary);
+  background-color: #fff;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+/* Hover effect */
+.pagination li a:hover {
+  background-color: #f0f0f0;
+  border-color: var(--light);
+}
+
+/* Active page */
+.pagination li.active a {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Disabled state */
+.pagination li.disabled a {
+  color: #aaa;
+  pointer-events: none;
+  background-color: #f9f9f9;
+  border-color: #eee;
+}
+
+/* Optional: rounded first/last buttons emphasis */
+.pagination li:first-child a,
+.pagination li:last-child a {
+  font-weight: bold;
+}
 
 @media all and (max-width: 768px) {
     .category-list {

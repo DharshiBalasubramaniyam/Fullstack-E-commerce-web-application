@@ -2,8 +2,10 @@ package com.dharshi.cartservice.controllers;
 
 import com.dharshi.cartservice.dtos.ApiResponseDto;
 import com.dharshi.cartservice.dtos.CartItemRequestDto;
+import com.dharshi.cartservice.dtos.CartResponseDto;
 import com.dharshi.cartservice.exceptions.ResourceNotFoundException;
 import com.dharshi.cartservice.exceptions.ServiceLogicException;
+import com.dharshi.cartservice.modals.Cart;
 import com.dharshi.cartservice.services.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,13 @@ public class CartController {
         return cartService.addItemToCart(authentication.getPrincipal().toString(), requestDto);
     }
 
+    @PutMapping("/qty")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    ResponseEntity<ApiResponseDto<?>> updateQuantity(Authentication authentication, @RequestBody CartItemRequestDto requestDto)
+            throws ResourceNotFoundException, ServiceLogicException{
+        return cartService.updateQuantity(authentication.getPrincipal().toString(), requestDto);
+    }
+
     @GetMapping("/get/byUser")
     @PreAuthorize("hasRole('ROLE_USER')")
     ResponseEntity<ApiResponseDto<?>> getCartItemsByUser(Authentication authentication)
@@ -34,9 +43,9 @@ public class CartController {
 
     @DeleteMapping("/remove")
     @PreAuthorize("hasRole('ROLE_USER')")
-    ResponseEntity<ApiResponseDto<?>> removeCartItemFromCart(Authentication authentication, @RequestParam String productId)
+    ResponseEntity<ApiResponseDto<?>> removeCartItemFromCart(Authentication authentication, @RequestParam String productId, @RequestParam String sku)
             throws ServiceLogicException, ResourceNotFoundException {
-        return cartService.removeCartItemFromCart(authentication.getPrincipal().toString(), productId);
+        return cartService.removeCartItemFromCart(authentication.getPrincipal().toString(), productId, sku);
     }
 
     @GetMapping("/get/byId")
@@ -49,6 +58,12 @@ public class CartController {
     @PreAuthorize("hasRole('ROLE_USER')")
     ResponseEntity<ApiResponseDto<?>> clearCartById(@RequestParam String id) throws ResourceNotFoundException, ServiceLogicException {
         return cartService.clearCartById(id);
+    }
+
+    @PutMapping("/restore")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    ResponseEntity<ApiResponseDto<?>> restoreCart(@RequestBody CartResponseDto cart) throws ResourceNotFoundException, ServiceLogicException {
+        return cartService.restoreCart(cart);
     }
 
 }
