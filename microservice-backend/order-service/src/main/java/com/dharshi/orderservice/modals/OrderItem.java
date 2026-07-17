@@ -1,5 +1,6 @@
 package com.dharshi.orderservice.modals;
 
+import com.dharshi.orderservice.dtos.ProductVariantDto;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,4 +15,5 @@ public class OrderItem {
     private double amount;
     private String imageUrl;
     private String categoryName;
+    private ProductVariantDto variant;
 }

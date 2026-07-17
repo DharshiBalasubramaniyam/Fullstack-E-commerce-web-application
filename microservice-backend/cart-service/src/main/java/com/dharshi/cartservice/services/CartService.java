@@ -2,6 +2,7 @@ package com.dharshi.cartservice.services;
 
 import com.dharshi.cartservice.dtos.ApiResponseDto;
 import com.dharshi.cartservice.dtos.CartItemRequestDto;
+import com.dharshi.cartservice.dtos.CartResponseDto;
 import com.dharshi.cartservice.exceptions.ResourceNotFoundException;
 import com.dharshi.cartservice.exceptions.ServiceLogicException;
 import org.springframework.http.ResponseEntity;
@@ -16,4 +17,6 @@ public interface CartService {
     ResponseEntity<ApiResponseDto<?>> getCartById(String id) throws ServiceLogicException;
 
     ResponseEntity<ApiResponseDto<?>> updateQuantity(String userId, CartItemRequestDto requestDto) throws ServiceLogicException;
+
+    ResponseEntity<ApiResponseDto<?>> restoreCart(CartResponseDto cart) throws ServiceLogicException, ResourceNotFoundException;
 }

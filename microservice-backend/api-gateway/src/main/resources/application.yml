@@ -58,6 +58,12 @@ spring:
             - Path=/api/order-service/**
           filters:
             - StripPrefix=2
+        - id: inventory-service
+          uri: lb://INVENTORY-SERVICE
+          predicates:
+            - Path=/api/inventory-service/**
+          filters:
+            - StripPrefix=2
 
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin

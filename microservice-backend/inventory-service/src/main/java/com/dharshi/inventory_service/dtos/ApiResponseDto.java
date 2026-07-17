@@ -1,4 +1,4 @@
-package com.dharshi.inventory_service.daos;
+package com.dharshi.inventory_service.dtos;
 
 import lombok.Builder;
 import lombok.Data;

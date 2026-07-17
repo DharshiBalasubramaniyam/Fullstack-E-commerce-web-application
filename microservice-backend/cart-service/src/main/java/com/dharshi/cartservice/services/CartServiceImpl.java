@@ -121,25 +121,27 @@ public class CartServiceImpl implements CartService {
     @Override
     public ResponseEntity<ApiResponseDto<?>> clearCartById(String id) throws ServiceLogicException, ResourceNotFoundException {
         try {
-            if(cartRepository.existsById(id)) {
-                Cart userCart = cartRepository.findById(id).orElse(null);
-                userCart.setCartItems(new HashSet<>());
-                cartRepository.save(userCart);
-
-                return ResponseEntity.ok(
-                        ApiResponseDto.builder()
-                                .isSuccess(true)
-                                .message("Cart has been successfully cleared!")
-                                .build()
-                );
-
+            Cart userCart = cartRepository.findById(id).orElse(null);
+            if(userCart == null) {
+                throw new ResourceNotFoundException("No cart found for id " + id);
             }
 
-        }catch (Exception e) {
+            userCart.setCartItems(new HashSet<>());
+            cartRepository.save(userCart);
+
+            return ResponseEntity.ok(
+                    ApiResponseDto.builder()
+                            .isSuccess(true)
+                            .message("Cart has been successfully cleared!")
+                            .build()
+            );
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
+        } catch (Exception e) {
             log.error("Failed to add item to cart: " + e.getMessage());
             throw new ServiceLogicException("Unable to add item to cart!");
         }
-        throw new ResourceNotFoundException("No cart found for id " + id);
+
     }
 
     @Override
@@ -201,6 +203,42 @@ public class CartServiceImpl implements CartService {
         } catch (Exception e) {
             log.error("Failed to update qty: " + e.getMessage());
             throw new ServiceLogicException("Unable to update qty!");
+        }
+    }
+
+    @Override
+    public ResponseEntity<ApiResponseDto<?>> restoreCart(CartResponseDto cart) throws ServiceLogicException, ResourceNotFoundException {
+        try {
+            Cart userCart = cartRepository.findById(cart.getCartId()).orElse(null);
+            if(userCart == null) {
+                throw new ResourceNotFoundException("No cart found for id " + cart.getCartId());
+            }
+
+            Set<CartItem> userCartItems = userCart.getCartItems();
+
+            for (CartItemResponseDto cartItemResponseDto: cart.getCartItems()) {
+                CartItem cartItem = CartItem.builder()
+                        .productId(cartItemResponseDto.getProductId())
+                        .quantity(cartItemResponseDto.getQuantity())
+                        .variant(cartItemResponseDto.getVariant())
+                        .build();
+                userCartItems.add(cartItem);
+            }
+
+            userCart.setCartItems(userCartItems);
+            cartRepository.save(userCart);
+
+            return ResponseEntity.ok(
+                    ApiResponseDto.builder()
+                            .isSuccess(true)
+                            .message("Cart has been successfully cleared!")
+                            .build()
+            );
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
+        } catch (Exception e) {
+            log.error("Failed to add item to cart: " + e.getMessage());
+            throw new ServiceLogicException("Unable to add item to cart!");
         }
     }
 

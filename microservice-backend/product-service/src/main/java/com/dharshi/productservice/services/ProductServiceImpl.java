@@ -127,6 +127,28 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public ResponseEntity<ApiResponseDto<?>> updateStockStatus(ProductStockUpdateRequestDto requestDto) throws ResourceNotFoundException, ServiceLogicException {
+        try {
+            Product product = productRepository.findById(requestDto.getProductId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Product not found: " + requestDto.getProductId()));
+
+            product.setInStock(requestDto.isInStock());
+            productRepository.save(product);
+            return ResponseEntity.ok(
+                    ApiResponseDto.builder()
+                            .isSuccess(true)
+                            .message("Product stock updated successfully!")
+                            .response(product)
+                            .build()
+            );
+        } catch(ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
+        } catch (Exception e) {
+            throw new ServiceLogicException("Unable to find products!");
+        }
+    }
+
+    @Override
     public ResponseEntity<ApiResponseDto<?>> getAllProducts(
             int pageNumber,
             int pageSize
@@ -146,7 +168,7 @@ public class ProductServiceImpl implements ProductService {
                             .message(products.toList().size() + " results found!")
                             .build()
             );
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceLogicException("Unable to find products!");
         }
     }

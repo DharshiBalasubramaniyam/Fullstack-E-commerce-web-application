@@ -1,6 +1,6 @@
 package com.dharshi.inventory_service.exception_handlers;
 
-import com.dharshi.inventory_service.daos.ApiResponseDto;
+import com.dharshi.inventory_service.dtos.ApiResponseDto;
 import com.dharshi.inventory_service.exceptions.ServiceLogicException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

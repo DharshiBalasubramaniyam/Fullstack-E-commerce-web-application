@@ -1,6 +1,7 @@
 package com.dharshi.productservice.controllers;
 
 import com.dharshi.productservice.dtos.ApiResponseDto;
+import com.dharshi.productservice.dtos.ProductStockUpdateRequestDto;
 import com.dharshi.productservice.exceptions.ResourceNotFoundException;
 import com.dharshi.productservice.exceptions.ServiceLogicException;
 import com.dharshi.productservice.services.ProductService;
@@ -43,6 +44,11 @@ public class CommonProductController {
     @GetMapping("/search")
     public ResponseEntity<ApiResponseDto<?>> searchProducts(@RequestParam String searchKey) throws ServiceLogicException{
         return productService.searchProducts(searchKey);
+    }
+
+    @PutMapping("/stock")
+    public ResponseEntity<ApiResponseDto<?>> updateStockStatus(@RequestBody ProductStockUpdateRequestDto requestDto) throws ServiceLogicException, ResourceNotFoundException {
+        return productService.updateStockStatus(requestDto);
     }
 
 

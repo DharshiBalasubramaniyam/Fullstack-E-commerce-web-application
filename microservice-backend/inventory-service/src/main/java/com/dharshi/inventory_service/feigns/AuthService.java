@@ -1,6 +1,6 @@
 package com.dharshi.inventory_service.feigns;
 
-import com.dharshi.inventory_service.daos.ApiResponseDto;
+import com.dharshi.inventory_service.dtos.ApiResponseDto;
 import com.dharshi.inventory_service.security.UserDetails;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;

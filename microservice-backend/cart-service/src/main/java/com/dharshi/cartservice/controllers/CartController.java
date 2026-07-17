@@ -2,8 +2,10 @@ package com.dharshi.cartservice.controllers;
 
 import com.dharshi.cartservice.dtos.ApiResponseDto;
 import com.dharshi.cartservice.dtos.CartItemRequestDto;
+import com.dharshi.cartservice.dtos.CartResponseDto;
 import com.dharshi.cartservice.exceptions.ResourceNotFoundException;
 import com.dharshi.cartservice.exceptions.ServiceLogicException;
+import com.dharshi.cartservice.modals.Cart;
 import com.dharshi.cartservice.services.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -56,6 +58,12 @@ public class CartController {
     @PreAuthorize("hasRole('ROLE_USER')")
     ResponseEntity<ApiResponseDto<?>> clearCartById(@RequestParam String id) throws ResourceNotFoundException, ServiceLogicException {
         return cartService.clearCartById(id);
+    }
+
+    @PutMapping("/restore")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    ResponseEntity<ApiResponseDto<?>> restoreCart(@RequestBody CartResponseDto cart) throws ResourceNotFoundException, ServiceLogicException {
+        return cartService.restoreCart(cart);
     }
 
 }
