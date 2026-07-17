@@ -1,27 +1,88 @@
-/* category warpper styles */
-.category-wrapper {
-    width: 100%;
-    overflow: scroll;
-}
-.category-wrapper::-webkit-scrollbar {
-    display: none;
-}
-.category-list {
-    padding: 13vh 5% 20px;
+/* page layout */
+.products-page {
     display: flex;
-    justify-content: left;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 20px 5%;
+    padding-top: 120px;
+}
+.products-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     gap: 20px;
-    min-width: 768px;
+}
+
+/* category sidebar styles */
+.category-sidebar {
+    width: 260px;
+    position: sticky;
+    top: 120px;
+    min-width: 260px;
+    max-height: calc(100vh - 140px);
+    background-color: #fff;
+    border: 1px solid var(--light);
+    border-radius: 0px;
+    padding: 18px 18px 14px;
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease, opacity 0.3s ease;
+}
+.category-sidebar.closed {
+    width: 90px;
+    min-width: 90px;
+}
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+.sidebar-header h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+.sidebar-toggle {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 999px;
+    background-color: var(--primary);
+    color: var(--body);
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.sidebar-toggle:hover {
+    opacity: 0.95;
+    transform: translateY(-1px);
+}
+
+.category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+.category-list::-webkit-scrollbar {
+    width: 6px;
+}
+.category-list::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.12);
+    border-radius: 999px;
 }
 .category {
-    padding: 8px 15px;
+    width: 100%;
+    padding: 12px 16px;
     background-color: transparent;
     border: 1.5px solid var(--primary);
     border-radius: 30px;
-    text-align: center;  
-    transition: 0.3s; cursor: pointer;
-    min-width: max-content;
-    width: 100px;
+    text-align: center;
+    transition: 0.3s;
+    cursor: pointer;
 }
 .category.active {
     background-color: var(--primary);
@@ -32,19 +93,18 @@
 }
 
 /* products styles */
-.products-container {
+/* .products-container {
     min-height: 100vh;
-}
-.products-wrapper {
+} */
+.products-container {
     display: flex;
-    align-items:stretch;
+    align-items:flex-start;
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
-    padding:  25px 5% ;
 }
 .box {
-    flex: 1 1 300px;
+    flex: 1 1 270px;
     max-width: 400px;
     position: relative;
     display: flex;

@@ -9,7 +9,7 @@ function ProductService() {
     const [error, setError] = useState(false);
     const [pageNumber, setPageNumber] = useState(1);
     const [totalItemsCount, settotalItemsCount] = useState(1);
-    const pageSize = 5;
+    const pageSize = 9;
 
     const getAllCategories = async () => {
         setLoading(true)

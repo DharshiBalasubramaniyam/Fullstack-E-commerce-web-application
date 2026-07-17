@@ -2,127 +2,415 @@
   {
     "sku": "6773f35c0f5832bdbc95ebc4-1",
     "productId": "6773f35c0f5832bdbc95ebc4",
-    "availableStock": 120,
-    "reservedStock": 8
+    "availableStock": 100,
+    "reservedStock": 0
   },
   {
     "sku": "6773f35c0f5832bdbc95ebc4-2",
     "productId": "6773f35c0f5832bdbc95ebc4",
-    "availableStock": 4,
-    "reservedStock": 5
+    "availableStock": 100,
+    "reservedStock": 0
   },
   {
     "sku": "6773f35c0f5832bdbc95ebc4-3",
     "productId": "6773f35c0f5832bdbc95ebc4",
-    "availableStock": 0,
-    "reservedStock": 4
+    "availableStock": 100,
+    "reservedStock": 0
   },
   {
     "sku": "6773f35c0f5832bdbc95ebc5-1",
     "productId": "6773f35c0f5832bdbc95ebc5",
-    "availableStock": 60,
-    "reservedStock": 6
+    "availableStock": 100,
+    "reservedStock": 0
   },
   {
     "sku": "6773f35c0f5832bdbc95ebc5-2",
     "productId": "6773f35c0f5832bdbc95ebc5",
-    "availableStock": 48,
-    "reservedStock": 3
+    "availableStock": 100,
+    "reservedStock": 0
   },
   {
     "sku": "6773f35c0f5832bdbc95ebc5-3",
     "productId": "6773f35c0f5832bdbc95ebc5",
-    "availableStock": 42,
-    "reservedStock": 2
+    "availableStock": 100,
+    "reservedStock": 0
   },
   {
     "sku": "6773f35c0f5832bdbc95ebc5-4",
     "productId": "6773f35c0f5832bdbc95ebc5",
-    "availableStock": 25,
-    "reservedStock": 1
+    "availableStock": 100,
+    "reservedStock": 0
   },
   {
     "sku": "6773f35c0f5832bdbc95ebc6-1",
     "productId": "6773f35c0f5832bdbc95ebc6",
-    "availableStock": 75,
-    "reservedStock": 5
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebd4-1",
+    "productId": "6773f35c0f5832bdbc95ebd4",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebd4-2",
+    "productId": "6773f35c0f5832bdbc95ebd4",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebd4-3",
+    "productId": "6773f35c0f5832bdbc95ebd4",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebd5-1",
+    "productId": "6773f35c0f5832bdbc95ebd5",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebd6-1",
+    "productId": "6773f35c0f5832bdbc95ebd6",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebd7-1",
+    "productId": "6773f35c0f5832bdbc95ebd7",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebd8-1",
+    "productId": "6773f35c0f5832bdbc95ebd8",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebd9-1",
+    "productId": "6773f35c0f5832bdbc95ebd9",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebda-1",
+    "productId": "6773f35c0f5832bdbc95ebda",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebce-1",
+    "productId": "6773f35c0f5832bdbc95ebce",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebcf-1",
+    "productId": "6773f35c0f5832bdbc95ebcf",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebd0-1",
+    "productId": "6773f35c0f5832bdbc95ebd0",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebd1-1",
+    "productId": "6773f35c0f5832bdbc95ebd1",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebd2-1",
+    "productId": "6773f35c0f5832bdbc95ebd2",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebd3-1",
+    "productId": "6773f35c0f5832bdbc95ebd3",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebdb-1",
+    "productId": "6773f35c0f5832bdbc95ebdb",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebdc-1",
+    "productId": "6773f35c0f5832bdbc95ebdc",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebdd-1",
+    "productId": "6773f35c0f5832bdbc95ebdd",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebde-1",
+    "productId": "6773f35c0f5832bdbc95ebde",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebdf-1",
+    "productId": "6773f35c0f5832bdbc95ebdf",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95eba1-1",
+    "productId": "6773f35c0f5832bdbc95eba1",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95eba2-1",
+    "productId": "6773f35c0f5832bdbc95eba2",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95eba3-1",
+    "productId": "6773f35c0f5832bdbc95eba3",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95eba4-1",
+    "productId": "6773f35c0f5832bdbc95eba4",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95eba5-1",
+    "productId": "6773f35c0f5832bdbc95eba5",
+    "availableStock": 100,
+    "reservedStock": 0
   },
   {
     "sku": "6773f35c0f5832bdbc95ebc7-1",
     "productId": "6773f35c0f5832bdbc95ebc7",
-    "availableStock": 200,
-    "reservedStock": 12
+    "availableStock": 100,
+    "reservedStock": 0
   },
   {
     "sku": "6773f35c0f5832bdbc95ebc8-1",
     "productId": "6773f35c0f5832bdbc95ebc8",
-    "availableStock": 90,
-    "reservedStock": 7
+    "availableStock": 100,
+    "reservedStock": 0
   },
   {
     "sku": "6773f35c0f5832bdbc95ebc9-1",
     "productId": "6773f35c0f5832bdbc95ebc9",
-    "availableStock": 140,
-    "reservedStock": 10
+    "availableStock": 100,
+    "reservedStock": 0
   },
   {
     "sku": "6773f35c0f5832bdbc95ebca-1",
     "productId": "6773f35c0f5832bdbc95ebca",
-    "availableStock": 35,
-    "reservedStock": 2
+    "availableStock": 100,
+    "reservedStock": 0
   },
   {
     "sku": "6773f35c0f5832bdbc95ebca-2",
     "productId": "6773f35c0f5832bdbc95ebca",
-    "availableStock": 40,
-    "reservedStock": 3
+    "availableStock": 100,
+    "reservedStock": 0
   },
   {
     "sku": "6773f35c0f5832bdbc95ebca-3",
     "productId": "6773f35c0f5832bdbc95ebca",
-    "availableStock": 28,
-    "reservedStock": 1
+    "availableStock": 100,
+    "reservedStock": 0
   },
   {
     "sku": "6773f35c0f5832bdbc95ebcb-1",
     "productId": "6773f35c0f5832bdbc95ebcb",
-    "availableStock": 55,
-    "reservedStock": 4
+    "availableStock": 100,
+    "reservedStock": 0
   },
   {
     "sku": "6773f35c0f5832bdbc95ebcb-2",
     "productId": "6773f35c0f5832bdbc95ebcb",
-    "availableStock": 50,
-    "reservedStock": 2
+    "availableStock": 100,
+    "reservedStock": 0
   },
   {
     "sku": "6773f35c0f5832bdbc95ebcb-3",
     "productId": "6773f35c0f5832bdbc95ebcb",
-    "availableStock": 45,
-    "reservedStock": 3
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95eba6-1",
+    "productId": "6773f35c0f5832bdbc95eba6",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95eba7-1",
+    "productId": "6773f35c0f5832bdbc95eba7",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95eba8-1",
+    "productId": "6773f35c0f5832bdbc95eba8",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95eba9-1",
+    "productId": "6773f35c0f5832bdbc95eba9",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95eba0-1",
+    "productId": "6773f35c0f5832bdbc95eba0",
+    "availableStock": 100,
+    "reservedStock": 0
   },
   {
     "sku": "6773f35c0f5832bdbc95ebcc-1",
     "productId": "6773f35c0f5832bdbc95ebcc",
-    "availableStock": 110,
-    "reservedStock": 6
+    "availableStock": 100,
+    "reservedStock": 0
   },
   {
     "sku": "6773f35c0f5832bdbc95ebcd-1",
     "productId": "6773f35c0f5832bdbc95ebcd",
-    "availableStock": 70,
-    "reservedStock": 5
+    "availableStock": 100,
+    "reservedStock": 0
   },
   {
     "sku": "6773f35c0f5832bdbc95ebcd-2",
     "productId": "6773f35c0f5832bdbc95ebcd",
-    "availableStock": 65,
-    "reservedStock": 4
+    "availableStock": 100,
+    "reservedStock": 0
   },
   {
     "sku": "6773f35c0f5832bdbc95ebcd-3",
     "productId": "6773f35c0f5832bdbc95ebcd",
-    "availableStock": 58,
-    "reservedStock": 3
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebb1-1",
+    "productId": "6773f35c0f5832bdbc95ebb1",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebb2-1",
+    "productId": "6773f35c0f5832bdbc95ebb2",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebb3-1",
+    "productId": "6773f35c0f5832bdbc95ebb3",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebb4-1",
+    "productId": "6773f35c0f5832bdbc95ebb4",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebb5-1",
+    "productId": "6773f35c0f5832bdbc95ebb5",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebb6-1",
+    "productId": "6773f35c0f5832bdbc95ebb6",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebb7-1",
+    "productId": "6773f35c0f5832bdbc95ebb7",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebb8-1",
+    "productId": "6773f35c0f5832bdbc95ebb8",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95ebb9-1",
+    "productId": "6773f35c0f5832bdbc95ebb9",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95eaa1-1",
+    "productId": "6773f35c0f5832bdbc95eaa1",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95eaa2-1",
+    "productId": "6773f35c0f5832bdbc95eaa2",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95eaa3-1",
+    "productId": "6773f35c0f5832bdbc95eaa3",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95eaa4-1",
+    "productId": "6773f35c0f5832bdbc95eaa4",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95eaa5-1",
+    "productId": "6773f35c0f5832bdbc95eaa5",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95eaa6-1",
+    "productId": "6773f35c0f5832bdbc95eaa6",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95eaa7-1",
+    "productId": "6773f35c0f5832bdbc95eaa7",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95eaa8-1",
+    "productId": "6773f35c0f5832bdbc95eaa8",
+    "availableStock": 100,
+    "reservedStock": 0
+  },
+  {
+    "sku": "6773f35c0f5832bdbc95eaa9-1",
+    "productId": "6773f35c0f5832bdbc95eaa9",
+    "availableStock": 100,
+    "reservedStock": 0
   }
 ]

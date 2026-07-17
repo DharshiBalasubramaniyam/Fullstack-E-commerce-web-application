@@ -73,6 +73,278 @@
     "_id": {
       "$oid": "6773f35c0f5832bdbc95ebc6"
     },
+    "productName": "Adjustable Foam Roller with Carry Strap",
+    "price": 34.99,
+    "description": "High-density foam roller with a carry strap for deep tissue massage and flexibility training.",
+    "imageUrl": "https://m.media-amazon.com/images/I/71tT9BdHi4L._AC_UF1000,1000_QL80_.jpg",
+    "categoryId": "6773f28a0f5832bdbc95ebbd",
+    "inStock": true,
+    "categoryName": "Fitness Equipment",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebc6-1",
+        "size": "33cm",
+        "color": "Black",
+        "price": 34.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebd4"
+    },
+    "productName": "Kettlebell Set - 8kg, 12kg, 16kg",
+    "price": 89.99,
+    "description": "Durable cast iron kettlebell set for strength training, conditioning, and functional movement.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbd",
+    "inStock": true,
+    "categoryName": "Fitness Equipment",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebd4-1",
+        "size": "8kg",
+        "color": "Black",
+        "price": 29.99
+      },
+      {
+        "sku": "6773f35c0f5832bdbc95ebd4-2",
+        "size": "12kg",
+        "color": "Black",
+        "price": 34.99
+      },
+      {
+        "sku": "6773f35c0f5832bdbc95ebd4-3",
+        "size": "16kg",
+        "color": "Black",
+        "price": 39.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebd5"
+    },
+    "productName": "Heavy Duty Adjustable Weight Bench",
+    "price": 129.99,
+    "description": "Multi-position weight bench with adjustable incline and sturdy steel frame for full-body workouts.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbd",
+    "inStock": true,
+    "categoryName": "Fitness Equipment",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebd5-1",
+        "size": "Adjustable",
+        "color": "Gray",
+        "price": 129.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebd6"
+    },
+    "productName": "Speed Jump Rope with Ball Bearings",
+    "price": 14.49,
+    "description": "Lightweight speed rope with smooth ball bearings for fast and efficient cardio training.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbd",
+    "inStock": true,
+    "categoryName": "Fitness Equipment",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebd6-1",
+        "size": "Adjustable",
+        "color": "Red",
+        "price": 14.49
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebd7"
+    },
+    "productName": "Doorway Pull-Up Bar",
+    "price": 29.99,
+    "description": "Portable and easy-to-install pull-up bar for upper body strength training at home.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbd",
+    "inStock": true,
+    "categoryName": "Fitness Equipment",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebd7-1",
+        "size": "Standard",
+        "color": "Black",
+        "price": 29.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebd8"
+    },
+    "productName": "Suspension Trainer Kit",
+    "price": 39.99,
+    "description": "Complete suspension training kit with door anchor and adjustable straps for bodyweight workouts.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbd",
+    "inStock": true,
+    "categoryName": "Fitness Equipment",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebd8-1",
+        "size": "One Size",
+        "color": "Black/Yellow",
+        "price": 39.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebd9"
+    },
+    "productName": "Ankle and Wrist Weight Set",
+    "price": 21.99,
+    "description": "Comfortable adjustable ankle and wrist weights for added resistance during cardio and strength routines.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbd",
+    "inStock": true,
+    "categoryName": "Fitness Equipment",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebd9-1",
+        "size": "2 x 1 Kg",
+        "color": "Black",
+        "price": 21.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebda"
+    },
+    "productName": "Core Balance Board",
+    "price": 27.49,
+    "description": "Balance board for improving core strength, stability, and coordination during workouts.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbd",
+    "inStock": true,
+    "categoryName": "Fitness Equipment",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebda-1",
+        "size": "One Size",
+        "color": "Blue",
+        "price": 27.49
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebce"
+    },
+    "productName": "Adjustable Resistance Tube Set",
+    "price": 19.99,
+    "description": "A set of resistance tubes with handles for a full-body workout at home or on the go.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbd",
+    "inStock": true,
+    "categoryName": "Fitness Equipment",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebce-1",
+        "size": "Set of 3",
+        "color": "Multicolor",
+        "price": 19.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebcf"
+    },
+    "productName": "Yoga Wheel Stretch Prop",
+    "price": 22.99,
+    "description": "Durable yoga wheel for improving flexibility, backbends, and core balance.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbd",
+    "inStock": true,
+    "categoryName": "Fitness Equipment",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebcf-1",
+        "size": "Standard",
+        "color": "Purple",
+        "price": 22.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebd0"
+    },
+    "productName": "Indoor Cycling Gel Seat Cover",
+    "price": 17.49,
+    "description": "Comfortable gel seat cover designed for stationary bikes and indoor cycling workouts.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbd",
+    "inStock": true,
+    "categoryName": "Fitness Equipment",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebd0-1",
+        "size": "Universal",
+        "color": "Black",
+        "price": 17.49
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebd1"
+    },
+    "productName": "Weighted Jump Rope",
+    "price": 24.99,
+    "description": "Weighted jump rope with ergonomic handles for strength and cardio training.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbd",
+    "inStock": true,
+    "categoryName": "Fitness Equipment",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebd1-1",
+        "size": "One Size",
+        "color": "Gray",
+        "price": 24.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebd2"
+    },
+    "productName": "Stainless Steel Water Bottle - 750ml",
+    "price": 15.99,
+    "description": "Insulated water bottle for hydration during workouts and fitness sessions.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbd",
+    "inStock": true,
+    "categoryName": "Fitness Equipment",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebd2-1",
+        "size": "750ml",
+        "color": "Silver",
+        "price": 15.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebd3"
+    },
     "productName": "Pure Nutrition Plant Protein Powder for Men, Women - Chocolate, 1Kg",
     "price": 45.5,
     "description": "Premium whey protein powder to support muscle recovery and growth.",
@@ -82,10 +354,210 @@
     "categoryName": "Nutrition and Supplements",
     "variants": [
       {
-        "sku": "6773f35c0f5832bdbc95ebc6-1",
+        "sku": "6773f35c0f5832bdbc95ebd3-1",
         "size": "1 Kg",
         "color": "Chocolate",
         "price": 45.5
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebdb"
+    },
+    "productName": "Organic Plant-Based Collagen Peptides Powder - Berry Bliss, 450g",
+    "price": 39.99,
+    "description": "Supports healthy skin, joints, and recovery with premium plant-sourced collagen peptides.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbe",
+    "inStock": true,
+    "categoryName": "Nutrition and Supplements",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebdb-1",
+        "size": "450g",
+        "color": "Berry",
+        "price": 39.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebdc"
+    },
+    "productName": "Omega-3 Fish Oil Softgels - 90 Count",
+    "price": 24.99,
+    "description": "High-potency omega-3 softgels designed to support heart and brain health.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbe",
+    "inStock": true,
+    "categoryName": "Nutrition and Supplements",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebdc-1",
+        "size": "90 Count",
+        "color": "Gold",
+        "price": 24.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebdd"
+    },
+    "productName": "Daily Multivitamin Gummies for Adults - 60 Count",
+    "price": 19.49,
+    "description": "Tasty daily multivitamin gummies to support energy, immunity, and overall wellness.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbe",
+    "inStock": true,
+    "categoryName": "Nutrition and Supplements",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebdd-1",
+        "size": "60 Count",
+        "color": "Mixed Fruit",
+        "price": 19.49
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebde"
+    },
+    "productName": "Magnesium Citrate Capsules - 120 Count",
+    "price": 16.99,
+    "description": "Gentle magnesium supplement to support relaxation, sleep, and muscle recovery.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbe",
+    "inStock": true,
+    "categoryName": "Nutrition and Supplements",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebde-1",
+        "size": "120 Count",
+        "color": "White",
+        "price": 16.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebdf"
+    },
+    "productName": "BCAA Recovery Powder - Tropical Fruit, 500g",
+    "price": 34.99,
+    "description": "Branched-chain amino acids for muscle recovery, hydration, and endurance support.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbe",
+    "inStock": true,
+    "categoryName": "Nutrition and Supplements",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebdf-1",
+        "size": "500g",
+        "color": "Tropical",
+        "price": 34.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95eba1"
+    },
+    "productName": "Probiotic Daily Formula - 30 Capsules",
+    "price": 22.49,
+    "description": "Daily probiotic support for gut health, digestion, and immune balance.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbe",
+    "inStock": true,
+    "categoryName": "Nutrition and Supplements",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95eba1-1",
+        "size": "30 Capsules",
+        "color": "Green",
+        "price": 22.49
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95eba2"
+    },
+    "productName": "Green Superfood Powder - Natural Berry, 300g",
+    "price": 27.99,
+    "description": "Daily green superfood blend with berries, spirulina, and antioxidants.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbe",
+    "inStock": true,
+    "categoryName": "Nutrition and Supplements",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95eba2-1",
+        "size": "300g",
+        "color": "Berry",
+        "price": 27.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95eba3"
+    },
+    "productName": "Pre-Workout Energy Booster - Citrus Blast, 250g",
+    "price": 29.99,
+    "description": "Powerful pre-workout formula to support energy, focus, and performance.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbe",
+    "inStock": true,
+    "categoryName": "Nutrition and Supplements",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95eba3-1",
+        "size": "250g",
+        "color": "Citrus",
+        "price": 29.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95eba4"
+    },
+    "productName": "Electrolyte Hydration Mix - 20 Servings",
+    "price": 18.99,
+    "description": "Hydration powder with electrolytes and minerals for workout recovery and daily replenishment.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbe",
+    "inStock": true,
+    "categoryName": "Nutrition and Supplements",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95eba4-1",
+        "size": "20 Servings",
+        "color": "Lemon",
+        "price": 18.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95eba5"
+    },
+    "productName": "Creatine Monohydrate Powder - 300g",
+    "price": 24.99,
+    "description": "Pure creatine monohydrate to support strength, power, and muscle recovery.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebbe",
+    "inStock": true,
+    "categoryName": "Nutrition and Supplements",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95eba5-1",
+        "size": "300g",
+        "color": "White",
+        "price": 24.99
       }
     ]
   },
@@ -212,6 +684,106 @@
   },
   {
     "_id": {
+      "$oid": "6773f35c0f5832bdbc95eba6"
+    },
+    "productName": "Bluetooth Sleep Sound Mask",
+    "price": 29.99,
+    "description": "Soft sleep mask with built-in Bluetooth speakers for guided sleep meditation and white noise.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc0",
+    "inStock": true,
+    "categoryName": "Mental Wellness",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95eba6-1",
+        "size": "One Size",
+        "color": "Black",
+        "price": 29.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95eba7"
+    },
+    "productName": "Himalayan Salt Therapy Lamp",
+    "price": 34.49,
+    "description": "Warm ambient lamp that helps create a calming atmosphere and supports relaxation.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc0",
+    "inStock": true,
+    "categoryName": "Mental Wellness",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95eba7-1",
+        "size": "Medium",
+        "color": "Pink",
+        "price": 34.49
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95eba8"
+    },
+    "productName": "Lavender Weighted Eye Pillow",
+    "price": 16.99,
+    "description": "A soothing weighted eye pillow infused with lavender for stress relief and restful sleep.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc0",
+    "inStock": true,
+    "categoryName": "Mental Wellness",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95eba8-1",
+        "size": "Standard",
+        "color": "Purple",
+        "price": 16.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95eba9"
+    },
+    "productName": "Aromatherapy Stress Relief Roll-On",
+    "price": 12.49,
+    "description": "Essential oil roll-on blend for instant calming relief during stressful moments.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc0",
+    "inStock": true,
+    "categoryName": "Mental Wellness",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95eba9-1",
+        "size": "10ml",
+        "color": "Clear",
+        "price": 12.49
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95eba0"
+    },
+    "productName": "Mindfulness Journal & Pen Set",
+    "price": 21.99,
+    "description": "Guided journal and premium pen set for daily reflection, gratitude, and mental clarity.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc0",
+    "inStock": true,
+    "categoryName": "Mental Wellness",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95eba0-1",
+        "size": "One Size",
+        "color": "Teal",
+        "price": 21.99
+      }
+    ]
+  },
+  {
+    "_id": {
       "$oid": "6773f35c0f5832bdbc95ebcc"
     },
     "productName": "Resistance Bands",
@@ -261,5 +833,366 @@
         "price": 19.99
       }
     ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebb1"
+    },
+    "productName": "Folding Ab Roller Wheel with Knee Pad",
+    "price": 22.99,
+    "description": "Compact ab roller with a cushioned knee pad for core strengthening and home ab workouts.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc1",
+    "inStock": true,
+    "categoryName": "Home Gym Essentials",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebb1-1",
+        "size": "One Size",
+        "color": "Black",
+        "price": 22.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebb2"
+    },
+    "productName": "Adjustable Dumbbell Stand",
+    "price": 59.99,
+    "description": "Sturdy stand for adjustable dumbbells that improves safety and storage in small home gyms.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc1",
+    "inStock": true,
+    "categoryName": "Home Gym Essentials",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebb2-1",
+        "size": "Adjustable",
+        "color": "Black",
+        "price": 59.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebb3"
+    },
+    "productName": "Compact Push-Up Rack Bars",
+    "price": 18.99,
+    "description": "Portable push-up bars that help deepen range of motion and protect wrists during strength training.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc1",
+    "inStock": true,
+    "categoryName": "Home Gym Essentials",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebb3-1",
+        "size": "One Size",
+        "color": "Gray",
+        "price": 18.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebb4"
+    },
+    "productName": "Digital Blood Pressure Monitor - Upper Arm",
+    "price": 49.99,
+    "description": "Automatic upper arm blood pressure monitor with large LCD display, irregular heartbeat detection, and memory storage for multiple users.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc5",
+    "inStock": true,
+    "categoryName": "Health Monitoring Devices",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebb4-1",
+        "size": "Standard",
+        "color": "White",
+        "price": 49.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebb5"
+    },
+    "productName": "Infrared Digital Thermometer - Contactless",
+    "price": 34.99,
+    "description": "Fast and accurate non-contact infrared thermometer suitable for adults and children with fever alert and backlit display.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc5",
+    "inStock": true,
+    "categoryName": "Health Monitoring Devices",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebb5-1",
+        "size": "One Size",
+        "color": "White",
+        "price": 34.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebb6"
+    },
+    "productName": "Fingertip Pulse Oximeter",
+    "price": 24.99,
+    "description": "Portable fingertip pulse oximeter for measuring blood oxygen saturation (SpO2) and pulse rate with OLED display.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc5",
+    "inStock": true,
+    "categoryName": "Health Monitoring Devices",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebb6-1",
+        "size": "Standard",
+        "color": "Blue",
+        "price": 24.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebb7"
+    },
+    "productName": "Bluetooth Smart Body Weight Scale",
+    "price": 59.99,
+    "description": "Smart digital scale with Bluetooth connectivity that tracks body weight, BMI, body fat, muscle mass, and syncs with health apps.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc5",
+    "inStock": true,
+    "categoryName": "Health Monitoring Devices",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebb7-1",
+        "size": "180kg Capacity",
+        "color": "Black",
+        "price": 59.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebb8"
+    },
+    "productName": "Wireless Blood Glucose Monitor Kit",
+    "price": 69.99,
+    "description": "Blood glucose monitoring kit with wireless connectivity, test strips, lancets, and companion mobile app support.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc5",
+    "inStock": true,
+    "categoryName": "Health Monitoring Devices",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebb8-1",
+        "size": "Starter Kit",
+        "color": "White",
+        "price": 69.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95ebb9"
+    },
+    "productName": "Meal Replacement Protein Shake - Vanilla, 750g",
+    "price": 34.99,
+    "description": "High-protein meal replacement shake with essential vitamins, minerals, and fiber to support healthy weight management.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc6",
+    "inStock": true,
+    "categoryName": "Weight Management",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95ebb9-1",
+        "size": "750g",
+        "color": "Vanilla",
+        "price": 34.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95eaa1"
+    },
+    "productName": "Plant-Based Slim Protein Powder - Chocolate, 500g",
+    "price": 29.99,
+    "description": "Low-calorie plant-based protein powder designed to support weight loss while maintaining lean muscle mass.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc6",
+    "inStock": true,
+    "categoryName": "Weight Management",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95eaa1-1",
+        "size": "500g",
+        "color": "Chocolate",
+        "price": 29.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95eaa2"
+    },
+    "productName": "High-Fiber Weight Support Gummies - Mixed Berry",
+    "price": 19.99,
+    "description": "Delicious fiber gummies formulated to help support digestive health and promote feelings of fullness.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc6",
+    "inStock": true,
+    "categoryName": "Weight Management",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95eaa2-1",
+        "size": "60 Gummies",
+        "color": "Mixed Berry",
+        "price": 19.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95eaa3"
+    },
+    "productName": "Low-Calorie Nutrition Bar Variety Pack",
+    "price": 22.99,
+    "description": "Pack of 12 high-protein, low-sugar nutrition bars ideal for healthy snacking and portion-controlled weight management.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc6",
+    "inStock": true,
+    "categoryName": "Weight Management",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95eaa3-1",
+        "size": "12 Bars",
+        "color": "Variety Pack",
+        "price": 22.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95eaa4"
+    },
+    "productName": "Metabolism Support Capsules - 90 Count",
+    "price": 27.99,
+    "description": "Daily dietary supplement formulated with green tea extract, chromium, and B vitamins to support a healthy metabolism when combined with diet and exercise.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc6",
+    "inStock": true,
+    "categoryName": "Weight Management",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95eaa4-1",
+        "size": "90 Capsules",
+        "color": "Standard",
+        "price": 27.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95eaa5"
+    },
+    "productName": "Melatonin Sleep Gummies - Berry, 60 Gummies",
+    "price": 18.99,
+    "description": "Delicious berry-flavored melatonin gummies formulated to support restful sleep and a healthy sleep cycle.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc7",
+    "inStock": true,
+    "categoryName": "Sleep & Relaxation",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95eaa5-1",
+        "size": "60 Gummies",
+        "color": "Berry",
+        "price": 18.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95eaa6"
+    },
+    "productName": "Lavender Essential Oil - 30ml",
+    "price": 14.99,
+    "description": "Pure lavender essential oil ideal for aromatherapy, promoting relaxation and creating a calming bedtime environment.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc7",
+    "inStock": true,
+    "categoryName": "Sleep & Relaxation",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95eaa6-1",
+        "size": "30ml",
+        "color": "Natural",
+        "price": 14.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95eaa7"
+    },
+    "productName": "Chamomile Herbal Tea - 20 Tea Bags",
+    "price": 8.99,
+    "description": "Naturally caffeine-free chamomile herbal tea with a soothing floral flavor to help you unwind before bedtime.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc7",
+    "inStock": true,
+    "categoryName": "Sleep & Relaxation",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95eaa7-1",
+        "size": "20 Tea Bags",
+        "color": "Herbal",
+        "price": 8.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95eaa8"
+    },
+    "productName": "Weighted Blanket - 15 lbs",
+    "price": 69.99,
+    "description": "Premium weighted blanket designed to provide gentle, even pressure for enhanced comfort and relaxation during sleep.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc7",
+    "inStock": true,
+    "categoryName": "Sleep & Relaxation",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95eaa8-1",
+        "size": "15 lbs",
+        "color": "Gray",
+        "price": 69.99
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6773f35c0f5832bdbc95eaa9"
+    },
+    "productName": "Calming Magnesium Capsules - 120 Count",
+    "price": 21.99,
+    "description": "Magnesium supplement formulated to support muscle relaxation, nervous system function, and restful sleep.",
+    "imageUrl": "https://reach2fitness.com/cdn/shop/files/71K5nhm3lhL_1200x.jpg?v=1724981638",
+    "categoryId": "6773f28a0f5832bdbc95ebc7",
+    "inStock": true,
+    "categoryName": "Sleep & Relaxation",
+    "variants": [
+      {
+        "sku": "6773f35c0f5832bdbc95eaa9-1",
+        "size": "120 Capsules",
+        "color": "Standard",
+        "price": 21.99
+      }
+    ]
   }
+
 ]

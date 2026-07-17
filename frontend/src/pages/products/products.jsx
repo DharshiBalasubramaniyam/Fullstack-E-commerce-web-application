@@ -32,19 +32,21 @@ function Products() {
             {isLoading && <Loading />}
             {error && <Info message="Unable to display product right now. Try again later..." />}
             {!isLoading && !error && (
-                <>
+                <section className="products-page">
                     <CategoryWrapper category={category} categoryList={categories} />
-                    <ProductsWrapper products={products} />
-                    <Pagination
-                        activePage={pageNumber}
-                        itemsCountPerPage={pageSize}
-                        totalItemsCount={totalItemsCount}
-                        pageRangeDisplayed={5}
-                        onChange={(pageNumber) => {
-                            setPageNumber(pageNumber)
-                        }}
-                    />
-                </>
+                    <div className="products-main">
+                        <ProductsWrapper products={products} />
+                        <Pagination
+                            activePage={pageNumber}
+                            itemsCountPerPage={pageSize}
+                            totalItemsCount={totalItemsCount}
+                            pageRangeDisplayed={5}
+                            onChange={(pageNumber) => {
+                                setPageNumber(pageNumber)
+                            }}
+                        />
+                    </div>
+                </section>
             )}
             <Footer />
         </>
@@ -56,6 +58,7 @@ export default Products;
 
 function CategoryWrapper({ category, categoryList }) {
 
+    const [isOpen, setIsOpen] = useState(true);
     const navigate = useNavigate();
 
     const onSelect = (categoryName, categoryId) => {
@@ -66,29 +69,37 @@ function CategoryWrapper({ category, categoryList }) {
     }
 
     return (
-        <section className="category-wrapper">
-            <div className="category-list">
-                <div
-                    className={category == "All" ? "category active" : "category"}
-                    onClick={() => onSelect("All")}
-                >
-                    All
+        <aside className={`category-sidebar ${isOpen ? 'open' : 'closed'}`}>
+            {/* <div className="sidebar-header">
+                <h2>Categories</h2>
+                <button className="sidebar-toggle" onClick={() => setIsOpen(!isOpen)}>
+                    {isOpen ? 'Close' : 'Open'}
+                </button>
+            </div> */}
+            {isOpen && (
+                <div className="category-list">
+                    <div
+                        className={category == "All" ? "category active" : "category"}
+                        onClick={() => onSelect("All")}
+                    >
+                        All
+                    </div>
+                    {
+                        categoryList.map((cat) => {
+                            return (
+                                <div
+                                    className={category == cat.categoryName ? "category active" : "category"}
+                                    key={cat.id}
+                                    onClick={() => onSelect(cat.categoryName, cat.id)}
+                                >
+                                    {cat.categoryName}
+                                </div>
+                            )
+                        })
+                    }
                 </div>
-                {
-                    categoryList.map((cat) => {
-                        return (
-                            <div
-                                className={category == cat.categoryName ? "category active" : "category"}
-                                key={cat.id}
-                                onClick={() => onSelect(cat.categoryName, cat.id)}
-                            >
-                                {cat.categoryName}
-                            </div>
-                        )
-                    })
-                }
-            </div>
-        </section>
+            )}
+        </aside>
     )
 }
 
@@ -112,7 +123,7 @@ function ProductsWrapper({ products }) {
 
     return (
         <section className="products-container">
-            <div className='products-wrapper'>
+            {/* <div className='products-wrapper'> */}
                 {
                     isLoading ? <Loading /> :
                         products.map((product) => {
@@ -122,7 +133,7 @@ function ProductsWrapper({ products }) {
                                     key={product.id}
                                     onClick={() => navigate(`/product/view/${product.id}`, { state: { productId: product.id } })}
                                 >
-                                    <img src={`${product.imageUrl}`} className="image" alt='product'></img>
+                                    <img src={`https://idb.gov.lk/training/wp-content/uploads/2022/11/Cosmetics-Product-Development.png`} className="image" alt='product'></img>
                                     <div className='price' aria-label='image'>Rs. {product.price}</div>
                                     {
                                         !product.inStock ? <div className='out-of-stock' aria-label='image'>Out of stock</div> : <></>
@@ -140,7 +151,7 @@ function ProductsWrapper({ products }) {
                             )
                         })
                 }
-            </div>
+            {/* </div> */}
         </section>
     )
 }

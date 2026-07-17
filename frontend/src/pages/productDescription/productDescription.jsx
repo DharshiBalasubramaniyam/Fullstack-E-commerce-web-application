@@ -92,7 +92,7 @@ function ProductDescription() {
             {!isLoading && !error && (
                 <div className='desc-wrapper'>
                     <div className="image-wrapper">
-                        <img src={description?.imageUrl} className="image" alt='product'></img>
+                        <img src={`https://idb.gov.lk/training/wp-content/uploads/2022/11/Cosmetics-Product-Development.png`} className="image" alt='product'></img>
                     </div>
                     <div className="detail-wrapper">
                         <h2>{description?.productName || "Yoga Mat 4mm - with Bag"}</h2>
