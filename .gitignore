@@ -76,3 +76,31 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+
+# Virtual environment
+venv/
+.venv/
+
+# Environment configs
+.env
+.env.*
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# LangChain / ML artifacts
+.faiss/
+*.index
+
+# Cache
+.pytest_cache/
+.mypy_cache/
