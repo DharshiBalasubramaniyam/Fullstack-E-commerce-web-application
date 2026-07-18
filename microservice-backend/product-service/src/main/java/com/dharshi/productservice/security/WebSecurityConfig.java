@@ -28,7 +28,9 @@ public class WebSecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/product/**").permitAll()
+                        auth.requestMatchers("/**").permitAll()
+                                .requestMatchers("/actuator/**").permitAll()
+                                .requestMatchers("/mcp/**").permitAll()
                                 .requestMatchers("/admin/product/**").hasAuthority("ROLE_ADMIN")
                                 .anyRequest().authenticated()
                 );
