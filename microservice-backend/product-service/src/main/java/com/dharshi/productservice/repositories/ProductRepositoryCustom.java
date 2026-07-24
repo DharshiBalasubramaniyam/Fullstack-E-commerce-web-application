@@ -5,7 +5,7 @@ import com.dharshi.productservice.models.Product;
 import java.util.List;
 
 public interface ProductRepositoryCustom {
-    String searchProducts(
+    Object searchProducts(
             List<String> keywords,
             Double minPrice,
             Double maxPrice,

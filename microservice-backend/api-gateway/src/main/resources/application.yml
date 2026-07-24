@@ -64,6 +64,12 @@ spring:
             - Path=/api/inventory-service/**
           filters:
             - StripPrefix=2
+        - id: ai-service
+          uri: lb://AI-SERVICE
+          predicates:
+            - Path=/api/ai-service/**
+          filters:
+            - StripPrefix=2
 
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
@@ -83,3 +89,4 @@ eureka:
     registerWithEureka: true
   instance:
     hostname: localhost
+    prefer-ip-address: true

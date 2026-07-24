@@ -1,32 +1,32 @@
+from typing import Optional, Type
+
 from langchain.agents import create_agent
-from langchain_core.messages import HumanMessage, AIMessage, ToolMessage
+from langchain_core.messages import BaseMessage, HumanMessage, AIMessage, ToolMessage
+from pydantic import BaseModel
 
 
-class BaseMcpAgent:
+class BaseAgent:
 
     def __init__(
         self,
         name: str,
         model: str,
-        mcp_client
+        system_prompt: str,
+        response_format: Optional[Type[BaseModel]] = None
     ):
         self.name = name
         self.model = model
-        self.mcp_client = mcp_client
+        self.system_prompt = system_prompt
         self.agent = None
+        self.response_format = response_format
 
 
     async def initialize(self):
 
-        tools = await self.mcp_client.get_tools()
-
-        print(
-            f"{self.name} tools loaded: {len(tools)}"
-        )
-
         self.agent = create_agent(
             model=self.model,
-            tools=tools
+            system_prompt=self.system_prompt,
+            response_format=self.response_format
         )
 
         print(
@@ -34,16 +34,18 @@ class BaseMcpAgent:
         )
 
 
-    async def invoke(self, message: str):
+    async def invoke(self, message: str | list[BaseMessage]):
+
+        input = message
+
+        if isinstance(message, str):
+            input = [
+                HumanMessage(content=message)
+            ]
 
         result = await self.agent.ainvoke(
             {
-                "messages": [
-                    {
-                        "role": "user",
-                        "content": message
-                    }
-                ]
+                "messages": input
             }
         )
 
@@ -65,4 +67,4 @@ class BaseMcpAgent:
             elif isinstance(message, ToolMessage):
                 print(f"[{self.name}] ToolMessage: {message.content}")
 
-        return result["messages"][-1].content
+        return result["structured_response"]

@@ -1,5 +1,6 @@
 package com.dharshi.productservice.repositories;
 
+import com.dharshi.productservice.dtos.ProductMcpResponseDto;
 import com.dharshi.productservice.models.Product;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -7,7 +8,9 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
@@ -21,7 +24,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     }
 
     @Override
-    public String searchProducts (
+    public Object searchProducts (
             List<String> keywords,
             Double minPrice,
             Double maxPrice,
@@ -81,9 +84,10 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         );
 
         query.fields()
-                .include("productName")
-                .include("price")
-                .include("id");
+                .exclude("description")
+                .exclude("imageUrl")
+                .exclude("categoryId")
+                .exclude("categoryName");
 
         long totalProducts = mongoTemplate.count(query, Product.class);
 
@@ -98,20 +102,19 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         List<Product> products = mongoTemplate.find(query, Product.class);
 
         if (!products.isEmpty()) {
-            StringBuilder builder = new StringBuilder();
-            builder.append("Showing ").append(skip + 1).append(" - ").append(skip + products.size()).append(" of ").append(totalProducts).append("\n");
-            for (Product product: products) {
-                builder
-                        .append("id = ")
-                        .append(product.getId())
-                        .append(", product name = ")
-                        .append(product.getProductName())
-                        .append(", price: ")
-                        .append(product.getPrice())
-                        .append("\n");
+            Map<String, Object> result = new HashMap<>();
+            List<ProductMcpResponseDto> productsres = new ArrayList<>();
+            for (Product p: products) {
+                productsres.add(
+                        ProductMcpResponseDto.builder()
+                                .productId(p.getId())
+                                .productName(p.getProductName())
+                                .variants(p.getVariants()).build()
+                );
             }
-
-            return builder.toString();
+            result.put("productsList", productsres);
+            result.put("hasMore", Math.ceil((double) totalProducts /pageSize) > pageNo);
+            return result;
         } else {
             return "No product matched the provided filters";
         }

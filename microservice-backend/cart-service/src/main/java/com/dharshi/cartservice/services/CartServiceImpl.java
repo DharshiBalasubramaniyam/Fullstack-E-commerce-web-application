@@ -145,6 +145,32 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public ResponseEntity<ApiResponseDto<?>> clearCartByUserId(String id) throws ServiceLogicException, ResourceNotFoundException {
+        try {
+            Cart userCart = cartRepository.findByUserId(id);
+            if(userCart == null) {
+                throw new ResourceNotFoundException("No cart found for id " + id);
+            }
+
+            userCart.setCartItems(new HashSet<>());
+            cartRepository.save(userCart);
+
+            return ResponseEntity.ok(
+                    ApiResponseDto.builder()
+                            .isSuccess(true)
+                            .message("Cart has been successfully cleared!")
+                            .build()
+            );
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
+        } catch (Exception e) {
+            log.error("Failed to add item to cart: " + e.getMessage());
+            throw new ServiceLogicException("Unable to add item to cart!");
+        }
+
+    }
+
+    @Override
     public ResponseEntity<ApiResponseDto<?>> getCartById(String id) throws ServiceLogicException {
         try {
             Cart cart = cartRepository.findById(id).orElse(null);
@@ -283,9 +309,7 @@ public class CartServiceImpl implements CartService {
         if (cartItem == null) {
             cartItem = getNewCartItem(requestDto);
         } else {
-            if (requestDto.getQuantity() <= 0) requestDto.setQuantity(-1);
-            if (requestDto.getQuantity() > 0) requestDto.setQuantity(requestDto.getQuantity());
-            if (cartItem.getQuantity() + requestDto.getQuantity() <= 0) requestDto.setQuantity(0);
+            requestDto.setQuantity(Math.max(requestDto.getQuantity(), 0));
             userCartItems.remove(cartItem);
             cartItem.setQuantity(cartItem.getQuantity() + requestDto.getQuantity());
         }

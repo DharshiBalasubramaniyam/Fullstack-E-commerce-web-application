@@ -1,4 +1,7 @@
-from src.core.agents.base_mcp_agent import BaseMcpAgent
+from src.agents.base_mcp_agent import BaseMcpAgent
+from src.agents.prompts.system_prompts import product_agent_system_prompt
+from src.agents.response_modals.product_agent_response import ProductAgentResponse
+from src.core.config import GEMINI_MODEL
 
 
 class ProductAgent(BaseMcpAgent):
@@ -7,6 +10,8 @@ class ProductAgent(BaseMcpAgent):
 
         super().__init__(
             name="Product Agent",
-            model="google_genai:gemini-3.1-flash-lite",
-            mcp_client=mcp_client
+            model=GEMINI_MODEL,
+            system_prompt=product_agent_system_prompt,
+            mcp_client=mcp_client,
+            response_format=ProductAgentResponse
         )

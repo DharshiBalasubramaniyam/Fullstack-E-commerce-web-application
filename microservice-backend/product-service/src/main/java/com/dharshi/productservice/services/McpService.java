@@ -36,8 +36,26 @@ public class McpService {
         this.inventoryService = inventoryService;
     }
 
-    @Tool(name = "searchProducts", description = "Search products using provided filters, and returns 10 products at a time")
-    public String searchProducts(
+    @Tool(name = "searchProducts", description = """
+    Search products using provided filters, and returns 10 products at a time.
+    Use this tool ONCE to find matching products by providing all possible keywords.
+    Do not create keywords from assumptions. Use only information provided by the user.
+    Generate concise search keywords:
+        - Use important product terms only.
+        - Remove unnecessary words like:  "I need", "show me", "find", "looking for", "give me".
+        - Keep keywords short and meaningful.
+    Examples:
+    User: "Show me vitamin C supplements"
+            
+    Correct:
+    keywords: ["vitamin c supplement", "vitamin c", "vitamin"]
+            
+    Incorrect:
+    keywords: ["show me vitamin C supplements"]
+    
+    Never repeat a tool call with similar arguments.
+    """)
+    public Object searchProducts(
             @ToolParam(description = """
                 Keywords to filter products. 
                 Filter products which includes at least one keyword in product name, description or category name.
@@ -51,6 +69,7 @@ public class McpService {
                 - Do not include punctuation.
                 - Keep each keyword between 1-3 words.
                 - Do not combine unrelated concepts into one keyword.
+                
                \s
                 Examples:
                 User: "Looking for Logitech wireless gaming mouse"
@@ -68,6 +87,7 @@ public class McpService {
             @ToolParam(required = false) Double maxPrice,
             Integer pageNo
     ) {
+        log.info("===searchProducts==");
         try {
             return productRepositoryCustom.searchProducts(
                     keywords, minPrice, maxPrice, pageNo
@@ -78,10 +98,12 @@ public class McpService {
         }
     }
 
-    @Tool(name = "getProductVariantsAndInventory", description = "Get price and available count of different variants (size, color) of a product")
+//    @Tool(name = "getProductVariantsAndInventory", description = "Get price and available count of different variants (size, color) of a product")
     public String getProductVariantsAndInventory(
             @ToolParam String productId
+
     ) {
+        log.info("===getProductVariantsAndInventory==");
         try {
             if (productId == null || productId.isEmpty()) {
                 return "Product id is required to get data";
@@ -108,10 +130,26 @@ public class McpService {
         }
     }
 
-    @Tool(name = "getProductDescription", description = "Get detailed description of a product")
+    @Tool(name = "getProductDescription", description = """
+    Get detailed description of a product.
+    Use this tool ONLY when user explicitly inquiry about a specific product or ask compare products.
+    Use this tools ONCE per product to retrieve it's description.
+    If the returned passage do not describe the user's
+    question, do NOT call this tool again with a
+    rephrased query. Instead, tell the user the
+    description does not cover their question and
+    suggest they contact support.
+    
+    Examples queries to invoke this tool:
+    User:
+    - How to intake this medicine?
+    - Can 5 years old child can take in supplement? 
+    
+    """)
     public String getProductDescription(
             @ToolParam String productId
     ) {
+        log.info("===getProductDescription==");
         try {
             if (productId == null || productId.isEmpty()) {
                 return "Product id is required to get data";
