@@ -17,8 +17,11 @@
     "react-hot-toast": "^2.4.1",
     "react-icons": "^5.1.0",
     "react-js-pagination": "^3.0.3",
+    "react-markdown": "^10.1.0",
     "react-router-dom": "^6.23.0",
-    "react-spinners": "^0.13.8"
+    "react-spinners": "^0.13.8",
+    "remark-breaks": "^4.0.0",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

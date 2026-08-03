@@ -1,8 +1,12 @@
 from contextlib import asynccontextmanager
+import uuid
 
-from fastapi import Depends, FastAPI, Request
+from fastapi import Depends, FastAPI, Request, Response, Body
+from fastapi.middleware.cors import CORSMiddleware
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, ToolMessage
 import py_eureka_client.eureka_client as eureka
+from langgraph.types import Command, StateSnapshot
+from pydantic import BaseModel
 
 from src.core.config import APP_NAME, APP_PORT, EUREKA_HOST, EUREKA_SERVER
 from src.registry.agent_registry import agent_registry
@@ -41,14 +45,79 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-# TODO: Add user id in main node 
-# TODO: Add checkpointer and thread id
-# TODO: Write hitsory in a file
-@app.get("/chat/{query}")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://127.0.0.1:5173",
+        "http://localhost:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+class ChatRequest(BaseModel):
+    query: str
+
+@app.get("/session")
+async def create_session(
+    response: Response, 
+    request: Request
+):
+
+    existing_session = request.cookies.get(
+        "chat_session_id"
+    )
+
+    graph = request.app.state.graph
+
+    if existing_session:
+
+        thread_id = request.cookies.get(
+            "chat_session_id"
+        )
+
+        config = {"configurable": {"thread_id": thread_id}}
+    
+        snapshot: StateSnapshot = await graph.aget_state(config)
+
+        if not snapshot:
+            return {
+                "messages": [
+                    {"type": "ai", "content": "Hi, How can i assist you today?"}
+                ],
+                "thread_id": thread_id
+            }
+        return {
+            "messages": snapshot.values.get(
+                "messages",
+                []
+            ),
+            "thread_id": thread_id
+        }
+
+    session_id = str(uuid.uuid4())
+
+    response.set_cookie(
+        key="chat_session_id",
+        value=session_id,
+        httponly=True,
+        # secure=True,
+        samesite="lax"
+    )
+
+    return {
+        "messages": [
+            {"type": "ai", "content": "Hi, How can i assist you today?"}
+        ],
+        "thread_id": session_id
+    }
+
+
+@app.post("/chat")
 async def chat(
-    query: str, 
-    thread_id: int,
     req: Request,
+    body: ChatRequest,
     current_user=Depends(get_current_user),
 ):
     print("current_user", current_user)
@@ -56,25 +125,45 @@ async def chat(
     user_id = current_user["user_id"]
     graph = req.app.state.graph
 
-    config = {"configurable": {"thread_id": thread_id}}
-
-    result = await graph.ainvoke(
-        {
-            "messages":[
-                HumanMessage(
-                    content=query, name="user"
-                )
-            ],
-            "user_id": user_id,
-        },
-        config
+    thread_id = req.cookies.get(
+        "chat_session_id"
     )
 
-    return result["messages"][-1].content
+    print(thread_id) 
+
+    config = {"configurable": {"thread_id": thread_id}}
+
+    snapshotBefore: StateSnapshot = graph.get_state(config)
+    
+    if len(snapshotBefore.interrupts) > 0:
+        result = await graph.ainvoke(
+                Command(resume=body.query),
+                config
+            )
+    else:
+        result = await graph.ainvoke(
+            {
+                "messages":[
+                    HumanMessage(
+                        content=body.query, name="user"
+                    )
+                ],
+                "user_id": user_id,
+            },
+            config
+        )
+
+    snapshotAfter: StateSnapshot = graph.get_state(config)
+
+    if len(snapshotAfter.interrupts) > 0:
+        interrupt = snapshotAfter.interrupts[0]
+        return {"type": "assistant", "content": interrupt.value, "response_metadata": {"interrupt": True}}
+
+    return {"type": "assistant", "content": result["messages"][-1].content}
 
 @app.get("/history")
-async def chat(
-    thread_id: int,
+async def history(
+    thread_id: str,
     req: Request,
 ):
     graph = req.app.state.graph

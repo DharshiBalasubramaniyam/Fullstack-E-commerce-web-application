@@ -8,7 +8,9 @@ import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -57,21 +59,28 @@ public class McpService {
             @ToolParam Integer quantity
     ) {
         log.info("===addItemToCart===");
+        List<String> errors = new ArrayList<>();
         try {
             if (userId == null || userId.isEmpty()) {
-                return "User id is required to get cart items.";
+                errors.add("User id is required to get cart items.");
             }
 
             if (productId == null || productId.isEmpty()) {
-                return "Product id is required to get cart items.";
+                errors.add("Product id is required to get cart items.");
             }
 
             if (sku == null || sku.isEmpty()) {
-                return "SKU is required to get cart items.";
+                errors.add("SKU is required to get cart items.");
             }
 
             if (quantity == null || quantity == 0) {
-                return "Quantity is required to get cart items. ";
+                errors.add("Quantity is required to get cart items.");
+            } else if (quantity < 0) {
+                errors.add("Quantity should be a positive integer.");
+            }
+
+            if (!errors.isEmpty()) {
+                return errors;
             }
 
             ResponseEntity<ApiResponseDto<ProductDto>> product = productService.getProductById(productId);
@@ -106,10 +115,13 @@ public class McpService {
                     }
                     return "Product successfully added to cart";
                 } else {
-                    return "Unable to add item to cart";
+                    if (!response.getBody().isSuccess()) {
+                        return response.getBody().getMessage();
+                    }
+                    return "Server error";
                 }
             } else {
-                return "Invalid product id or Service unavailable";
+                return "Invalid product id: " + productId;
             }
         } catch (Exception e) {
             log.debug("[addItemToCart - MCP tool] Error: " + e.getMessage());

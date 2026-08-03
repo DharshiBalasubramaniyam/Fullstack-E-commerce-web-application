@@ -12,6 +12,9 @@ public interface CartService {
     @GetMapping("/cart/get/byId")
     ResponseEntity<ApiResponseDto<CartDto>> getCartById(@RequestParam String id, @RequestHeader("Authorization") String token);
 
+    @GetMapping("/cart/get/byUser")
+    ResponseEntity<ApiResponseDto<CartDto>> getCartByUser(@RequestHeader("Authorization") String token);
+
     @DeleteMapping("/cart/clear/byId")
     ResponseEntity<ApiResponseDto<?>> clearCartById(@RequestParam String id, @RequestHeader("Authorization") String token);
 

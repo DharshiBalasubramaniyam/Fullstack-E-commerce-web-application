@@ -3,57 +3,53 @@ from typing import Literal
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 from langgraph.types import Command
 
+from src.agents.response_modals.product_agent_response import ProductAgentResponse
 from src.graph.state import GraphState
 from src.registry.agent_registry import agent_registry
 
 
-async def product_node(state: GraphState) -> Command[Literal["main_node"]]:
+async def product_node(state: GraphState) -> Command[Literal["__end__", "cart_node"]]:
 
     print("=== PRODUCT NODE ===")
 
-    context = ""
-
-    if state.get('products') is not None and len(state.get('products')) > 0:
-        context=f"""
-Context:
-{state.get('products')}
-"""
-
-    message = f"""
-User request:
-{state["message_for_next_node"]}
-{context}
-"""
-    result = await agent_registry.get("product").invoke(message)
+    message = get_product_node_message(state)
+   
+    result: ProductAgentResponse = await agent_registry.get("product").invoke(message)
     
     update = {}
+    goto = "__end__"
+
 
     if result.operation == "SEARCH":
-        update["products"] = result.products
-        update["message_from_next_node"] = f"""
-{result.message}
-Products catelog:
-{result.products}
-"""
-    else:
-        update["message_from_next_node"] = {result.message}
+        if state.get("products") is None:
+            update["products"] = result.products
+        else:
+            update["products"] = state["products"] + result.products
 
+
+    if state.get("from_node") is not None and state.get("from_node") == "cart_node":
+        goto = "cart_node"
+    else:
+        update["messages"] = [
+            AIMessage(content=result.message, name="product_agent")
+        ]
+
+    update["from_node"] = "product_node"
 
     return Command(
         update=update,
-        goto="main_node"
+        goto=goto
     )
 
 def get_product_node_message(state: GraphState):
-    message = f"""
+
+    products = state.get("products")
+
+    return f"""
 User request:
 {state["message_for_next_node"]}
 
-Arguments:
-{state["arguments_for_next_node"]}
+**State**
+Active products list:
+{products if products else "No active products"}
 """
-
-    print("===Product node message===")
-    print(message)
-
-    return message

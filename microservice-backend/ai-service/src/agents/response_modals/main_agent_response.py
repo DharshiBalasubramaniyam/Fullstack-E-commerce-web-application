@@ -1,58 +1,43 @@
 from typing import Literal
 from pydantic import BaseModel, Field
 
+class OrderRequest(BaseModel):
+    firstName: str
+    lastName: str
+    address: str
+    city: str
+    phoneNo: str
+    
 class MainAgentResponse(BaseModel):
 
     next_node: Literal[
         "product_node",
         "cart_node",
+        "order_preparation_node",
         "__end__"
     ] = Field(
         description="""
-        The next action to perform.
-        - Use 'product_node' when product search, product details, or product-related information is required.
-        - Use 'cart_node' when cart-related action is required.
-        - Use '__end__' when the response can be directly given to the user without calling another agent.
+        The next node to route.
+        - '__end__': This represents end user. Use this when the **context** contains the answer of the user query or you need to ask any clarification questions regarding an action from user.
+        - 'product_node': This represents product worker agent. Use this to search products, get product details or compare products.
+        - 'cart_node': This represents cart worker agent. Use this to add items to cart, update items in cart, remove items from cart or get cart information.
+        - 'order_preparation_node': This represents order preparation worker agent. Use this to place orders.
         """
     )
 
 
     message: str = Field(
         description="""
-        The instruction for the next node.
-        If next_node is a worker agent, this should describe the task
-        that the worker agent needs to perform.
+        The message for the next node.
+        If next_node is a worker agent, this should be the instruction
+        that the worker agent needs to perform. 
         If next_node is __end__, this should be the final response
-        shown to the user.
+        shown to the user or clarification question from user regarding user action.
         """
     )
 
-
-    # arguments: dict | None = Field(
-    #     default=None,
-    #     description="""
-    #     Additional structured arguments required by the next agent.
-    #     Use this field to pass information needed by worker agents.
-    #     Always send user_id as an argument when next agent is "cart_node" or "order_node"
-
-    #     Examples:
-    #     - Get details of a product:
-    #       {
-    #         "product_id": ["1234"],
-    #       }
-    #     - Compare products:
-    #       {
-    #         "product_ids": ["1234", "6789"],
-    #       }
-
-    #     - Add to cart:
-    #       {
-    #         "user_id": "6er33r"
-    #         "product_id": "12345",
-    #         "sku": "12345-1",
-    #         "quantity": 2
-    #       }
-
-    #     Keep this empty when no additional arguments are required.
-    #     """
-    # )
+    reasoning: str = Field(
+        description="""
+Brief 1-2 sentence explanation based on current context and history.
+"""
+    )

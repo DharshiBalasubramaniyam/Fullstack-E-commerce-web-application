@@ -5,11 +5,12 @@ from src.core.config import GEMINI_MODEL
 
 class MainAgent(BaseAgent):
 
-    def __init__(self):
+    def __init__(self, tools):
 
         super().__init__(
             name="Main Agent",
             model=GEMINI_MODEL,
             system_prompt=main_agent_system_prompt,
-            response_format=MainAgentResponse
+            response_format=MainAgentResponse,
+            tools=tools
         )

@@ -43,7 +43,7 @@ function ProductDescription() {
         }
         if (_inventory || _inventory?.availableStock <= 0) setMaxQty(0);
         if (_inventory) {
-            const existInCart = cart.cartItems.find(item => item?.productId === productId && item?.variant?.sku === _varient.sku);
+            const existInCart = cart.cartItems?.find(item => item?.productId === productId && item?.variant?.sku === _varient.sku);
             if (existInCart) {
                 setMaxQty(Math.max(_inventory.availableStock - existInCart.quantity, 0))
             } else {

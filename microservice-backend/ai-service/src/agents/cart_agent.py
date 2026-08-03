@@ -6,12 +6,13 @@ from src.core.config import GEMINI_MODEL
 
 class CartAgent(BaseMcpAgent):
 
-    def __init__(self, mcp_client):
+    def __init__(self, mcp_client, tools):
 
         super().__init__(
             name="Cart Agent",
             model=GEMINI_MODEL,
             system_prompt=cart_agent_system_prompt,
             mcp_client=mcp_client,
-            response_format=CartAgentResponse
+            response_format=CartAgentResponse,
+            tools=tools
         )

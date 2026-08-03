@@ -14,13 +14,15 @@ class BaseMcpAgent(BaseAgent):
         model: str,
         system_prompt: str,
         mcp_client,
+        tools: list | None,
         response_format: Optional[Type[BaseModel]] = None
     ):
         super().__init__(
             name = name,
             model = model,
             system_prompt = system_prompt,
-            response_format = response_format
+            response_format = response_format,
+            tools=tools
         )
         self.mcp_client = mcp_client
         self.agent = None

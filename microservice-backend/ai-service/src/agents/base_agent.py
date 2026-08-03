@@ -12,6 +12,7 @@ class BaseAgent:
         name: str,
         model: str,
         system_prompt: str,
+        tools: list | None,
         response_format: Optional[Type[BaseModel]] = None
     ):
         self.name = name
@@ -19,14 +20,20 @@ class BaseAgent:
         self.system_prompt = system_prompt
         self.agent = None
         self.response_format = response_format
+        self.tools = tools
 
 
     async def initialize(self):
 
+        print(
+            f"{self.name} tools loaded: " + str(len(self.tools))
+        )
+
         self.agent = create_agent(
             model=self.model,
             system_prompt=self.system_prompt,
-            response_format=self.response_format
+            response_format=self.response_format,
+            tools=self.tools
         )
 
         print(
