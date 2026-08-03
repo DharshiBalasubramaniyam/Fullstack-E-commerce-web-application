@@ -1,0 +1,26 @@
+Agents and tools for Purely AI assistant
+
+Main-agent:
+product-recommendation-tool (Wraps product-recommendation-agent)
+order-inquiry-tool (Wraps order-inquiry-agent)
+cart-inquiry-tool (Wraps cart-inquiry-agent)
+
+product-recommendation-agent:
+searchProducts, 
+getProductDescription,
+getProductVariantsAndInventory
+
+order-inquiry-agent:
+get-order-by-id
+create-order
+cancel-order 
+
+cart-inquiry-agent:
+add-cart-item
+remove-cart-item
+get-cart-by-user
+update-cart-item-quantity
+clear-cart
+
+knowledge-agent:
+retrieve-documents
