@@ -36,10 +36,20 @@ public class CartServiceImpl implements CartService {
     public ResponseEntity<ApiResponseDto<?>> addItemToCart(String userId, CartItemRequestDto requestDto) throws ResourceNotFoundException, ServiceLogicException {
         try {
             if (!Objects.requireNonNull(userService.existsUserById(userId).getBody()).getResponse()) {
-                throw new ResourceNotFoundException("User not found with id " + userId);
+                return ResponseEntity.ok(
+                        ApiResponseDto.builder()
+                                .isSuccess(false)
+                                .message("User not found with id " + userId)
+                                .build()
+                );
             }
             if (Objects.requireNonNull(productService.getProductById(requestDto.getProductId()).getBody()).getResponse()==null) {
-                throw new ResourceNotFoundException("Product not found with id " + requestDto.getProductId());
+                return ResponseEntity.ok(
+                        ApiResponseDto.builder()
+                                .isSuccess(false)
+                                .message("Product not found with id " + requestDto.getProductId())
+                                .build()
+                );
             }
 
             Cart userCart = getCart(userId);
@@ -57,9 +67,7 @@ public class CartServiceImpl implements CartService {
                             .message("Item successfully added to cart!")
                             .build()
             );
-        }catch (ResourceNotFoundException e) {
-            throw new ResourceNotFoundException(e.getMessage());
-        }catch (Exception e) {
+        } catch (Exception e) {
             log.error("Failed to add item to cart: " + e.getMessage());
             throw new ServiceLogicException("Unable to add item to cart!");
         }
@@ -69,27 +77,36 @@ public class CartServiceImpl implements CartService {
     public ResponseEntity<ApiResponseDto<?>> getCartItemsByUser(String userId) throws ResourceNotFoundException, ServiceLogicException {
         try {
 
-            if (Objects.requireNonNull(userService.existsUserById(userId).getBody()).getResponse()) {
-                if(!cartRepository.existsByUserId(userId)) {
-                    createAndSaveNewCart(userId);
-                }
+            ApiResponseDto<Boolean> isExists = userService.existsUserById(userId).getBody();
 
-                Cart userCart = getCart(userId);
-
-                CartResponseDto cartResponse = cartToCartResponseDto(userCart);
-
+            if (isExists != null && (isExists.getResponse() == null || !isExists.getResponse())) {
                 return ResponseEntity.ok(
                         ApiResponseDto.builder()
-                                .isSuccess(true)
-                                .response(cartResponse)
+                                .isSuccess(false)
+                                .message("User not found with id: " + userId)
+                                .response(null)
                                 .build()
                 );
             }
+
+            if(!cartRepository.existsByUserId(userId)) {
+                createAndSaveNewCart(userId);
+            }
+
+            Cart userCart = getCart(userId);
+
+            CartResponseDto cartResponse = cartToCartResponseDto(userCart);
+
+            return ResponseEntity.ok(
+                    ApiResponseDto.builder()
+                                .isSuccess(true)
+                                .response(cartResponse)
+                                .build()
+            );
         } catch (Exception e) {
             log.error("Failed to find cart: " + e.getMessage());
             throw new ServiceLogicException("Unable to find cart!");
         }
-        throw new ResourceNotFoundException("User not found with id " + userId);
 
     }
 
@@ -122,6 +139,32 @@ public class CartServiceImpl implements CartService {
     public ResponseEntity<ApiResponseDto<?>> clearCartById(String id) throws ServiceLogicException, ResourceNotFoundException {
         try {
             Cart userCart = cartRepository.findById(id).orElse(null);
+            if(userCart == null) {
+                throw new ResourceNotFoundException("No cart found for id " + id);
+            }
+
+            userCart.setCartItems(new HashSet<>());
+            cartRepository.save(userCart);
+
+            return ResponseEntity.ok(
+                    ApiResponseDto.builder()
+                            .isSuccess(true)
+                            .message("Cart has been successfully cleared!")
+                            .build()
+            );
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
+        } catch (Exception e) {
+            log.error("Failed to add item to cart: " + e.getMessage());
+            throw new ServiceLogicException("Unable to add item to cart!");
+        }
+
+    }
+
+    @Override
+    public ResponseEntity<ApiResponseDto<?>> clearCartByUserId(String id) throws ServiceLogicException, ResourceNotFoundException {
+        try {
+            Cart userCart = cartRepository.findByUserId(id);
             if(userCart == null) {
                 throw new ResourceNotFoundException("No cart found for id " + id);
             }
@@ -283,9 +326,7 @@ public class CartServiceImpl implements CartService {
         if (cartItem == null) {
             cartItem = getNewCartItem(requestDto);
         } else {
-            if (requestDto.getQuantity() <= 0) requestDto.setQuantity(-1);
-            if (requestDto.getQuantity() > 0) requestDto.setQuantity(requestDto.getQuantity());
-            if (cartItem.getQuantity() + requestDto.getQuantity() <= 0) requestDto.setQuantity(0);
+            requestDto.setQuantity(Math.max(requestDto.getQuantity(), 0));
             userCartItems.remove(cartItem);
             cartItem.setQuantity(cartItem.getQuantity() + requestDto.getQuantity());
         }

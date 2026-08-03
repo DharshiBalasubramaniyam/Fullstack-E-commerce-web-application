@@ -29,6 +29,7 @@ public class WebSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/cart/**").permitAll()
+                                .requestMatchers("/mcp/**").permitAll()
                                 .anyRequest().authenticated()
                 );
 

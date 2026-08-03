@@ -8,6 +8,25 @@ spring:
         hibernate:
             ddl-auto: update
 
+    ai:
+        mcp:
+            server:
+                enabled: true
+                protocol: STREAMABLE
+                name: product-mcp-server
+                version: 1.0.0
+                type: SYNC
+                annotation-scanner:
+                    enabled: true
+                tool-change-notification: true
+                streamable-http:
+                    mcp-endpoint: /mcp
+                    keep-alive-interval: 30s
+                capabilities:
+                    prompt: false
+                    resource: false
+                    completion: false
+
 server:
     port: 9070
 

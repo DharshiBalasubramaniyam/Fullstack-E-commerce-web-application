@@ -46,13 +46,15 @@ public class OrderServiceImpl implements OrderService {
         boolean isCartCompleted = false;
         String orderId = null;
         List<InventoryReserveRequestDto> inventoryReserveReqList = new ArrayList<>();
+        CartDto cart = null;
 
-        try {
-            CartDto cart = cartService.getCartById(request.getCartId(), token).getBody().getResponse();
-
-            if (cart != null) {
                 try {
-                    UserDto user = userService.getUserById(cart.getUserId()).getBody().getResponse();
+                    UserDto user = userService.getUserById(userId).getBody().getResponse();
+                    cart = cartService.getCartByUser(token).getBody().getResponse();
+
+                    if (cart == null || user == null) {
+                        throw new ResourceNotFoundException("Unexpected error");
+                    }
 
                     // 1. Reserve inventory
                     inventoryReserveReqList = cart.getCartItems()
@@ -96,6 +98,7 @@ public class OrderServiceImpl implements OrderService {
                     return ResponseEntity.ok(
                             ApiResponseDto.builder()
                                     .isSuccess(true)
+                                    .response(orderId)
                                     .message("Order has been successfully placed!")
                                     .build()
                     );
@@ -112,14 +115,6 @@ public class OrderServiceImpl implements OrderService {
                     log.error("Failed to create order: " + e.getMessage());
                     throw new ServiceLogicException("Unable to proceed order!");
                 }
-            } else {
-                throw new ResourceNotFoundException("Cart not found: " + request.getCartId());
-            }
-        } catch (ResourceNotFoundException e) {
-            throw new ResourceNotFoundException(e.getMessage());
-        } catch (Exception e) {
-            throw new ServiceLogicException("Error finding cart: " + request.getCartId());
-        }
     }
 
     public ResponseEntity<ApiResponseDto<?>> getOrdersByUser(String userId) throws ServiceLogicException {

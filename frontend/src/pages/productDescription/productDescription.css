@@ -48,7 +48,7 @@
     gap: 10px;
 }
 
-.color-selector {
+.detail-wrapper .color-selector {
   display: flex;
   gap: 20px;
   list-style: none;
@@ -78,7 +78,7 @@
 .color3 { background: #457b9d; } */
 
 /* SIZE SELECTOR */
-.size-selector {
+.detail-wrapper .size-selector {
   display: flex;
   gap: 10px;
   list-style: none;
@@ -145,7 +145,7 @@
 }
 
 /* ACTION BUTTONS */
-.action-btns {
+.detail-wrapper  .action-btns {
   display: flex;
   gap: 15px;
   list-style: none;

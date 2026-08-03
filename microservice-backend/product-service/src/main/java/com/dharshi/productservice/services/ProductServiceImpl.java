@@ -176,8 +176,18 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ResponseEntity<ApiResponseDto<?>> getProductById(String productId) throws ServiceLogicException{
         try {
-            Product product = productRepository.findById(productId)
-                    .orElseThrow(() -> new ResourceNotFoundException("Product not found. product id: " + productId));
+            Optional<Product> productOptional = productRepository.findById(productId);
+
+            if (productOptional.isEmpty()) {
+                return ResponseEntity.ok(
+                        ApiResponseDto.builder()
+                                .isSuccess(false)
+                                .response(null)
+                                .build()
+                );
+            }
+
+            Product product = productOptional.get();
 
             List<InventoryDto> inventoryList = Objects.requireNonNull(inventoryService.getInventoryByProduct(productId).getBody()).getResponse();
 
@@ -204,7 +214,6 @@ public class ProductServiceImpl implements ProductService {
 
         } catch (Exception e) {
             log.info(e.getMessage());
-            e.printStackTrace();
             throw new ServiceLogicException("[getProductById] Unable to find products: " + e.getMessage());
         }
     }

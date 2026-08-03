@@ -6,11 +6,13 @@ import "./header.css"
 import Cart from "../cart/cart";
 import { AuthContext } from "../../contexts/auth.context";
 import CartContext from "../../contexts/cart.context";
+import Assistant from "../assistant/Assistant";
 
 function Header() {
     const navigate = useNavigate();
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [isCartOpen, setCart] = useState(false);
+    const [isAssistantOpen, setAssistant] = useState(false);
     const { cart, getCartInformation } = useContext(CartContext)
     const { user, toggleUser } = useContext(AuthContext)
     const [searchKey, setSearchKey] = useState("");
@@ -21,6 +23,10 @@ function Header() {
 
     const toggleCart = () => {
         setCart(prev => !prev)
+    }
+
+    const toggleAssistant = () => {
+        setAssistant(prev => !prev)
     }
 
     const onSearch = () => {
@@ -93,10 +99,13 @@ function Header() {
                 </ul>
 
                 <div>
-                    <Link onClick={toggleCart}>
+                    <span onClick={toggleAssistant} style={{marginRight: "1em", fontSize: "1.2em", cursor: "pointer"}}>
+                        <i className="fa fa-solid fa-robot" aria-hidden="true"></i>
+                    </span>
+                    <span onClick={toggleCart} style={{ cursor: "pointer"}}>
                         <i className="fa fa-shopping-cart" aria-hidden="true"></i>
                         <span>({cart.noOfCartItems || 0})</span>
-                    </Link>
+                    </span>
                 </div>
             </header>
             <header className="app-header bottom">
@@ -115,6 +124,7 @@ function Header() {
                 </div>
             </header>
             <Cart isCartOpen={isCartOpen} setIsCartOpen={setCart} onClose={() => setCart(false)} />
+            <Assistant isOpen={isAssistantOpen} setIsOpen={setAssistant} onClose={() => setAssistant(false)} />
         </>
     )
 }

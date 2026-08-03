@@ -64,15 +64,30 @@ spring:
             - Path=/api/inventory-service/**
           filters:
             - StripPrefix=2
+        - id: ai-service
+          uri: lb://AI-SERVICE
+          predicates:
+            - Path=/api/ai-service/**
+          filters:
+            - StripPrefix=2
 
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: '*'
-            allowedMethods: '*'
-            allowedHeaders: '*'
+            allowedOrigins:
+              - "http://127.0.0.1:5173"
+              - "http://localhost:5173"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
 
 
 eureka:
@@ -83,3 +98,4 @@ eureka:
     registerWithEureka: true
   instance:
     hostname: localhost
+    prefer-ip-address: true
