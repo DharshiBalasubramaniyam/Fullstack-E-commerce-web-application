@@ -88,7 +88,6 @@ venv/
 
 # Environment configs
 .env
-.env.*
 
 # Logs
 *.log
